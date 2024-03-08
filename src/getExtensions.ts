@@ -11,7 +11,7 @@ export const getExtensions = (extensions: Partial<Config>["extensions"]) => {
     ).join(", ")
 
     if (!isValid) {
-        throw new Error(`Invalid file extension! Examples ([${examples}]).`)
+        throw new Error(`Invalid file extension! Examples: [${examples}]`)
     }
 
     return extensions
