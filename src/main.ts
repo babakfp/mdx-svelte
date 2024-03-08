@@ -18,7 +18,7 @@ type Config = {
 
 export const svelteInMarkdown = (config: Partial<Config> = {}) => {
     config.extension = getExtension(config.extension)
-    config.allowNodeModules ??= false
+    config.allowNodeModules ??= false // TODO: Should be `true` instead?
 
     return {
         name: "svelte-in-markdown",
