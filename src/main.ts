@@ -6,7 +6,8 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
 
 export const svelteInMarkdown = (config: Partial<Config> = {}) => {
     config.extensions = getExtensions(config.extensions)
-    config.allowNodeModules ??= false // TODO: Should be `true` instead?
+    config.allowNodeModules ??= false
+    config.allowNodeModulesItems ??= []
 
     return {
         name: "svelte-in-markdown",
