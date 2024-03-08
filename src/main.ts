@@ -1,17 +1,41 @@
 import type { MarkupPreprocessor, PreprocessorGroup } from "svelte/compiler"
 
-const EXTENSION = ".svelte.md" as const
+const DEFAULT_EXTENSION = ".svelte.md" as const
 
-const markupPreprocessor: MarkupPreprocessor = (options) => {
-    if (!options.filename) return
-    if (options.filename.includes("/.svelte-kit/")) return
-    if (!options.filename.endsWith(EXTENSION)) return
-    // ...
+const markupPreprocessor = (extension: Options["extension"]) => {
+    return ((options) => {
+        if (!options.filename) return
+        if (options.filename.includes("/.svelte-kit/")) return
+        if (!options.filename.endsWith(extension)) return
+        // ...
+    }) satisfies MarkupPreprocessor
 }
 
-export const svelteInMarkdown = () => {
+type Options = {
+    extension: `.${string}`
+}
+
+export const svelteInMarkdown = (options: Partial<Options> = {}) => {
+    options.extension = getExtension(options.extension)
+
     return {
         name: "svelte-in-markdown",
-        markup: markupPreprocessor,
+        markup: markupPreprocessor(options.extension),
     } satisfies PreprocessorGroup
+}
+
+const getExtension = (extension: Partial<Options>["extension"]) => {
+    if (!extension) return DEFAULT_EXTENSION
+
+    if (!extension.startsWith(".")) {
+        throw new Error(
+            `The "extension" must begin with a ".", for example "${DEFAULT_EXTENSION}".`
+        )
+    }
+
+    if (/[A-Z]/.test(extension)) {
+        throw new Error(`The "extension" cannot contain uppercase letters.`)
+    }
+
+    return extension
 }
