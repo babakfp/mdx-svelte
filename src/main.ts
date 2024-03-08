@@ -2,7 +2,7 @@ import type { MarkupPreprocessor, PreprocessorGroup } from "svelte/compiler"
 
 const DEFAULT_EXTENSION = ".svelte.md" as const
 
-const markupPreprocessor = (extension: Options["extension"]) => {
+const markupPreprocessor = (extension: Config["extension"]) => {
     return ((options) => {
         if (!options.filename) return
         if (options.filename.includes("/.svelte-kit/")) return
@@ -11,22 +11,22 @@ const markupPreprocessor = (extension: Options["extension"]) => {
     }) satisfies MarkupPreprocessor
 }
 
-type Options = {
+type Config = {
     extension: `.${string}`
     allowNodeModules: boolean // TODO
 }
 
-export const svelteInMarkdown = (options: Partial<Options> = {}) => {
-    options.extension = getExtension(options.extension)
-    options.allowNodeModules ??= false
+export const svelteInMarkdown = (config: Partial<Config> = {}) => {
+    config.extension = getExtension(config.extension)
+    config.allowNodeModules ??= false
 
     return {
         name: "svelte-in-markdown",
-        markup: markupPreprocessor(options.extension),
+        markup: markupPreprocessor(config.extension),
     } satisfies PreprocessorGroup
 }
 
-const getExtension = (extension: Partial<Options>["extension"]) => {
+const getExtension = (extension: Partial<Config>["extension"]) => {
     if (!extension) return DEFAULT_EXTENSION
 
     if (!extension.startsWith(".")) {
