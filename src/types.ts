@@ -1,4 +1,4 @@
 export type Config = {
-    extension: `.${string}`
+    extensions: `.${string}`[]
     allowNodeModules: boolean // TODO
 }
