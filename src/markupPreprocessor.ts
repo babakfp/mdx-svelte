@@ -4,7 +4,7 @@ import type { Config } from "./types.js"
 
 const isFileIgnored = (
     filename: Parameters<MarkupPreprocessor>[0]["filename"],
-    extensions: Config["extensions"]
+    config: Config
 ) => {
     if (!filename) {
         return true
@@ -14,7 +14,7 @@ const isFileIgnored = (
         return true
     }
 
-    for (const extension of extensions) {
+    for (const extension of config.extensions) {
         if (!filename.endsWith(extension)) {
             return true
         }
@@ -23,9 +23,9 @@ const isFileIgnored = (
     return false
 }
 
-export const markupPreprocessor = (extensions: Config["extensions"]) => {
+export const markupPreprocessor = (config: Config) => {
     return ((options) => {
-        if (isFileIgnored(options.filename, extensions)) return
+        if (isFileIgnored(options.filename, config)) return
         // ...
     }) satisfies MarkupPreprocessor
 }

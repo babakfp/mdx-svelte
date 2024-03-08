@@ -5,12 +5,14 @@ import { getExtensions } from "./getExtensions.js"
 import { markupPreprocessor } from "./markupPreprocessor.js"
 
 export const svelteInMarkdown = (config: Partial<Config> = {}) => {
-    config.extensions = getExtensions(config.extensions)
-    config.allowNodeModules ??= false
-    config.allowNodeModulesItems ??= []
+    const _config = {
+        extensions: getExtensions(config.extensions),
+        allowNodeModules: config.allowNodeModules ?? false,
+        allowNodeModulesItems: config.allowNodeModulesItems ?? [],
+    }
 
     return {
         name: "svelte-in-markdown",
-        markup: markupPreprocessor(config.extensions),
+        markup: markupPreprocessor(_config),
     } satisfies PreprocessorGroup
 }
