@@ -13,10 +13,12 @@ const markupPreprocessor = (extension: Options["extension"]) => {
 
 type Options = {
     extension: `.${string}`
+    allowNodeModules: boolean // TODO
 }
 
 export const svelteInMarkdown = (options: Partial<Options> = {}) => {
     options.extension = getExtension(options.extension)
+    options.allowNodeModules ??= false
 
     return {
         name: "svelte-in-markdown",
