@@ -19,6 +19,7 @@
     ],
     "type": "module",
     "devDependencies": {
-        "typescript": "5.4.2"
+        "typescript": "5.4.2",
+        "valibot": "0.30.0"
     }
 }

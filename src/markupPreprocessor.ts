@@ -1,9 +1,9 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
 
-import type { Config } from "./types.js"
+import type { ConfigOutput } from "./types.js"
 import { isFileIgnored } from "./isFileIgnored.js"
 
-export const markupPreprocessor = (config: Config) => {
+export const markupPreprocessor = (config: ConfigOutput) => {
     return ((options) => {
         if (isFileIgnored(options.filename, config)) return
         // ...

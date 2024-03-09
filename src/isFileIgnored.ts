@@ -1,10 +1,10 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
 
-import type { Config } from "./types.js"
+import type { ConfigOutput } from "./types.js"
 
 export const isFileIgnored = (
     filename: Parameters<MarkupPreprocessor>[0]["filename"],
-    config: Config
+    config: ConfigOutput
 ) => {
     if (!filename) {
         return true

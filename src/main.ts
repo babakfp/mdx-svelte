@@ -1,18 +1,14 @@
 import type { PreprocessorGroup } from "svelte/compiler"
+import * as v from "valibot"
 
-import type { Config } from "./types.js"
-import { getExtensions } from "./getExtensions.js"
+import { type ConfigInput, ConfigSchema } from "./types.js"
 import { markupPreprocessor } from "./markupPreprocessor.js"
 
-export const svelteInMarkdown = (config: Partial<Config> = {}) => {
-    const _config = {
-        extensions: getExtensions(config.extensions),
-        allowNodeModules: config.allowNodeModules ?? false,
-        allowNodeModulesItems: config.allowNodeModulesItems ?? [],
-    }
+export const svelteInMarkdown = (config?: ConfigInput) => {
+    const finalConfig = v.parse(ConfigSchema, config)
 
     return {
         name: "svelte-in-markdown",
-        markup: markupPreprocessor(_config),
+        markup: markupPreprocessor(finalConfig),
     } satisfies PreprocessorGroup
 }
