@@ -1,5 +1,18 @@
 import * as v from "valibot"
+
 import { DEFAULT_EXTENSIONS } from "./constants.js"
+
+export type ConfigCallbacks = {
+    /**
+     * Callback function to determine whether a file should be ignored during preprocessing.
+     * It runs after `allowNodeModules` and `allowNodeModulesItems`.
+     * @param options - Options for the file preprocessing.
+     * @param options.content - The content of the file.
+     * @param options.filename - The name of the file.
+     * @returns Return `true` to ignore the file, otherwise return `false`.
+     */
+    onFileIgnore?: (options: { content: string; filename: string }) => boolean
+}
 
 export const ConfigSchema = v.optional(
     v.object({
