@@ -1,4 +1,5 @@
 import * as v from "valibot"
+import type { RehypeShikiOptions } from "@shikijs/rehype"
 
 import { DEFAULT_EXTENSIONS } from "./constants.js"
 
@@ -36,9 +37,32 @@ export const ConfigSchema = v.optional(
             v.array(v.string([v.minLength(1)])),
             []
         ),
+        builtInPlugins: v.optional(
+            v.object({
+                shiki: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
+            }),
+            {}
+        ),
     }),
     {}
 )
 
-export type ConfigInput = v.Input<typeof ConfigSchema>
-export type ConfigOutput = v.Output<typeof ConfigSchema>
+export type ConfigInput = v.Input<typeof ConfigSchema> & {
+    builtInPlugins?: {
+        shiki?: {
+            options?: RehypeShikiOptions
+        }
+    }
+}
+export type ConfigOutput = v.Output<typeof ConfigSchema> & {
+    builtInPlugins: {
+        shiki: {
+            options?: RehypeShikiOptions
+        }
+    }
+}

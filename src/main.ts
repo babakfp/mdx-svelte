@@ -5,6 +5,7 @@ import {
     type ConfigInput,
     type ConfigCallbacks,
     ConfigSchema,
+    ConfigOutput,
 } from "./types.js"
 import { markupPreprocessor } from "./markupPreprocessor.js"
 
@@ -12,7 +13,7 @@ export const svelteInMarkdown = (
     config?: ConfigInput,
     callbacks?: ConfigCallbacks
 ) => {
-    const finalConfig = v.parse(ConfigSchema, config)
+    const finalConfig: ConfigOutput = v.parse(ConfigSchema, config)
 
     return {
         name: "svelte-in-markdown",
