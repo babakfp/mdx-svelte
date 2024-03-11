@@ -19,7 +19,13 @@
     ],
     "type": "module",
     "devDependencies": {
+        "@shikijs/rehype": "1.1.7",
+        "rehype-stringify": "10.0.0",
+        "remark-parse": "11.0.0",
+        "remark-rehype": "11.1.0",
         "typescript": "5.4.2",
-        "valibot": "0.30.0"
+        "unified": "11.0.4",
+        "valibot": "0.30.0",
+        "vfile": "6.0.1"
     }
 }
