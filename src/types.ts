@@ -52,6 +52,7 @@ export const ConfigSchema = v.optional(
     {}
 )
 
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigInput = v.Input<typeof ConfigSchema> & {
     builtInPlugins?: {
         shiki?: {
@@ -59,6 +60,7 @@ export type ConfigInput = v.Input<typeof ConfigSchema> & {
         }
     }
 }
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigOutput = v.Output<typeof ConfigSchema> & {
     builtInPlugins: {
         shiki: {
