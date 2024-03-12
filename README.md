@@ -2,4 +2,4 @@
 
 ## Todos
 
--   [x] Add lots of JSDoc comments.
+-   [ ] Add lots of JSDoc comments.
