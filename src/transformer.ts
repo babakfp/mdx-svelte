@@ -8,14 +8,18 @@ import rehypeStringify from "rehype-stringify"
 export const transformer = async (markdown: string): Promise<VFile> => {
     const file = await unified()
         .use(remarkParse)
-        .use(remarkRehype)
+        .use(remarkRehype, {
+            allowDangerousHtml: true,
+        })
         .use(rehypeShiki, {
             themes: {
                 light: "vitesse-light",
                 dark: "vitesse-dark",
             },
         })
-        .use(rehypeStringify)
+        .use(rehypeStringify, {
+            allowDangerousHtml: true,
+        })
         .process(markdown)
 
     return file
