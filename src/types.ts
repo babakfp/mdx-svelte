@@ -1,6 +1,5 @@
 import * as v from "valibot"
 
-import type { Options as RemarkParseOptions } from "remark-parse"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { RehypeShikiOptions } from "@shikijs/rehype"
@@ -45,7 +44,6 @@ export const ConfigSchema = v.optional(
         ),
         builtInPlugins: v.optional(
             v.object({
-                remarkParse: v.optional(v.object({}), {}),
                 remarkGfm: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
@@ -99,9 +97,6 @@ type OmittedRehypeStringifyOptions = Omit<
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigInput = v.Input<typeof ConfigSchema> & {
     builtInPlugins?: {
-        remarkParse?: {
-            options?: RemarkParseOptions
-        }
         remarkGfm?: {
             options?: RemarkGfmOptions
         }
@@ -122,9 +117,6 @@ export type ConfigInput = v.Input<typeof ConfigSchema> & {
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigOutput = v.Output<typeof ConfigSchema> & {
     builtInPlugins: {
-        remarkParse: {
-            options?: RemarkParseOptions
-        }
         remarkGfm: {
             options?: RemarkGfmOptions
         }

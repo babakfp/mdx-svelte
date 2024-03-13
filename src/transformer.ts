@@ -17,7 +17,7 @@ export const transformer = async (
 ): Promise<VFile["value"]> => {
     const processor = unified()
 
-    processor.use(remarkParse, config.builtInPlugins.remarkParse.options)
+    processor.use(remarkParse)
 
     if (config.builtInPlugins.remarkGfm.enable) {
         processor.use(remarkGfm, config.builtInPlugins.remarkGfm.options)
