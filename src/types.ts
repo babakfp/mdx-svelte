@@ -45,13 +45,7 @@ export const ConfigSchema = v.optional(
         ),
         builtInPlugins: v.optional(
             v.object({
-                remarkParse: v.optional(
-                    v.object({
-                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
-                        enable: v.optional(v.literal(true), true),
-                    }),
-                    {}
-                ),
+                remarkParse: v.optional(v.object({}), {}),
                 remarkGfm: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
@@ -64,13 +58,7 @@ export const ConfigSchema = v.optional(
                     }),
                     {}
                 ),
-                remarkRehype: v.optional(
-                    v.object({
-                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
-                        enable: v.optional(v.literal(true), true),
-                    }),
-                    {}
-                ),
+                remarkRehype: v.optional(v.object({}), {}),
                 rehypeShiki: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
@@ -88,13 +76,7 @@ export const ConfigSchema = v.optional(
                     }),
                     {}
                 ),
-                rehypeStringify: v.optional(
-                    v.object({
-                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
-                        enable: v.optional(v.literal(true), true),
-                    }),
-                    {}
-                ),
+                rehypeStringify: v.optional(v.object({}), {}),
             }),
             {}
         ),
