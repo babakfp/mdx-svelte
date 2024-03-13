@@ -2,6 +2,8 @@ import * as v from "valibot"
 
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
+import type { Options as RehypeSlugOptions } from "rehype-slug"
+import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings"
 import type { RehypeShikiOptions } from "@shikijs/rehype"
 import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
 import type { Options as RehypeStringifyOptions } from "rehype-stringify"
@@ -57,6 +59,18 @@ export const ConfigSchema = v.optional(
                     {}
                 ),
                 remarkRehype: v.optional(v.object({}), {}),
+                rehypeSlug: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), false),
+                    }),
+                    {}
+                ),
+                rehypeAutolinkHeadings: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), false),
+                    }),
+                    {}
+                ),
                 rehypeShiki: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
@@ -103,6 +117,12 @@ export type ConfigInput = v.Input<typeof ConfigSchema> & {
         remarkRehype?: {
             options?: OmittedRemarkRehypeOptions
         }
+        rehypeSlug?: {
+            options?: RehypeSlugOptions
+        }
+        rehypeAutolinkHeadings?: {
+            options?: RehypeAutolinkHeadingsOptions
+        }
         rehypeShiki?: {
             options?: RehypeShikiOptions
         }
@@ -122,6 +142,12 @@ export type ConfigOutput = v.Output<typeof ConfigSchema> & {
         }
         remarkRehype: {
             options?: OmittedRemarkRehypeOptions
+        }
+        rehypeSlug: {
+            options?: RehypeSlugOptions
+        }
+        rehypeAutolinkHeadings: {
+            options?: RehypeAutolinkHeadingsOptions
         }
         rehypeShiki: {
             options?: RehypeShikiOptions

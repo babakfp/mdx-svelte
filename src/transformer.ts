@@ -4,6 +4,8 @@ import remarkParse from "remark-parse"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images"
 import remarkRehype from "remark-rehype"
+import rehypeSlug from "rehype-slug"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
@@ -31,6 +33,17 @@ export const transformer = async (
         ...config.builtInPlugins.remarkRehype.options,
         allowDangerousHtml: true,
     })
+
+    if (config.builtInPlugins.rehypeSlug.enable) {
+        processor.use(rehypeSlug, config.builtInPlugins.rehypeSlug.options)
+    }
+
+    if (config.builtInPlugins.rehypeAutolinkHeadings.enable) {
+        processor.use(
+            rehypeAutolinkHeadings,
+            config.builtInPlugins.rehypeAutolinkHeadings.options
+        )
+    }
 
     if (config.builtInPlugins.rehypeShiki.enable) {
         processor.use(rehypeShiki, {
