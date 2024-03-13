@@ -64,7 +64,7 @@ export const ConfigSchema = v.optional(
                     {}
                 ),
                 /**
-                 * Sets the `target` and `rel` attributes for hyperlinks with "https://" or "http://" in the href:
+                 * Sets the `target` and `rel` attributes for hyperlinks with `"http://"` or `"https://"` in the href:
                  * - Sets `target` to `"_blank"`.
                  * - Sets `rel` to `"nofollow noopener noreferrer"`.
                  */
