@@ -2,6 +2,7 @@ import type { VFile } from "vfile"
 import { unified } from "unified"
 import remarkParse from "remark-parse"
 import remarkGfm from "remark-gfm"
+import remarkUnwrapImages from "remark-unwrap-images"
 import remarkRehype from "remark-rehype"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeExternalLinks from "rehype-external-links"
@@ -20,6 +21,10 @@ export const transformer = async (
 
     if (config.builtInPlugins.remarkGfm.enable) {
         processor.use(remarkGfm, config.builtInPlugins.remarkGfm.options)
+    }
+
+    if (config.builtInPlugins.remarkUnwrapImages.enable) {
+        processor.use(remarkUnwrapImages)
     }
 
     processor.use(remarkRehype, {

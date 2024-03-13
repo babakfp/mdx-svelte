@@ -58,6 +58,12 @@ export const ConfigSchema = v.optional(
                     }),
                     {}
                 ),
+                remarkUnwrapImages: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
                 remarkRehype: v.optional(
                     v.object({
                         // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
