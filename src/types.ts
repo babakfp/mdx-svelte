@@ -1,5 +1,11 @@
 import * as v from "valibot"
+
+import type { Options as RemarkParseOptions } from "remark-parse"
+import type { Options as RemarkGfmOptions } from "remark-gfm"
+import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { RehypeShikiOptions } from "@shikijs/rehype"
+import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
+import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
 import { DEFAULT_EXTENSIONS } from "./constants.js"
 
@@ -39,9 +45,47 @@ export const ConfigSchema = v.optional(
         ),
         builtInPlugins: v.optional(
             v.object({
-                shiki: v.optional(
+                remarkParse: v.optional(
+                    v.object({
+                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
+                        enable: v.optional(v.literal(true), true),
+                    }),
+                    {}
+                ),
+                remarkGfm: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
+                remarkRehype: v.optional(
+                    v.object({
+                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
+                        enable: v.optional(v.literal(true), true),
+                    }),
+                    {}
+                ),
+                rehypeShiki: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
+                /**
+                 * Sets the `target` and `rel` attributes for hyperlinks with "https://" or "http://" in the href:
+                 * - Sets `target` to `"_blank"`.
+                 * - Sets `rel` to `"nofollow noopener noreferrer"`.
+                 */
+                rehypeExternalLinks: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
+                rehypeStringify: v.optional(
+                    v.object({
+                        // This plugin can't be disabled because it's required. The option is added to keep the API consistent.
+                        enable: v.optional(v.literal(true), true),
                     }),
                     {}
                 ),
@@ -52,19 +96,61 @@ export const ConfigSchema = v.optional(
     {}
 )
 
+// Some options are omitted because they are required and should not be disabled.
+type OmittedRemarkRehypeOptions = Omit<
+    RemarkRehypeOptions,
+    "allowDangerousHtml"
+>
+
+// Some options are omitted because they are required and should not be disabled.
+type OmittedRehypeStringifyOptions = Omit<
+    RehypeStringifyOptions,
+    "allowDangerousCharacters" | "allowDangerousHtml"
+>
+
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigInput = v.Input<typeof ConfigSchema> & {
     builtInPlugins?: {
-        shiki?: {
+        remarkParse?: {
+            options?: RemarkParseOptions
+        }
+        remarkGfm?: {
+            options?: RemarkGfmOptions
+        }
+        remarkRehype?: {
+            options?: OmittedRemarkRehypeOptions
+        }
+        rehypeShiki?: {
             options?: RehypeShikiOptions
+        }
+        rehypeExternalLinks?: {
+            options?: RehypeExternalLinksOptions
+        }
+        rehypeStringify?: {
+            options?: OmittedRehypeStringifyOptions
         }
     }
 }
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigOutput = v.Output<typeof ConfigSchema> & {
     builtInPlugins: {
-        shiki: {
+        remarkParse: {
+            options?: RemarkParseOptions
+        }
+        remarkGfm: {
+            options?: RemarkGfmOptions
+        }
+        remarkRehype: {
+            options?: OmittedRemarkRehypeOptions
+        }
+        rehypeShiki: {
             options?: RehypeShikiOptions
+        }
+        rehypeExternalLinks: {
+            options?: RehypeExternalLinksOptions
+        }
+        rehypeStringify: {
+            options?: OmittedRehypeStringifyOptions
         }
     }
 }
