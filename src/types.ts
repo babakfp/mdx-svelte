@@ -52,91 +52,97 @@ export const ConfigSchema = v.optional(
             v.object({
                 /**
                  * [View on NPM](https://npmjs.com/package/vfile-matter).
-                 * Enabled by default and can be disabled by disabling the `remarkFrontmatter` plugin.
+                 * Can be disabled by disabling the `remarkFrontmatter` plugin.
                  */
                 vfileMatter: v.optional(v.object({}), {}),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-frontmatter).
-                 * Enabled by default.
                  */
                 remarkFrontmatter: v.optional(
                     v.object({
+                        /** @default true */
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-gfm).
-                 * Enabled by default.
                  */
                 remarkGfm: v.optional(
                     v.object({
+                        /** @default true */
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
-                 * Enabled by default.
                  */
                 remarkUnwrapImages: v.optional(
                     v.object({
+                        /** @default true */
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-rehype).
-                 * Enabled by default and can't be disabled.
+                 * Can't be disabled.
                  */
                 remarkRehype: v.optional(v.object({}), {}),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-slug).
-                 * Disabled by default.
                  */
                 rehypeSlug: v.optional(
                     v.object({
+                        /** @default false */
                         enable: v.optional(v.boolean(), false),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
-                 * Disabled by default.
                  */
                 rehypeAutolinkHeadings: v.optional(
                     v.object({
+                        /** @default false */
                         enable: v.optional(v.boolean(), false),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
-                 * Enabled by default.
                  */
                 rehypeShiki: v.optional(
                     v.object({
+                        /** @default true */
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-external-links).
-                 * Enabled by default.
-
-                 * Sets the `target` and `rel` attributes for hyperlinks with `"http://"` or `"https://"` in the href:
-                 * - Sets `target` to `"_blank"`.
-                 * - Sets `rel` to `"nofollow noopener noreferrer"`.
+                 * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
                  */
                 rehypeExternalLinks: v.optional(
                     v.object({
+                        /** @default true */
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
+
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-stringify).
-                 * Enabled by default and can't be disabled.
+                 * Can't be disabled.
                  */
                 rehypeStringify: v.optional(v.object({}), {}),
             }),
