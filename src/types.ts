@@ -1,5 +1,6 @@
 import * as v from "valibot"
 
+import type { Options as VfileMatterOptions } from "vfile-matter"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
@@ -49,6 +50,15 @@ export const ConfigSchema = v.optional(
         ),
         builtInPlugins: v.optional(
             v.object({
+                /** Enabled by default and can be disabled by disabling the `remarkFrontmatter` plugin. */
+                vfileMatter: v.optional(v.object({}), {}),
+                /** Enabled by default. */
+                remarkFrontmatter: v.optional(
+                    v.object({
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
                 /** Enabled by default. */
                 remarkGfm: v.optional(
                     v.object({
@@ -108,6 +118,25 @@ export const ConfigSchema = v.optional(
     {}
 )
 
+// The original types for options suck, this way users will have easier type configuring their custom options.
+type RemarkFrontmatterCustomOptions = {
+    // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
+    /** Only `"yaml"` is supported for now. */
+    lang: "yaml"
+    /**
+     * @default
+     * { open: "---", close: "---" }
+     */
+    fence?: {
+        close: string
+        open: string
+    }
+    /**
+     * @default false
+     */
+    anywhere?: boolean
+}
+
 // Some options are omitted because they are required and should not be disabled.
 type OmittedRemarkRehypeOptions = Omit<
     RemarkRehypeOptions,
@@ -123,6 +152,12 @@ type OmittedRehypeStringifyOptions = Omit<
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigInput = v.Input<typeof ConfigSchema> & {
     builtInPlugins?: {
+        vfileMatter?: {
+            options?: VfileMatterOptions
+        }
+        remarkFrontmatter?: {
+            options?: RemarkFrontmatterCustomOptions
+        }
         remarkGfm?: {
             options?: RemarkGfmOptions
         }
@@ -149,6 +184,12 @@ export type ConfigInput = v.Input<typeof ConfigSchema> & {
 // NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
 export type ConfigOutput = v.Output<typeof ConfigSchema> & {
     builtInPlugins: {
+        vfileMatter: {
+            options?: VfileMatterOptions
+        }
+        remarkFrontmatter: {
+            options?: RemarkFrontmatterCustomOptions
+        }
         remarkGfm: {
             options?: RemarkGfmOptions
         }

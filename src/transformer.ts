@@ -1,6 +1,8 @@
 import type { VFile } from "vfile"
+import { matter } from "vfile-matter"
 import { unified } from "unified"
 import remarkParse from "remark-parse"
+import remarkFrontmatter from "remark-frontmatter"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images"
 import remarkRehype from "remark-rehype"
@@ -20,6 +22,19 @@ export const transformer = async (
     const processor = unified()
 
     processor.use(remarkParse)
+
+    if (config.builtInPlugins.remarkFrontmatter.enable) {
+        processor.use(remarkFrontmatter, {
+            type: "frontmatter",
+            fence: { open: "---", close: "---" },
+            ...config.builtInPlugins.remarkFrontmatter.options,
+        })
+        processor.use(() => {
+            return (_tree, file) => {
+                matter(file, config.builtInPlugins.vfileMatter.options)
+            }
+        })
+    }
 
     if (config.builtInPlugins.remarkGfm.enable) {
         processor.use(remarkGfm, config.builtInPlugins.remarkGfm.options)
