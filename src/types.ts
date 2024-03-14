@@ -50,46 +50,70 @@ export const ConfigSchema = v.optional(
         ),
         builtInPlugins: v.optional(
             v.object({
-                /** Enabled by default and can be disabled by disabling the `remarkFrontmatter` plugin. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/vfile-matter).
+                 * Enabled by default and can be disabled by disabling the `remarkFrontmatter` plugin.
+                 */
                 vfileMatter: v.optional(v.object({}), {}),
-                /** Enabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-frontmatter).
+                 * Enabled by default.
+                 */
                 remarkFrontmatter: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
-                /** Enabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-gfm).
+                 * Enabled by default.
+                 */
                 remarkGfm: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
-                /** Enabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
+                 * Enabled by default.
+                 */
                 remarkUnwrapImages: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
-                /** Enabled by default and can't be disabled. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-rehype).
+                 * Enabled by default and can't be disabled.
+                 */
                 remarkRehype: v.optional(v.object({}), {}),
-                /** Disabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/rehype-slug).
+                 * Disabled by default.
+                 */
                 rehypeSlug: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), false),
                     }),
                     {}
                 ),
-                /** Disabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
+                 * Disabled by default.
+                 */
                 rehypeAutolinkHeadings: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), false),
                     }),
                     {}
                 ),
-                /** Enabled by default. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
+                 * Enabled by default.
+                 */
                 rehypeShiki: v.optional(
                     v.object({
                         enable: v.optional(v.boolean(), true),
@@ -97,6 +121,7 @@ export const ConfigSchema = v.optional(
                     {}
                 ),
                 /**
+                 * [View on NPM](https://npmjs.com/package/rehype-external-links).
                  * Enabled by default.
 
                  * Sets the `target` and `rel` attributes for hyperlinks with `"http://"` or `"https://"` in the href:
@@ -109,7 +134,10 @@ export const ConfigSchema = v.optional(
                     }),
                     {}
                 ),
-                /** Enabled by default and can't be disabled. */
+                /**
+                 * [View on NPM](https://npmjs.com/package/rehype-stringify).
+                 * Enabled by default and can't be disabled.
+                 */
                 rehypeStringify: v.optional(v.object({}), {}),
             }),
             {}
