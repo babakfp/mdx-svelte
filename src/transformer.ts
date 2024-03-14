@@ -23,9 +23,9 @@ export const transformer = async (
 
     processor.use(remarkParse)
 
-    if (config.builtInPlugins.remarkFrontmatter.enable) {
+    if (config?.builtInPlugins?.remarkFrontmatter?.enable) {
         processor.use(remarkFrontmatter, {
-            type: config.builtInPlugins.remarkFrontmatter.options.lang,
+            type: config.builtInPlugins.remarkFrontmatter.lang,
             fence: { open: "---", close: "---" },
             ...config.builtInPlugins.remarkFrontmatter.options,
         })
@@ -35,37 +35,37 @@ export const transformer = async (
                     // NOTE: The content is striped no matter the value of this option (`strip`).
                     // NOTE: The content won't be striped if the `type` option in `remarkFrontmatter` is set to anything other than `"yaml"`.
                     strip: true,
-                    yaml: config.builtInPlugins.vfileMatter.options,
+                    yaml: config?.builtInPlugins?.vfileMatter?.options,
                 })
             }
         })
     }
 
-    if (config.builtInPlugins.remarkGfm.enable) {
+    if (config?.builtInPlugins?.remarkGfm?.enable) {
         processor.use(remarkGfm, config.builtInPlugins.remarkGfm.options)
     }
 
-    if (config.builtInPlugins.remarkUnwrapImages.enable) {
+    if (config?.builtInPlugins?.remarkUnwrapImages?.enable) {
         processor.use(remarkUnwrapImages)
     }
 
     processor.use(remarkRehype, {
-        ...config.builtInPlugins.remarkRehype.options,
+        ...config?.builtInPlugins?.remarkRehype?.options,
         allowDangerousHtml: true,
     })
 
-    if (config.builtInPlugins.rehypeSlug.enable) {
+    if (config?.builtInPlugins?.rehypeSlug?.enable) {
         processor.use(rehypeSlug, config.builtInPlugins.rehypeSlug.options)
     }
 
-    if (config.builtInPlugins.rehypeAutolinkHeadings.enable) {
+    if (config?.builtInPlugins?.rehypeAutolinkHeadings?.enable) {
         processor.use(
             rehypeAutolinkHeadings,
             config.builtInPlugins.rehypeAutolinkHeadings.options
         )
     }
 
-    if (config.builtInPlugins.rehypeShiki.enable) {
+    if (config?.builtInPlugins?.rehypeShiki?.enable) {
         processor.use(rehypeShiki, {
             themes: {
                 light: "vitesse-light",
@@ -75,7 +75,7 @@ export const transformer = async (
         })
     }
 
-    if (config.builtInPlugins.rehypeExternalLinks.enable) {
+    if (config?.builtInPlugins?.rehypeExternalLinks?.enable) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
                 if (isHrefExternal(element.properties.href?.toString())) {
@@ -92,7 +92,7 @@ export const transformer = async (
     }
 
     processor.use(rehypeStringify, {
-        ...config.builtInPlugins.rehypeStringify.options,
+        ...config?.builtInPlugins?.rehypeStringify?.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
     })

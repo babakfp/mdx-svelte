@@ -16,7 +16,7 @@ export const isFileIgnored = (
         return true
     }
 
-    for (const extension of config.extensions) {
+    for (const extension of config?.extensions ?? []) {
         if (!filename.endsWith(extension)) {
             return true
         }
