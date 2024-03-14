@@ -25,13 +25,15 @@ export const transformer = async (
 
     if (config.builtInPlugins.remarkFrontmatter.enable) {
         processor.use(remarkFrontmatter, {
-            type: "frontmatter",
+            type: config.builtInPlugins.remarkFrontmatter.options.lang,
             fence: { open: "---", close: "---" },
             ...config.builtInPlugins.remarkFrontmatter.options,
         })
         processor.use(() => {
             return (_tree, file) => {
                 matter(file, {
+                    // NOTE: The content is striped no matter the value of this option (`strip`).
+                    // NOTE: The content won't be striped if the `type` option in `remarkFrontmatter` is set to anything other than `"yaml"`.
                     strip: true,
                     yaml: config.builtInPlugins.vfileMatter.options,
                 })

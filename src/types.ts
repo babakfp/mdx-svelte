@@ -63,6 +63,17 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        options: v.optional(
+                            v.object({
+                                // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
+                                /** Only `"yaml"` is supported for now. */
+                                lang: v.optional(
+                                    v.union([v.literal("yaml")]),
+                                    "yaml"
+                                ),
+                            }),
+                            {}
+                        ),
                     }),
                     {}
                 ),
@@ -154,9 +165,6 @@ export const ConfigSchema = v.optional(
 
 // The original types for options suck, this way users will have easier type configuring their custom options.
 type RemarkFrontmatterCustomOptions = {
-    // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
-    /** Only `"yaml"` is supported for now. */
-    lang: "yaml"
     /**
      * @default
      * { open: "---", close: "---" }
