@@ -1,6 +1,6 @@
 import * as v from "valibot"
 
-import type { Options as VfileMatterOptions } from "vfile-matter"
+import type { YamlOptions as VfileMatterYamlOptions } from "vfile-matter"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
@@ -187,7 +187,7 @@ type OmittedRehypeStringifyOptions = Omit<
 export type ConfigInput = v.Input<typeof ConfigSchema> & {
     builtInPlugins?: {
         vfileMatter?: {
-            options?: VfileMatterOptions
+            options?: VfileMatterYamlOptions
         }
         remarkFrontmatter?: {
             options?: RemarkFrontmatterCustomOptions
@@ -219,7 +219,7 @@ export type ConfigInput = v.Input<typeof ConfigSchema> & {
 export type ConfigOutput = v.Output<typeof ConfigSchema> & {
     builtInPlugins: {
         vfileMatter: {
-            options?: VfileMatterOptions
+            options?: VfileMatterYamlOptions
         }
         remarkFrontmatter: {
             options?: RemarkFrontmatterCustomOptions

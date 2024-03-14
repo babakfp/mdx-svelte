@@ -31,7 +31,10 @@ export const transformer = async (
         })
         processor.use(() => {
             return (_tree, file) => {
-                matter(file, config.builtInPlugins.vfileMatter.options)
+                matter(file, {
+                    strip: true,
+                    yaml: config.builtInPlugins.vfileMatter.options,
+                })
             }
         })
     }
