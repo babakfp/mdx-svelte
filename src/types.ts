@@ -54,13 +54,7 @@ export const ConfigSchema = v.optional(
                  * [View on NPM](https://npmjs.com/package/vfile-matter).
                  * Can be disabled by disabling the `remarkFrontmatter` plugin.
                  */
-                vfileMatter: v.optional(
-                    v.object({
-                        options: v.optional(
-                            v.special<VfileMatterYamlOptions>(() => true)
-                        ),
-                    })
-                ),
+                vfileMatter: v.optional(v.object({}), {}),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-frontmatter).
@@ -72,12 +66,9 @@ export const ConfigSchema = v.optional(
                         // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
                         /** Only `"yaml"` is supported for now. */
                         lang: v.optional(v.union([v.literal("yaml")]), "yaml"),
-                        options: v.optional(
-                            v.special<RemarkFrontmatterCustomOptions>(
-                                () => true
-                            )
-                        ),
-                    })
+                        options: v.optional(v.object({}), {}),
+                    }),
+                    {}
                 ),
 
                 /**
@@ -87,10 +78,8 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
-                        options: v.optional(
-                            v.special<RemarkGfmOptions>(() => true)
-                        ),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
@@ -100,20 +89,15 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-rehype).
                  * Can't be disabled.
                  */
-                remarkRehype: v.optional(
-                    v.object({
-                        options: v.optional(
-                            v.special<OmittedRemarkRehypeOptions>(() => true)
-                        ),
-                    })
-                ),
+                remarkRehype: v.optional(v.object({}), {}),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-slug).
@@ -122,10 +106,8 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default false */
                         enable: v.optional(v.boolean(), false),
-                        options: v.optional(
-                            v.special<RehypeSlugOptions>(() => true)
-                        ),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
@@ -135,10 +117,8 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default false */
                         enable: v.optional(v.boolean(), false),
-                        options: v.optional(
-                            v.special<RehypeAutolinkHeadingsOptions>(() => true)
-                        ),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
@@ -148,11 +128,8 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
-                        options: v.optional(
-                            v.special<RehypeShikiOptions>(() => true),
-                            undefined
-                        ),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
@@ -163,26 +140,20 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
-                        options: v.optional(
-                            v.special<RehypeExternalLinksOptions>(() => true)
-                        ),
-                    })
+                    }),
+                    {}
                 ),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-stringify).
                  * Can't be disabled.
                  */
-                rehypeStringify: v.optional(
-                    v.object({
-                        options: v.optional(
-                            v.special<OmittedRehypeStringifyOptions>(() => true)
-                        ),
-                    })
-                ),
-            })
+                rehypeStringify: v.optional(v.object({}), {}),
+            }),
+            {}
         ),
-    })
+    }),
+    {}
 )
 
 // The original types for options suck, this way users will have easier type configuring their custom options.
@@ -213,5 +184,69 @@ type OmittedRehypeStringifyOptions = Omit<
     "allowDangerousCharacters" | "allowDangerousHtml"
 >
 
-export type ConfigInput = v.Input<typeof ConfigSchema>
-export type ConfigOutput = v.Output<typeof ConfigSchema>
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+export type ConfigInput = v.Input<typeof ConfigSchema> & {
+    builtInPlugins?: {
+        vfileMatter?: {
+            options?: VfileMatterYamlOptions
+        }
+        remarkFrontmatter?: {
+            options?: RemarkFrontmatterCustomOptions
+        }
+        remarkGfm?: {
+            options?: RemarkGfmOptions
+        }
+        remarkRehype?: {
+            options?: OmittedRemarkRehypeOptions
+        }
+        rehypeSlug?: {
+            options?: RehypeSlugOptions
+        }
+        rehypeAutolinkHeadings?: {
+            options?: RehypeAutolinkHeadingsOptions
+        }
+        rehypeShiki?: {
+            options?: RehypeShikiOptions
+        }
+        rehypeExternalLinks?: {
+            options?: RehypeExternalLinksOptions
+        }
+        rehypeStringify?: {
+            options?: OmittedRehypeStringifyOptions
+        }
+    }
+}
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+export type ConfigOutput = v.Output<typeof ConfigSchema> & {
+    builtInPlugins: {
+        vfileMatter: {
+            options?: VfileMatterYamlOptions
+        }
+        remarkFrontmatter: {
+            options?: RemarkFrontmatterCustomOptions
+        }
+        remarkGfm: {
+            options?: RemarkGfmOptions
+        }
+        remarkRehype: {
+            options?: OmittedRemarkRehypeOptions
+        }
+        rehypeSlug: {
+            options?: RehypeSlugOptions
+        }
+        rehypeAutolinkHeadings: {
+            options?: RehypeAutolinkHeadingsOptions
+        }
+        rehypeShiki: {
+            options?: RehypeShikiOptions
+        }
+        rehypeExternalLinks: {
+            options?: RehypeExternalLinksOptions
+        }
+        rehypeStringify: {
+            options?: OmittedRehypeStringifyOptions
+        }
+    }
+}
+
+// TODO: Whenever [this issue](https://github.com/microsoft/TypeScript/issues/42873) resolves, I can move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.

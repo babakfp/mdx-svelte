@@ -4,7 +4,8 @@
         "moduleResolution": "NodeNext",
         "outDir": "dist",
         "sourceMap": true,
-        "strict": true
+        "strict": true,
+        "declaration": true
     },
     "include": ["./src/**/*"]
 }
