@@ -67,10 +67,7 @@ export const transformer = async (
 
     if (config.builtInPlugins.rehypeShiki.enable) {
         processor.use(rehypeShiki, {
-            themes: {
-                light: "vitesse-light",
-                dark: "vitesse-dark",
-            },
+            theme: "github-dark",
             ...config.builtInPlugins.rehypeShiki.options,
         })
     }
