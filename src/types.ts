@@ -66,7 +66,6 @@ export const ConfigSchema = v.optional(
                         // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
                         /** Only `"yaml"` is supported for now. */
                         lang: v.optional(v.union([v.literal("yaml")]), "yaml"),
-                        options: v.optional(v.object({}), {}),
                     }),
                     {}
                 ),
