@@ -1,6 +1,6 @@
+import { unified } from "unified"
 import type { VFile } from "vfile"
 import { matter } from "vfile-matter"
-import { unified } from "unified"
 import remarkParse from "remark-parse"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkGfm from "remark-gfm"
@@ -9,12 +9,12 @@ import remarkRehype from "remark-rehype"
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
+import { rehypeSanitizeCodeElement } from "./rehype-sanitize-code-element.js"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
 
 import { ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
-import { rehypeSanitizeCodeElement } from "./rehype-sanitize-code-element.js"
 
 export const transformer = async (
     markdown: string,
