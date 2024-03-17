@@ -1,3 +1,4 @@
+import type { VFile } from "vfile"
 import { matter } from "vfile-matter"
 import { unified } from "unified"
 import remarkParse from "remark-parse"
@@ -14,7 +15,10 @@ import rehypeStringify from "rehype-stringify"
 import { ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
-export const transformer = async (markdown: string, config: ConfigOutput) => {
+export const transformer = async (
+    markdown: string,
+    config: ConfigOutput
+): Promise<VFile["value"]> => {
     const processor = unified()
 
     processor.use(remarkParse)
