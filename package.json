@@ -30,8 +30,10 @@
         "remark-parse": "11.0.0",
         "remark-rehype": "11.1.0",
         "remark-unwrap-images": "4.0.0",
+        "stringify-entities": "4.0.3",
         "typescript": "5.4.2",
         "unified": "11.0.4",
+        "unist-util-visit": "5.0.0",
         "valibot": "0.30.0",
         "vfile": "6.0.1",
         "vfile-matter": "5.0.0"
