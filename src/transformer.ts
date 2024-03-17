@@ -14,7 +14,7 @@ import rehypeStringify from "rehype-stringify"
 
 import { ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
-import { rehypeSanitizeMdCode } from "./rehype-sanitize-md-code.js"
+import { rehypeSanitizeCodeElement } from "./rehype-sanitize-code-element.js"
 
 export const transformer = async (
     markdown: string,
@@ -73,7 +73,7 @@ export const transformer = async (
         })
     }
 
-    processor.use(rehypeSanitizeMdCode)
+    processor.use(rehypeSanitizeCodeElement)
 
     if (config.builtInPlugins.rehypeExternalLinks.enable) {
         processor.use(rehypeExternalLinks, {

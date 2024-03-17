@@ -18,7 +18,7 @@ To fix this:
 2. Then, we use the same library that the plugin uses to sanitize both its default characters 
    and our custom characters related to Svelte syntax.
 */
-export const rehypeSanitizeMdCode: Plugin = () => {
+export const rehypeSanitizeCodeElement: Plugin = () => {
     return (tree) => {
         visit(tree, "element", (node) => {
             // @ts-expect-error
