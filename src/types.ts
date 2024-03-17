@@ -162,12 +162,12 @@ type RemarkFrontmatterCustomOptions = {
      * { open: "---", close: "---" }
      */
     fence?: {
+        /** @default "---" */
         close: string
+        /** @default "---" */
         open: string
     }
-    /**
-     * @default false
-     */
+    /** @default false */
     anywhere?: boolean
 }
 
@@ -183,40 +183,7 @@ type OmittedRehypeStringifyOptions = Omit<
     "allowDangerousCharacters" | "allowDangerousHtml"
 >
 
-// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
-export type ConfigInput = v.Input<typeof ConfigSchema> & {
-    builtInPlugins?: {
-        vfileMatter?: {
-            options?: VfileMatterYamlOptions
-        }
-        remarkFrontmatter?: {
-            options?: RemarkFrontmatterCustomOptions
-        }
-        remarkGfm?: {
-            options?: RemarkGfmOptions
-        }
-        remarkRehype?: {
-            options?: OmittedRemarkRehypeOptions
-        }
-        rehypeSlug?: {
-            options?: RehypeSlugOptions
-        }
-        rehypeAutolinkHeadings?: {
-            options?: RehypeAutolinkHeadingsOptions
-        }
-        rehypeShiki?: {
-            options?: RehypeShikiOptions
-        }
-        rehypeExternalLinks?: {
-            options?: RehypeExternalLinksOptions
-        }
-        rehypeStringify?: {
-            options?: OmittedRehypeStringifyOptions
-        }
-    }
-}
-// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
-export type ConfigOutput = v.Output<typeof ConfigSchema> & {
+type BuiltInPluginsOptions = {
     builtInPlugins: {
         vfileMatter: {
             options?: VfileMatterYamlOptions
@@ -247,5 +214,12 @@ export type ConfigOutput = v.Output<typeof ConfigSchema> & {
         }
     }
 }
+
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+export type ConfigInput = v.Input<typeof ConfigSchema> &
+    Partial<BuiltInPluginsOptions>
+
+// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+export type ConfigOutput = v.Output<typeof ConfigSchema> & BuiltInPluginsOptions
 
 // TODO: Whenever [this issue](https://github.com/microsoft/TypeScript/issues/42873) resolves, I can move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
