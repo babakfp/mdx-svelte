@@ -36,6 +36,6 @@
         "unist-util-visit": "5.0.0",
         "valibot": "0.30.0",
         "vfile": "6.0.1",
-        "vfile-matter": "5.0.0"
+        "yaml": "2.4.1"
     }
 }

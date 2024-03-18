@@ -1,8 +1,8 @@
 import { unified } from "unified"
 import type { VFile } from "vfile"
-import { matter } from "vfile-matter"
 import remarkParse from "remark-parse"
 import remarkFrontmatter from "remark-frontmatter"
+import { remarkParseFrontmatterYaml } from "./remark-parse-frontmatter-yaml.js"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images"
 import remarkRehype from "remark-rehype"
@@ -30,16 +30,11 @@ export const transformer = async (
             fence: { open: "---", close: "---" },
             ...config.builtInPlugins.remarkFrontmatter.options,
         })
-        processor.use(() => {
-            return (_, file) => {
-                matter(file, {
-                    // NOTE: The content is striped no matter the value of this option (`strip`).
-                    // NOTE: The content won't be striped if the `type` option in `remarkFrontmatter` is set to anything other than `"yaml"`.
-                    strip: true,
-                    yaml: config.builtInPlugins.vfileMatter.options,
-                })
-            }
-        })
+
+        processor.use(
+            remarkParseFrontmatterYaml,
+            config.builtInPlugins.vfileMatter.options
+        )
     }
 
     if (config.builtInPlugins.remarkGfm.enable) {

@@ -1,6 +1,6 @@
 import * as v from "valibot"
 
-import type { YamlOptions as VfileMatterYamlOptions } from "vfile-matter"
+import type { ConfigInput as RemarkParseFrontmatterYamlOptions } from "./remark-parse-frontmatter-yaml.js"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
@@ -186,7 +186,7 @@ type OmittedRehypeStringifyOptions = Omit<
 type BuiltInPluginsOptions = {
     builtInPlugins: {
         vfileMatter: {
-            options?: VfileMatterYamlOptions
+            options?: RemarkParseFrontmatterYamlOptions
         }
         remarkFrontmatter: {
             options?: RemarkFrontmatterCustomOptions
