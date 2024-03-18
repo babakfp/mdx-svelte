@@ -31,7 +31,7 @@ export const transformer = async (
             ...config.builtInPlugins.remarkFrontmatter.options,
         })
         processor.use(() => {
-            return (_tree, file) => {
+            return (_, file) => {
                 matter(file, {
                     // NOTE: The content is striped no matter the value of this option (`strip`).
                     // NOTE: The content won't be striped if the `type` option in `remarkFrontmatter` is set to anything other than `"yaml"`.
