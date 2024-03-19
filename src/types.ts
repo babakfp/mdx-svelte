@@ -66,9 +66,15 @@ export const ConfigSchema = v.optional(
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
-                 * Can be disabled by disabling the `remarkFrontmatter` plugin.
+                 * If `remarkFrontmatter` is disabled, this plugin will be disabled too.
                  */
-                remarkFrontmatterYaml: v.optional(v.object({}), {}),
+                remarkFrontmatterYaml: v.optional(
+                    v.object({
+                        /** @default true */
+                        enable: v.optional(v.boolean(), true),
+                    }),
+                    {}
+                ),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-gfm).

@@ -31,10 +31,12 @@ export const transformer = async (
             ...config.builtInPlugins.remarkFrontmatter.options,
         })
 
-        processor.use(
-            remarkFrontmatterYaml,
-            config.builtInPlugins.remarkFrontmatterYaml.options
-        )
+        if (config.builtInPlugins.remarkFrontmatterYaml.enable) {
+            processor.use(
+                remarkFrontmatterYaml,
+                config.builtInPlugins.remarkFrontmatterYaml.options
+            )
+        }
     }
 
     if (config.builtInPlugins.remarkGfm.enable) {
