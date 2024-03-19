@@ -51,12 +51,6 @@ export const ConfigSchema = v.optional(
         builtInPlugins: v.optional(
             v.object({
                 /**
-                 * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
-                 * Can be disabled by disabling the `remarkFrontmatter` plugin.
-                 */
-                remarkFrontmatterYaml: v.optional(v.object({}), {}),
-
-                /**
                  * [View on NPM](https://npmjs.com/package/remark-frontmatter).
                  */
                 remarkFrontmatter: v.optional(
@@ -69,6 +63,12 @@ export const ConfigSchema = v.optional(
                     }),
                     {}
                 ),
+
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
+                 * Can be disabled by disabling the `remarkFrontmatter` plugin.
+                 */
+                remarkFrontmatterYaml: v.optional(v.object({}), {}),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-gfm).
