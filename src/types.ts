@@ -1,6 +1,6 @@
 import * as v from "valibot"
 
-import type { ConfigInput as RemarkParseFrontmatterYamlOptions } from "./remark-parse-frontmatter-yaml.js"
+import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
@@ -51,10 +51,10 @@ export const ConfigSchema = v.optional(
         builtInPlugins: v.optional(
             v.object({
                 /**
-                 * [View on NPM](https://npmjs.com/package/vfile-matter).
+                 * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
                  * Can be disabled by disabling the `remarkFrontmatter` plugin.
                  */
-                vfileMatter: v.optional(v.object({}), {}),
+                remarkFrontmatterYaml: v.optional(v.object({}), {}),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/remark-frontmatter).
@@ -185,11 +185,11 @@ type OmittedRehypeStringifyOptions = Omit<
 
 type BuiltInPluginsOptions = {
     builtInPlugins: {
-        vfileMatter: {
-            options?: RemarkParseFrontmatterYamlOptions
-        }
         remarkFrontmatter: {
             options?: RemarkFrontmatterCustomOptions
+        }
+        remarkFrontmatterYaml: {
+            options?: RemarkFrontmatterYamlOptions
         }
         remarkGfm: {
             options?: RemarkGfmOptions

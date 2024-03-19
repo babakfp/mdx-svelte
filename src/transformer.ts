@@ -2,7 +2,7 @@ import { unified } from "unified"
 import type { VFile } from "vfile"
 import remarkParse from "remark-parse"
 import remarkFrontmatter from "remark-frontmatter"
-import { remarkParseFrontmatterYaml } from "./remark-parse-frontmatter-yaml.js"
+import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images"
 import remarkRehype from "remark-rehype"
@@ -32,8 +32,8 @@ export const transformer = async (
         })
 
         processor.use(
-            remarkParseFrontmatterYaml,
-            config.builtInPlugins.vfileMatter.options
+            remarkFrontmatterYaml,
+            config.builtInPlugins.remarkFrontmatterYaml.options
         )
     }
 
