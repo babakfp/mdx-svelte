@@ -1,6 +1,10 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
 
-import type { ConfigOutput, ConfigCallbacks } from "./types.js"
+import type {
+    ConfigOutput,
+    ConfigCallbacks,
+    RequiredNonNullable,
+} from "./types.js"
 import { isFileIgnored } from "./isFileIgnored.js"
 import { transformer } from "./transformer.js"
 
@@ -11,12 +15,12 @@ export const markupPreprocessor = (
     return (async (options) => {
         if (isFileIgnored(options.filename, config)) return
 
-        // NOTE: TypeScript sucks. I have verified that `filename` is not `undefined`, but TypeScript doesn't understand it.
-        const typesafeOptions = options as { content: string; filename: string }
+        // NOTE: I have verified that `filename` is not `undefined` but TypeScript doesn't understand it.
+        const options_ = options as RequiredNonNullable<typeof options>
 
-        if (callbacks?.onFileIgnore?.(typesafeOptions)) return
+        if (callbacks?.onFileIgnore?.(options_)) return
 
-        const code = (await transformer(options.content, config)).toString()
+        const code = (await transformer(config, options_)).toString()
 
         return { code }
         // ...

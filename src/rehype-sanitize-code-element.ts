@@ -1,6 +1,7 @@
 import { stringifyEntities } from "stringify-entities"
 import { visit } from "unist-util-visit"
-import type { Plugin } from "unified"
+import type { Transformer } from "unified"
+import type { Element } from "hast"
 
 import {
     STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
@@ -18,26 +19,20 @@ To fix this:
 2. Then, we use the same library that the plugin uses to sanitize both its default characters 
    and our custom characters related to Svelte syntax.
 */
-export const rehypeSanitizeCodeElement: Plugin = () => {
+export default (): Transformer => {
     return (tree) => {
-        visit(tree, "element", (node) => {
-            // @ts-expect-error
+        visit(tree, "element", (node: Element) => {
             if (node.tagName === "code") {
                 visit(node, "text", (childNode) => {
                     // @ts-expect-error
                     childNode.type = "raw"
 
-                    // @ts-expect-error
-                    childNode.value = stringifyEntities(
-                        // @ts-expect-error
-                        childNode.value,
-                        {
-                            subset: [
-                                ...STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
-                                ...STRINGIFY_ENTITIES_DEFAULT_SVELTE_DANGEROUS_CHARACTERS,
-                            ],
-                        }
-                    )
+                    childNode.value = stringifyEntities(childNode.value, {
+                        subset: [
+                            ...STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
+                            ...STRINGIFY_ENTITIES_DEFAULT_SVELTE_DANGEROUS_CHARACTERS,
+                        ],
+                    })
                 })
             }
         })

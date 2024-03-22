@@ -9,16 +9,20 @@ import remarkRehype from "remark-rehype"
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
-import { rehypeSanitizeCodeElement } from "./rehype-sanitize-code-element.js"
+import rehypeSanitizeCodeElement from "./rehype-sanitize-code-element.js"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
 
-import { ConfigOutput } from "./types.js"
+import type {
+    RequiredNonNullable,
+    ConfigOutput,
+    MarkupPreprocessorOptions,
+} from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
 export const transformer = async (
-    markdown: string,
-    config: ConfigOutput
+    config: ConfigOutput,
+    markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>
 ): Promise<VFile["value"]> => {
     const processor = unified()
 
@@ -94,7 +98,7 @@ export const transformer = async (
         allowDangerousHtml: true,
     })
 
-    const result = await processor.process(markdown)
+    const result = await processor.process(markupPreprocessorOptions.content)
 
     return result.value
 }

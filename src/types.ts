@@ -1,5 +1,5 @@
 import * as v from "valibot"
-
+import type { MarkupPreprocessor } from "svelte/compiler"
 import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
@@ -11,6 +11,16 @@ import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
 import { DEFAULT_EXTENSIONS } from "./constants.js"
 
+type Prettify<T> = {
+    [K in keyof T]: T[K]
+} & {}
+
+export type RequiredNonNullable<T> = Prettify<{
+    [K in keyof T]-?: NonNullable<T[K]>
+}>
+
+export type MarkupPreprocessorOptions = Parameters<MarkupPreprocessor>[0]
+
 export type ConfigCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
@@ -20,7 +30,9 @@ export type ConfigCallbacks = {
      * @param options.filename - The name of the file.
      * @returns Return `true` to ignore the file, otherwise return `false`.
      */
-    onFileIgnore?: (options: { content: string; filename: string }) => boolean
+    onFileIgnore?: (
+        options: RequiredNonNullable<MarkupPreprocessorOptions>
+    ) => boolean
 }
 
 export const ConfigSchema = v.optional(
@@ -221,11 +233,15 @@ type BuiltInPluginsOptions = {
     }
 }
 
-// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+// TODO: [^1]
 export type ConfigInput = v.Input<typeof ConfigSchema> &
     Partial<BuiltInPluginsOptions>
 
-// NOTE: Generating Valibot schema with TypeScript types is impossible. https://github.com/fabian-hiller/valibot/discussions/477
+// TODO: [^1]
 export type ConfigOutput = v.Output<typeof ConfigSchema> & BuiltInPluginsOptions
 
-// TODO: Whenever [this issue](https://github.com/microsoft/TypeScript/issues/42873) resolves, I can move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
+/*
+[^1]: TypeScript types with Valibot
+- This is how to use TypeScript types with Valibot: https://github.com/fabian-hiller/valibot/discussions/477.
+- Whenever https://github.com/microsoft/TypeScript/issues/42873 fixes, move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
+*/

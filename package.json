@@ -12,6 +12,8 @@
     },
     "devDependencies": {
         "@shikijs/rehype": "1.2.0",
+        "@types/hast": "3.0.4",
+        "@types/node": "20.11.30",
         "hastscript": "9.0.0",
         "rehype-autolink-headings": "7.1.0",
         "rehype-external-links": "3.0.0",
