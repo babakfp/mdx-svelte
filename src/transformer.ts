@@ -1,5 +1,4 @@
 import { unified } from "unified"
-import type { VFile } from "vfile"
 import remarkParse from "remark-parse"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
@@ -11,6 +10,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeSanitizeCodeElement from "./rehype-sanitize-code-element.js"
 import rehypeExternalLinks from "rehype-external-links"
+import rehypeCustomMarkdownElements from "./rehype-custom-markdown-elements.js"
 import rehypeStringify from "rehype-stringify"
 
 import type {
@@ -23,7 +23,7 @@ import { isHrefExternal } from "./isHrefExternal.js"
 export const transformer = async (
     config: ConfigOutput,
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>
-): Promise<VFile["value"]> => {
+) => {
     const processor = unified()
 
     processor.use(remarkParse)
@@ -92,13 +92,17 @@ export const transformer = async (
         })
     }
 
+    if (config.MarkdownElements.length) {
+        processor.use(rehypeCustomMarkdownElements, config)
+    }
+
     processor.use(rehypeStringify, {
         ...config.builtInPlugins.rehypeStringify.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
     })
 
-    const result = await processor.process(markupPreprocessorOptions.content)
+    const result = processor.process(markupPreprocessorOptions.content)
 
-    return result.value
+    return result
 }

@@ -1,5 +1,6 @@
 import * as v from "valibot"
 import type { MarkupPreprocessor } from "svelte/compiler"
+import type { Data } from "vfile"
 import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
@@ -37,6 +38,7 @@ export type ConfigCallbacks = {
 
 export const ConfigSchema = v.optional(
     v.object({
+        MarkdownElements: v.optional(v.array(v.string()), []),
         /** File extensions to be preprocessed. */
         extensions: v.optional(
             v.array(
@@ -245,3 +247,7 @@ export type ConfigOutput = v.Output<typeof ConfigSchema> & BuiltInPluginsOptions
 - This is how to use TypeScript types with Valibot: https://github.com/fabian-hiller/valibot/discussions/477.
 - Whenever https://github.com/microsoft/TypeScript/issues/42873 fixes, move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
 */
+
+// TODO: Maybe make it generic
+// Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
+export type MarkdownData = Data

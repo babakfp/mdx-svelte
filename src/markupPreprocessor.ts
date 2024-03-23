@@ -7,6 +7,7 @@ import type {
 } from "./types.js"
 import { isFileIgnored } from "./isFileIgnored.js"
 import { transformer } from "./transformer.js"
+import { modifyFinalHtml } from "./modifyFinalHtml.js"
 
 export const markupPreprocessor = (
     config: ConfigOutput,
@@ -20,9 +21,13 @@ export const markupPreprocessor = (
 
         if (callbacks?.onFileIgnore?.(options_)) return
 
-        const code = (await transformer(config, options_)).toString()
+        const markdownResult = await transformer(config, options_)
 
-        return { code }
-        // ...
+        const html = modifyFinalHtml(
+            markdownResult.value.toString(),
+            markdownResult.data
+        )
+
+        return { code: html }
     }) satisfies MarkupPreprocessor
 }
