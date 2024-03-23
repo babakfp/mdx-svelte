@@ -1,7 +1,7 @@
 import { stringifyEntities } from "stringify-entities"
 import { visit } from "unist-util-visit"
 import type { Transformer } from "unified"
-import type { Element } from "hast"
+import type { Root } from "hast"
 
 import {
     STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
@@ -19,9 +19,9 @@ To fix this:
 2. Then, we use the same library that the plugin uses to sanitize both its default characters 
    and our custom characters related to Svelte syntax.
 */
-export default (): Transformer => {
+export default (): Transformer<Root> => {
     return (tree) => {
-        visit(tree, "element", (node: Element) => {
+        visit(tree, "element", (node) => {
             if (node.tagName === "code") {
                 visit(node, "text", (childNode) => {
                     // @ts-expect-error
