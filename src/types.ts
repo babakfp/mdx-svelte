@@ -1,6 +1,7 @@
 import * as v from "valibot"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import type { Data } from "vfile"
+import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
 import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
@@ -12,23 +13,35 @@ import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
 import { DEFAULT_EXTENSIONS } from "./constants.js"
 
+/**
+ * Unwraps named object types for improved readability.
+ * {@link https://www.totaltypescript.com/concepts/the-prettify-helper The `Prettify` Helper}.
+ */
 type Prettify<T> = {
     [K in keyof T]: T[K]
 } & {}
 
+/**
+ * Same as `Required`, it also makes the properties non-optional.
+ * {@link https://www.typescriptlang.org/docs/handbook/utility-types.html#nonnullabletype TypeScript `NonNullable` type}.
+ */
 export type RequiredNonNullable<T> = Prettify<{
     [K in keyof T]-?: NonNullable<T[K]>
 }>
 
+/**
+ * Svelte markup preprocessor options.
+ */
 export type MarkupPreprocessorOptions = Parameters<MarkupPreprocessor>[0]
 
+/**
+ * Svelte in Markdown config callback options.
+ */
 export type ConfigCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
-     * It runs after `allowNodeModules` and `allowNodeModulesItems`.
-     * @param options - Options for the file preprocessing.
-     * @param options.content - The content of the file.
-     * @param options.filename - The name of the file.
+     * It runs after `allowNodeModules` and `allowNodeModulesItems` options.
+     * @param options - Contains file path and content.
      * @returns Return `true` to ignore the file, otherwise return `false`.
      */
     onFileIgnore?: (
@@ -36,6 +49,9 @@ export type ConfigCallbacks = {
     ) => boolean
 }
 
+/**
+ * Svelte in Markdown config options.
+ */
 export const ConfigSchema = v.optional(
     v.object({
         MarkdownElements: v.optional(v.array(v.string()), []),
@@ -175,7 +191,10 @@ export const ConfigSchema = v.optional(
     {}
 )
 
-// The original types for options suck, this way users will have easier type configuring their custom options.
+/**
+ * A simplified version of the original option types of {@link RemarkFrontmatterOptions}.
+ * Some options are omitted for simplicity and readability.
+ */
 type RemarkFrontmatterCustomOptions = {
     /**
      * @default
@@ -191,18 +210,25 @@ type RemarkFrontmatterCustomOptions = {
     anywhere?: boolean
 }
 
-// Some options are omitted because they are required and should not be disabled.
+/**
+ * A modified version of the original option types of {@link RemarkRehypeOptions}.
+ * Some options are omitted because they are required and should not be disabled.
+ */
 type OmittedRemarkRehypeOptions = Omit<
     RemarkRehypeOptions,
     "allowDangerousHtml"
 >
 
-// Some options are omitted because they are required and should not be disabled.
+/**
+ * A modified version of the original option types of {@link RehypeStringifyOptions}.
+ * Some options are omitted because they are required and should not be disabled.
+ */
 type OmittedRehypeStringifyOptions = Omit<
     RehypeStringifyOptions,
     "allowDangerousCharacters" | "allowDangerousHtml"
 >
 
+// TODO: [^1]
 type BuiltInPluginsOptions = {
     builtInPlugins: {
         remarkFrontmatter: {
@@ -242,12 +268,12 @@ export type ConfigInput = v.Input<typeof ConfigSchema> &
 // TODO: [^1]
 export type ConfigOutput = v.Output<typeof ConfigSchema> & BuiltInPluginsOptions
 
+// TODO: Maybe make it generic
+// Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
+export type MarkdownData = Data
+
 /*
 [^1]: TypeScript types with Valibot
 - This is how to use TypeScript types with Valibot: https://github.com/fabian-hiller/valibot/discussions/477.
 - Whenever https://github.com/microsoft/TypeScript/issues/42873 fixes, move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
 */
-
-// TODO: Maybe make it generic
-// Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
-export type MarkdownData = Data
