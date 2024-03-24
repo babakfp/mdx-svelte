@@ -139,8 +139,8 @@ export const ConfigSchema = v.optional(
                  */
                 rehypeSlug: v.optional(
                     v.object({
-                        /** @default false */
-                        enable: v.optional(v.boolean(), false),
+                        /** @default true */
+                        enable: v.optional(v.boolean(), true),
                     }),
                     {}
                 ),
