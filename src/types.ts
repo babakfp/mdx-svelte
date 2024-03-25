@@ -1,6 +1,7 @@
 import * as v from "valibot"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import type { Data } from "vfile"
+import type { Preset } from "unified"
 import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
 import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
@@ -49,6 +50,13 @@ export type ConfigCallbacks = {
     ) => boolean
 }
 
+const CustomPluginsSchema = v.optional(
+    v.object({
+        before: v.optional(v.special<Preset>(() => true)),
+        after: v.optional(v.special<Preset>(() => true)),
+    })
+)
+
 /**
  * Svelte in Markdown config options.
  */
@@ -90,6 +98,7 @@ export const ConfigSchema = v.optional(
                         // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
                         /** Only `"yaml"` is supported for now. */
                         lang: v.optional(v.union([v.literal("yaml")]), "yaml"),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -102,6 +111,7 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -113,6 +123,7 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -124,6 +135,7 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -132,7 +144,12 @@ export const ConfigSchema = v.optional(
                  * [View on NPM](https://npmjs.com/package/remark-rehype).
                  * Can't be disabled.
                  */
-                remarkRehype: v.optional(v.object({}), {}),
+                remarkRehype: v.optional(
+                    v.object({
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
 
                 /**
                  * [View on NPM](https://npmjs.com/package/rehype-slug).
@@ -141,6 +158,7 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -152,6 +170,7 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default false */
                         enable: v.optional(v.boolean(), false),
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -163,6 +182,19 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
+
+                /**
+                 * A custom plugin that sanitizes the some characters in code elements.
+                 * Important: This plugin changes the `type` property of `text` nodes to `"raw"`.
+                 * Can't be disabled.
+                 */
+                rehypeSanitizeCodeElement: v.optional(
+                    v.object({
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -175,6 +207,18 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
+
+                /**
+                 * A custom plugin that enables customizing HTML elements with Svelte components.
+                 * Can't be disabled.
+                 */
+                rehypeCustomMarkdownElements: v.optional(
+                    v.object({
+                        plugins: CustomPluginsSchema,
                     }),
                     {}
                 ),
@@ -183,7 +227,12 @@ export const ConfigSchema = v.optional(
                  * [View on NPM](https://npmjs.com/package/rehype-stringify).
                  * Can't be disabled.
                  */
-                rehypeStringify: v.optional(v.object({}), {}),
+                rehypeStringify: v.optional(
+                    v.object({
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
             }),
             {}
         ),
