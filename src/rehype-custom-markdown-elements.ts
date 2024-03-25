@@ -8,7 +8,7 @@ import { getContextImportCode } from "./getContextImportCode.js"
 export default (config: ConfigOutput): Transformer<Root> => {
     return (tree) => {
         visit(tree, "element", (node) => {
-            if (config.MarkdownElements.includes(node.tagName)) {
+            if (config.markdownElements.includes(node.tagName)) {
                 node.tagName = `MarkdownElements.${node.tagName}`
             }
         })

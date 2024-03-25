@@ -5,16 +5,19 @@ import { getContextImportCode } from "./getContextImportCode.js"
 
 export const modifyFinalHtml = (html: string, data: MarkdownData) => {
     if (!html.includes("</script>")) {
-        html =
-            `<script>
-    ${getContextImportCode}
-</script>` + html
+        html = `
+            <script>
+                ${getContextImportCode}
+            </script>
+
+            ${html}
+        `
     }
 
-    html =
-        scriptContextModuleWrapper(getMarkdownDataExportCode(data)) +
-        "\n" +
-        html
+    html = `
+        ${scriptContextModuleWrapper(getMarkdownDataExportCode(data))}
+        ${html}
+    `
 
     return html
 }

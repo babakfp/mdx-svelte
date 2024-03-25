@@ -144,7 +144,7 @@ export const transformer = async (
     processor.use(
         config.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before
     )
-    if (config.MarkdownElements.length) {
+    if (config.markdownElements.length) {
         processor.use(rehypeCustomMarkdownElements, config)
     }
     processor.use(

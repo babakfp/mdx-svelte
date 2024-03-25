@@ -4,8 +4,8 @@ import type { Transformer } from "unified"
 import type { Root } from "hast"
 
 import {
-    STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
-    STRINGIFY_ENTITIES_DEFAULT_SVELTE_DANGEROUS_CHARACTERS,
+    HTML_DANGEROUS_CHARACTERS,
+    SVELTE_DANGEROUS_CHARACTERS,
 } from "./constants.js"
 
 /*
@@ -22,19 +22,19 @@ To fix this:
 export default (): Transformer<Root> => {
     return (tree) => {
         visit(tree, "element", (node) => {
-            if (node.tagName === "code") {
-                visit(node, "text", (childNode) => {
-                    // @ts-expect-error
-                    childNode.type = "raw"
+            if (node.tagName !== "code") return
 
-                    childNode.value = stringifyEntities(childNode.value, {
-                        subset: [
-                            ...STRINGIFY_ENTITIES_DEFAULT_DANGEROUS_CHARACTERS,
-                            ...STRINGIFY_ENTITIES_DEFAULT_SVELTE_DANGEROUS_CHARACTERS,
-                        ],
-                    })
+            visit(node, "text", (childNode) => {
+                // @ts-expect-error
+                childNode.type = "raw"
+
+                childNode.value = stringifyEntities(childNode.value, {
+                    subset: [
+                        ...HTML_DANGEROUS_CHARACTERS,
+                        ...SVELTE_DANGEROUS_CHARACTERS,
+                    ],
                 })
-            }
+            })
         })
     }
 }

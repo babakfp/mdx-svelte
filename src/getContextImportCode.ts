@@ -1,4 +1,4 @@
 export const getContextImportCode = `
-import { getContext as svelteInMarkdown_getContext } from "svelte"
-const MarkdownElements = svelteInMarkdown_getContext("MarkdownElements")
+    import { getContext as getContext_ } from "svelte";
+    const MarkdownElements = getContext_("markdownElements");
 `

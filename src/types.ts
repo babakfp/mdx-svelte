@@ -62,7 +62,7 @@ const CustomPluginsSchema = v.optional(
  */
 export const ConfigSchema = v.optional(
     v.object({
-        MarkdownElements: v.optional(v.array(v.string()), []),
+        markdownElements: v.optional(v.array(v.string()), []),
         /** File extensions to be preprocessed. */
         extensions: v.optional(
             v.array(
