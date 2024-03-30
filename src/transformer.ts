@@ -5,12 +5,13 @@ import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
 import remarkRehype from "remark-rehype"
+import rehypeAddCustomMarkdownElementsContext from "./rehype-add-custom-markdown-elements-context.js" // No `Options` export.
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeSanitizeCodeElement from "./rehype-sanitize-code-element.js" // No `Options` export.
-import rehypeExternalLinks from "rehype-external-links"
 import rehypeCustomMarkdownElements from "./rehype-custom-markdown-elements.js" // No `Options` export.
+import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
 
 import type {
@@ -28,8 +29,6 @@ export const transformer = async (
 
     processor.use(remarkParse)
 
-    // ---
-
     processor.use(config.builtInPlugins.remarkFrontmatter.plugins?.before)
     if (config.builtInPlugins.remarkFrontmatter.enable) {
         processor.use(remarkFrontmatter, {
@@ -39,8 +38,6 @@ export const transformer = async (
         })
     }
     processor.use(config.builtInPlugins.remarkFrontmatter.plugins?.after)
-
-    // ---
 
     processor.use(config.builtInPlugins.remarkFrontmatterYaml.plugins?.before)
     if (
@@ -54,23 +51,17 @@ export const transformer = async (
     }
     processor.use(config.builtInPlugins.remarkFrontmatterYaml.plugins?.after)
 
-    // ---
-
     processor.use(config.builtInPlugins.remarkGfm.plugins?.before)
     if (config.builtInPlugins.remarkGfm.enable) {
         processor.use(remarkGfm, config.builtInPlugins.remarkGfm.options)
     }
     processor.use(config.builtInPlugins.remarkGfm.plugins?.after)
 
-    // ---
-
     processor.use(config.builtInPlugins.remarkUnwrapImages.plugins?.before)
     if (config.builtInPlugins.remarkUnwrapImages.enable) {
         processor.use(remarkUnwrapImages)
     }
     processor.use(config.builtInPlugins.remarkUnwrapImages.plugins?.after)
-
-    // ---
 
     processor.use(config.builtInPlugins.remarkRehype.plugins?.before)
     processor.use(remarkRehype, {
@@ -79,15 +70,23 @@ export const transformer = async (
     })
     processor.use(config.builtInPlugins.remarkRehype.plugins?.after)
 
-    // ---
+    processor.use(
+        config.builtInPlugins.rehypeAddCustomMarkdownElementsContext.plugins
+            ?.before
+    )
+    if (config.builtInPlugins.rehypeCustomMarkdownElements.enable) {
+        processor.use(rehypeAddCustomMarkdownElementsContext)
+    }
+    processor.use(
+        config.builtInPlugins.rehypeAddCustomMarkdownElementsContext.plugins
+            ?.after
+    )
 
     processor.use(config.builtInPlugins.rehypeSlug.plugins?.before)
     if (config.builtInPlugins.rehypeSlug.enable) {
         processor.use(rehypeSlug, config.builtInPlugins.rehypeSlug.options)
     }
     processor.use(config.builtInPlugins.rehypeSlug.plugins?.after)
-
-    // ---
 
     processor.use(config.builtInPlugins.rehypeAutolinkHeadings.plugins?.before)
     if (config.builtInPlugins.rehypeAutolinkHeadings.enable) {
@@ -98,8 +97,6 @@ export const transformer = async (
     }
     processor.use(config.builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
 
-    // ---
-
     processor.use(config.builtInPlugins.rehypeShiki.plugins?.before)
     if (config.builtInPlugins.rehypeShiki.enable) {
         processor.use(rehypeShiki, {
@@ -109,8 +106,6 @@ export const transformer = async (
     }
     processor.use(config.builtInPlugins.rehypeShiki.plugins?.after)
 
-    // ---
-
     processor.use(
         config.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before
     )
@@ -119,7 +114,15 @@ export const transformer = async (
         config.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after
     )
 
-    // ---
+    processor.use(
+        config.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before
+    )
+    if (config.builtInPlugins.rehypeCustomMarkdownElements.enable) {
+        processor.use(rehypeCustomMarkdownElements)
+    }
+    processor.use(
+        config.builtInPlugins.rehypeCustomMarkdownElements.plugins?.after
+    )
 
     processor.use(config.builtInPlugins.rehypeExternalLinks.plugins?.before)
     if (config.builtInPlugins.rehypeExternalLinks.enable) {
@@ -139,29 +142,14 @@ export const transformer = async (
     }
     processor.use(config.builtInPlugins.rehypeExternalLinks.plugins?.after)
 
-    // ---
-
-    processor.use(
-        config.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before
-    )
-    if (config.markdownElements.length) {
-        processor.use(rehypeCustomMarkdownElements, config)
-    }
-    processor.use(
-        config.builtInPlugins.rehypeCustomMarkdownElements.plugins?.after
-    )
-
-    // ---
-
     processor.use(config.builtInPlugins.rehypeStringify.plugins?.before)
     processor.use(rehypeStringify, {
         ...config.builtInPlugins.rehypeStringify.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
+        allowParseErrors: true,
     })
     processor.use(config.builtInPlugins.rehypeStringify.plugins?.after)
-
-    // ---
 
     const result = processor.process(markupPreprocessorOptions.content)
 

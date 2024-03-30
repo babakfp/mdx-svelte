@@ -1,26 +1,52 @@
-import { EXIT, visit } from "unist-util-visit"
 import type { Transformer } from "unified"
 import type { Root } from "hast"
+import { visit, SKIP } from "unist-util-visit"
 
-import { ConfigOutput } from "./types.js"
-import { getContextImportCode } from "./getContextImportCode.js"
-
-export default (config: ConfigOutput): Transformer<Root> => {
+export default (): Transformer<Root> => {
     return (tree) => {
-        visit(tree, "element", (node) => {
-            if (config.markdownElements.includes(node.tagName)) {
-                node.tagName = `MarkdownElements.${node.tagName}`
-            }
-        })
+        visit(tree, "element", (node, index, parent) => {
+            if (!parent || index === undefined) return
+            if (node.tagName === "style" || node.tagName === "script") return
 
-        visit(tree, "raw", (node) => {
-            if (node.value.includes("</script>")) {
-                node.value = node.value.replace(
-                    "</script>",
-                    getContextImportCode + "</script>"
-                )
-                return EXIT
-            }
+            delete node.position
+
+            parent.children.splice(
+                index,
+                1,
+                {
+                    type: "raw",
+                    value: `{#if "${node.tagName}" in MarkdownElements}`,
+                },
+                {
+                    ...node,
+                    tagName: "svelte:component",
+                    properties: {
+                        ...node.properties,
+                        this: `{MarkdownElements.${node.tagName}}`,
+                    },
+                },
+                {
+                    type: "raw",
+                    value: "{:else}",
+                },
+                {
+                    ...node,
+                    tagName: "svelte:element",
+                    properties: {
+                        ...node.properties,
+                        this: node.tagName,
+                    },
+                },
+                {
+                    type: "raw",
+                    value: "{/if}",
+                }
+            )
+
+            if (node.tagName === "code" || node.tagName === "pre")
+                return [SKIP, index + 5]
+
+            return index + 5
         })
     }
 }

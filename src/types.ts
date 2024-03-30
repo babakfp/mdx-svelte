@@ -62,7 +62,6 @@ const CustomPluginsSchema = v.optional(
  */
 export const ConfigSchema = v.optional(
     v.object({
-        markdownElements: v.optional(v.array(v.string()), []),
         /** File extensions to be preprocessed. */
         extensions: v.optional(
             v.array(
@@ -152,6 +151,17 @@ export const ConfigSchema = v.optional(
                 ),
 
                 /**
+                 * A custom plugin that enables customizing HTML elements with Svelte components.
+                 * If `rehypeCustomMarkdownElements` is disabled, this plugin will be disabled too.
+                 */
+                rehypeAddCustomMarkdownElementsContext: v.optional(
+                    v.object({
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
+
+                /**
                  * [View on NPM](https://npmjs.com/package/rehype-slug).
                  */
                 rehypeSlug: v.optional(
@@ -200,6 +210,18 @@ export const ConfigSchema = v.optional(
                 ),
 
                 /**
+                 * A custom plugin that enables customizing HTML elements with Svelte components.
+                 */
+                rehypeCustomMarkdownElements: v.optional(
+                    v.object({
+                        /** @default false */
+                        enable: v.optional(v.boolean(), false),
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
+
+                /**
                  * [View on NPM](https://npmjs.com/package/rehype-external-links).
                  * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
                  */
@@ -207,17 +229,6 @@ export const ConfigSchema = v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
-
-                /**
-                 * A custom plugin that enables customizing HTML elements with Svelte components.
-                 * Can't be disabled.
-                 */
-                rehypeCustomMarkdownElements: v.optional(
-                    v.object({
                         plugins: CustomPluginsSchema,
                     }),
                     {}

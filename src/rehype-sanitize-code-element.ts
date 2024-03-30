@@ -25,6 +25,7 @@ export default (): Transformer<Root> => {
             if (node.tagName !== "code") return
 
             visit(node, "text", (childNode) => {
+                // TODO: Replace parent child instead of modifying the type.
                 // @ts-expect-error
                 childNode.type = "raw"
 
