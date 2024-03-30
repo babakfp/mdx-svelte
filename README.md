@@ -6,6 +6,7 @@
 -   [ ] A Prettier plugin for Svelte inside Markdown.
 -   [ ] Should the `declarationMap` option be set to `true` in `tsconfig.json`.
 -   [ ] Maybe edit `DEFAULT_EXTENSIONS` to `[".md", ".svelte.md"]`.
+-   [ ] Add `mdsvex` to `svelte-in-markdown` guide.
 
 ## Note
 
