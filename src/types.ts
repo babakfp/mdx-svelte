@@ -43,8 +43,7 @@ export type ConfigCallbacks = {
      * Use this to build your own transformer.
      */
     onTransform?: (
-        markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
-        config?: any
+        markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>
     ) => Promise<{
         content: string
         data: MarkdownData
