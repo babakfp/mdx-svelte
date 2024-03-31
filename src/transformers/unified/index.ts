@@ -5,6 +5,7 @@ import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
+import remarkToc from "remark-toc"
 import remarkRehype from "remark-rehype"
 import rehypeMarkdownElementsContext from "./plugins/rehype-markdown-elements-context.js" // No `Options` export.
 import rehypeSlug from "rehype-slug"
@@ -67,6 +68,12 @@ export const transformer = (async (
         processor.use(remarkUnwrapImages)
     }
     processor.use(config_.builtInPlugins.remarkUnwrapImages.plugins?.after)
+
+    processor.use(config_.builtInPlugins.remarkToc.plugins?.before)
+    if (config_.builtInPlugins.remarkToc.enable) {
+        processor.use(remarkToc)
+    }
+    processor.use(config_.builtInPlugins.remarkToc.plugins?.after)
 
     processor.use(config_.builtInPlugins.remarkRehype.plugins?.before)
     processor.use(remarkRehype, {

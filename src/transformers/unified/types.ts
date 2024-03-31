@@ -4,6 +4,7 @@ import type { Preset } from "unified"
 import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
 import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
 import type { Options as RemarkGfmOptions } from "remark-gfm"
+import type { Options as RemarkTocOptions } from "remark-toc"
 import type { Options as RemarkRehypeOptions } from "remark-rehype"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
 import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings"
@@ -66,6 +67,18 @@ export const ConfigSchema = v.optional(
                  * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
                  */
                 remarkUnwrapImages: v.optional(
+                    v.object({
+                        /** @default true */
+                        enable: v.optional(v.boolean(), true),
+                        plugins: CustomPluginsSchema,
+                    }),
+                    {}
+                ),
+
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-toc).
+                 */
+                remarkToc: v.optional(
                     v.object({
                         /** @default true */
                         enable: v.optional(v.boolean(), true),
@@ -234,6 +247,9 @@ type BuiltInPluginsOptions = {
         }
         remarkGfm: {
             options?: RemarkGfmOptions
+        }
+        remarkToc: {
+            options?: RemarkTocOptions
         }
         remarkRehype: {
             options?: OmittedRemarkRehypeOptions

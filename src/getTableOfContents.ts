@@ -15,6 +15,9 @@ export type Options = (
       }
 ) & { headingLevels?: (1 | 2 | 3 | 4 | 5 | 6)[] }
 
+/**
+ * When using this way of getting the TOC, please remember to disable `remarkToc` built-in Unified plugin.
+ */
 export const getTableOfContents = (options?: Options) => {
     const headingsDataItems: TableOfContents = []
 

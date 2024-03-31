@@ -25,6 +25,7 @@
         "remark-gfm": "4.0.0",
         "remark-parse": "11.0.0",
         "remark-rehype": "11.1.0",
+        "remark-toc": "9.0.0",
         "remark-unwrap-images": "4.0.0",
         "stringify-entities": "4.0.3",
         "typescript": "5.4.2",
