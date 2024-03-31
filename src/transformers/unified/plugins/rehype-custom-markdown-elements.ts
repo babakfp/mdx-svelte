@@ -15,14 +15,14 @@ export default (): Transformer<Root> => {
                 1,
                 {
                     type: "raw",
-                    value: `{#if "${node.tagName}" in MarkdownElements}`,
+                    value: `{#if "${node.tagName}" in MarkdownElements_}`,
                 },
                 {
                     ...node,
                     tagName: "svelte:component",
                     properties: {
                         ...node.properties,
-                        this: `{MarkdownElements.${node.tagName}}`,
+                        this: `{MarkdownElements_.${node.tagName}}`,
                     },
                 },
                 {
