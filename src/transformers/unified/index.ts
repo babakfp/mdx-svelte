@@ -6,12 +6,12 @@ import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
 import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
 import remarkRehype from "remark-rehype"
-import rehypeAddCustomMarkdownElementsContext from "./plugins/rehype-add-custom-markdown-elements-context.js" // No `Options` export.
+import rehypeMarkdownElementsContext from "./plugins/rehype-markdown-elements-context.js" // No `Options` export.
 import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
-import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js" // No `Options` export.
+import rehypeMarkdownElements from "./plugins/rehype-markdown-elements.js" // No `Options` export.
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
 
@@ -76,15 +76,13 @@ export const transformer = (async (
     processor.use(config_.builtInPlugins.remarkRehype.plugins?.after)
 
     processor.use(
-        config_.builtInPlugins.rehypeAddCustomMarkdownElementsContext.plugins
-            ?.before
+        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.before
     )
-    if (config_.builtInPlugins.rehypeCustomMarkdownElements.enable) {
-        processor.use(rehypeAddCustomMarkdownElementsContext)
+    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
+        processor.use(rehypeMarkdownElementsContext)
     }
     processor.use(
-        config_.builtInPlugins.rehypeAddCustomMarkdownElementsContext.plugins
-            ?.after
+        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.after
     )
 
     processor.use(config_.builtInPlugins.rehypeSlug.plugins?.before)
@@ -119,15 +117,11 @@ export const transformer = (async (
         config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after
     )
 
-    processor.use(
-        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before
-    )
-    if (config_.builtInPlugins.rehypeCustomMarkdownElements.enable) {
-        processor.use(rehypeCustomMarkdownElements)
+    processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
+    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
+        processor.use(rehypeMarkdownElements)
     }
-    processor.use(
-        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.after
-    )
+    processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
 
     processor.use(config_.builtInPlugins.rehypeExternalLinks.plugins?.before)
     if (config_.builtInPlugins.rehypeExternalLinks.enable) {

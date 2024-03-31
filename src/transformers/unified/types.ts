@@ -87,9 +87,9 @@ export const ConfigSchema = v.optional(
 
                 /**
                  * A custom plugin that enables customizing HTML elements with Svelte components.
-                 * If `rehypeCustomMarkdownElements` is disabled, this plugin will be disabled too.
+                 * If `rehypeMarkdownElements` is disabled, this plugin will be disabled too.
                  */
-                rehypeAddCustomMarkdownElementsContext: v.optional(
+                rehypeMarkdownElementsContext: v.optional(
                     v.object({
                         plugins: CustomPluginsSchema,
                     }),
@@ -147,7 +147,7 @@ export const ConfigSchema = v.optional(
                 /**
                  * A custom plugin that enables customizing HTML elements with Svelte components.
                  */
-                rehypeCustomMarkdownElements: v.optional(
+                rehypeMarkdownElements: v.optional(
                     v.object({
                         /** @default false */
                         enable: v.optional(v.boolean(), false),
