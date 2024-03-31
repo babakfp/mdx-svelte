@@ -6,6 +6,7 @@ export type TableOfContents = {
 
 export type Options = (
     | {
+          /** @default document.body */
           containerElement?: Element
           containerSelector?: never // WTF TypeScript!
       }
@@ -13,7 +14,13 @@ export type Options = (
           containerElement?: never // WTF TypeScript!
           containerSelector?: `#${string}` | `.${string}`
       }
-) & { headingLevels?: (1 | 2 | 3 | 4 | 5 | 6)[] }
+) & {
+    /**
+     * @default
+     * [1, 2, 3, 4, 5, 6]
+     */
+    headingLevels?: (1 | 2 | 3 | 4 | 5 | 6)[]
+}
 
 /**
  * When using this way of getting the TOC, please remember to disable `remarkToc` built-in Unified plugin.
