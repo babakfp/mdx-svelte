@@ -6,7 +6,7 @@ import type { Root } from "hast"
 import {
     HTML_DANGEROUS_CHARACTERS,
     SVELTE_DANGEROUS_CHARACTERS,
-} from "./constants.js"
+} from "../constants.js"
 
 /*
 This code resolves an issue with the Rehype Stringify plugin. 

@@ -6,7 +6,7 @@ import type {
     RequiredNonNullable,
 } from "./types.js"
 import { isFileIgnored } from "./isFileIgnored.js"
-import { transformer } from "./transformer.js"
+import { transformer } from "./transformers/unified/index.js"
 import { modifyFinalHtml } from "./modifyFinalHtml.js"
 
 export const markupPreprocessor = (
@@ -21,10 +21,14 @@ export const markupPreprocessor = (
 
         if (callbacks?.onFileIgnore?.(options_)) return
 
-        const markdownResult = await transformer(config, options_)
+        const markdownResult =
+            (await callbacks?.onTransform?.(options_)) ||
+            (await transformer(options_))
+
+        if (!markdownResult) return
 
         const html = modifyFinalHtml(
-            markdownResult.value.toString(),
+            markdownResult.content,
             markdownResult.data
         )
 
