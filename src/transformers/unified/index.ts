@@ -19,7 +19,7 @@ import rehypeStringify from "rehype-stringify"
 import type {
     RequiredNonNullable,
     MarkupPreprocessorOptions,
-    ConfigCallbacks,
+    ConfigInput as SvelteInMarkdownConfigInput,
 } from "../../types.js"
 import { ConfigSchema, type ConfigInput, type ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
@@ -163,4 +163,4 @@ export const transformer = (async (
         content: result.value.toString(),
         data: result.data,
     }
-}) satisfies ConfigCallbacks["onTransform"]
+}) satisfies SvelteInMarkdownConfigInput["onTransform"]

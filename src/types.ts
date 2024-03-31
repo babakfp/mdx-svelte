@@ -28,7 +28,7 @@ export type MarkupPreprocessorOptions = Parameters<MarkupPreprocessor>[0]
 /**
  * Svelte in Markdown config callback options.
  */
-export type ConfigCallbacks = {
+type ConfigCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
      * It runs after `allowNodeModules` and `allowNodeModulesItems` options.
@@ -80,13 +80,13 @@ export const ConfigSchema = v.optional(
                 []
             ),
         },
-        v.never()
+        v.unknown()
     ),
     {}
 )
 
-export type ConfigInput = v.Input<typeof ConfigSchema>
-export type ConfigOutput = v.Output<typeof ConfigSchema>
+export type ConfigInput = v.Input<typeof ConfigSchema> & ConfigCallbacks
+export type ConfigOutput = v.Output<typeof ConfigSchema> & ConfigCallbacks
 
 // TODO: Maybe make it generic
 // Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
