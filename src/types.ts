@@ -80,18 +80,9 @@ export const ConfigSchema = v.optional(
     {}
 )
 
-// TODO: [^1]
 export type ConfigInput = v.Input<typeof ConfigSchema>
-
-// TODO: [^1]
 export type ConfigOutput = v.Output<typeof ConfigSchema>
 
 // TODO: Maybe make it generic
 // Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
 export type MarkdownData = Data
-
-/*
-[^1]: TypeScript types with Valibot
-- This is how to use TypeScript types with Valibot: https://github.com/fabian-hiller/valibot/discussions/477.
-- Whenever https://github.com/microsoft/TypeScript/issues/42873 fixes, move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
-*/
