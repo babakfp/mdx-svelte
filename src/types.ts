@@ -39,6 +39,9 @@ export type ConfigCallbacks = {
         options: RequiredNonNullable<MarkupPreprocessorOptions>
     ) => boolean
 
+    /**
+     * Use this to build your own transformer.
+     */
     onTransform?: (
         markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
         config?: any
