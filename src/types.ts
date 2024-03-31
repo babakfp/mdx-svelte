@@ -54,31 +54,34 @@ export type ConfigCallbacks = {
  * Svelte in Markdown config options.
  */
 export const ConfigSchema = v.optional(
-    v.object({
-        /** File extensions to be preprocessed. */
-        extensions: v.optional(
-            v.array(
-                v.string([
-                    v.minLength(1),
-                    v.regex(
-                        /^\.[a-z]+(\.[a-z]+)?$/,
-                        `Invalid file extension! Valid examples: ${JSON.stringify(
-                            DEFAULT_EXTENSIONS
-                        )}.`
-                    ),
-                ]),
-                [v.minLength(1)]
+    v.object(
+        {
+            /** File extensions to be preprocessed. */
+            extensions: v.optional(
+                v.array(
+                    v.string([
+                        v.minLength(1),
+                        v.regex(
+                            /^\.[a-z]+(\.[a-z]+)?$/,
+                            `Invalid file extension! Valid examples: ${JSON.stringify(
+                                DEFAULT_EXTENSIONS
+                            )}.`
+                        ),
+                    ]),
+                    [v.minLength(1)]
+                ),
+                DEFAULT_EXTENSIONS
             ),
-            DEFAULT_EXTENSIONS
-        ),
-        /** Should files in packages located in the `node_modules` folder be preprocessed? */
-        allowNodeModules: v.optional(v.boolean(), false),
-        /** Include the name of the installed packages you want to exclude from being preprocessed. */
-        allowNodeModulesItems: v.optional(
-            v.array(v.string([v.minLength(1)])),
-            []
-        ),
-    }),
+            /** Should files in packages located in the `node_modules` folder be preprocessed? */
+            allowNodeModules: v.optional(v.boolean(), false),
+            /** Include the name of the installed packages you want to exclude from being preprocessed. */
+            allowNodeModulesItems: v.optional(
+                v.array(v.string([v.minLength(1)])),
+                []
+            ),
+        },
+        v.never()
+    ),
     {}
 )
 

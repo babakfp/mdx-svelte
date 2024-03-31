@@ -13,189 +13,243 @@ import type { Options as RehypeExternalLinksOptions } from "rehype-external-link
 import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
 const CustomPluginsSchema = v.optional(
-    v.object({
-        before: v.optional(v.special<Preset>(() => true)),
-        after: v.optional(v.special<Preset>(() => true)),
-    })
+    v.object(
+        {
+            before: v.optional(v.special<Preset>(() => true)),
+            after: v.optional(v.special<Preset>(() => true)),
+        },
+        v.never()
+    )
 )
 
 export const ConfigSchema = v.optional(
-    v.object({
-        builtInPlugins: v.optional(
-            v.object({
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-frontmatter).
-                 */
-                remarkFrontmatter: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
-                        /** Only `"yaml"` is supported for now. */
-                        lang: v.optional(v.union([v.literal("yaml")]), "yaml"),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+    v.object(
+        {
+            builtInPlugins: v.optional(
+                v.object(
+                    {
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-frontmatter).
+                         */
+                        remarkFrontmatter: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
+                                    /** Only `"yaml"` is supported for now. */
+                                    lang: v.optional(
+                                        v.union([v.literal("yaml")]),
+                                        "yaml"
+                                    ),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
-                 * If `remarkFrontmatter` is disabled, this plugin will be disabled too.
-                 */
-                remarkFrontmatterYaml: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
+                         * If `remarkFrontmatter` is disabled, this plugin will be disabled too.
+                         */
+                        remarkFrontmatterYaml: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-gfm).
-                 */
-                remarkGfm: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-gfm).
+                         */
+                        remarkGfm: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
-                 */
-                remarkUnwrapImages: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
+                         */
+                        remarkUnwrapImages: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-toc).
-                 */
-                remarkToc: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-toc).
+                         */
+                        remarkToc: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/remark-rehype).
-                 * Can't be disabled.
-                 */
-                remarkRehype: v.optional(
-                    v.object({
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/remark-rehype).
+                         * Can't be disabled.
+                         */
+                        remarkRehype: v.optional(
+                            v.object(
+                                {
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * A custom plugin that enables customizing HTML elements with Svelte components.
-                 * If `rehypeMarkdownElements` is disabled, this plugin will be disabled too.
-                 */
-                rehypeMarkdownElementsContext: v.optional(
-                    v.object({
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * A custom plugin that enables customizing HTML elements with Svelte components.
+                         * If `rehypeMarkdownElements` is disabled, this plugin will be disabled too.
+                         */
+                        rehypeMarkdownElementsContext: v.optional(
+                            v.object(
+                                {
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/rehype-slug).
-                 */
-                rehypeSlug: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/rehype-slug).
+                         */
+                        rehypeSlug: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
-                 */
-                rehypeAutolinkHeadings: v.optional(
-                    v.object({
-                        /** @default false */
-                        enable: v.optional(v.boolean(), false),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
+                         */
+                        rehypeAutolinkHeadings: v.optional(
+                            v.object(
+                                {
+                                    /** @default false */
+                                    enable: v.optional(v.boolean(), false),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
-                 */
-                rehypeShiki: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
+                         */
+                        rehypeShiki: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * A custom plugin that sanitizes the some characters in code elements.
-                 * Important: This plugin changes the `type` property of `text` nodes to `"raw"`.
-                 * Can't be disabled.
-                 */
-                rehypeSanitizeCodeElement: v.optional(
-                    v.object({
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * A custom plugin that sanitizes the some characters in code elements.
+                         * Important: This plugin changes the `type` property of `text` nodes to `"raw"`.
+                         * Can't be disabled.
+                         */
+                        rehypeSanitizeCodeElement: v.optional(
+                            v.object(
+                                {
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * A custom plugin that enables customizing HTML elements with Svelte components.
-                 */
-                rehypeMarkdownElements: v.optional(
-                    v.object({
-                        /** @default false */
-                        enable: v.optional(v.boolean(), false),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * A custom plugin that enables customizing HTML elements with Svelte components.
+                         */
+                        rehypeMarkdownElements: v.optional(
+                            v.object(
+                                {
+                                    /** @default false */
+                                    enable: v.optional(v.boolean(), false),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/rehype-external-links).
-                 * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
-                 */
-                rehypeExternalLinks: v.optional(
-                    v.object({
-                        /** @default true */
-                        enable: v.optional(v.boolean(), true),
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
-                ),
+                        /**
+                         * [View on NPM](https://npmjs.com/package/rehype-external-links).
+                         * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
+                         */
+                        rehypeExternalLinks: v.optional(
+                            v.object(
+                                {
+                                    /** @default true */
+                                    enable: v.optional(v.boolean(), true),
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
 
-                /**
-                 * [View on NPM](https://npmjs.com/package/rehype-stringify).
-                 * Can't be disabled.
-                 */
-                rehypeStringify: v.optional(
-                    v.object({
-                        plugins: CustomPluginsSchema,
-                    }),
-                    {}
+                        /**
+                         * [View on NPM](https://npmjs.com/package/rehype-stringify).
+                         * Can't be disabled.
+                         */
+                        rehypeStringify: v.optional(
+                            v.object(
+                                {
+                                    plugins: CustomPluginsSchema,
+                                },
+                                v.unknown()
+                            ),
+                            {}
+                        ),
+                    },
+                    v.never()
                 ),
-            }),
-            {}
-        ),
-    }),
+                {}
+            ),
+        },
+        v.never()
+    ),
     {}
 )
 
