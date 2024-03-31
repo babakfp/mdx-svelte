@@ -2,7 +2,7 @@ import type { Transformer } from "unified"
 import type { Root } from "hast"
 import { visit, EXIT } from "unist-util-visit"
 
-import { getContextImportCode } from "../../../getContextImportCode.js"
+import { getMarkdownElementsContext } from "../../../getMarkdownElementsContext.js"
 
 export default (): Transformer<Root> => {
     return (tree) => {
@@ -10,7 +10,7 @@ export default (): Transformer<Root> => {
             if (node.value.includes("</script>")) {
                 node.value = node.value.replace(
                     "</script>",
-                    getContextImportCode + "</script>"
+                    getMarkdownElementsContext + "</script>"
                 )
                 return EXIT
             }
