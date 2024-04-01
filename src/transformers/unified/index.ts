@@ -13,6 +13,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
 import rehypeMarkdownElements from "./plugins/rehype-markdown-elements.js" // No `Options` export.
+import rehypeMarkdownElementsCheapStrategy from "./plugins/rehype-markdown-elements-cheap-strategy.js" // No `Options` export.
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
 
@@ -20,12 +21,14 @@ import type {
     RequiredNonNullable,
     MarkupPreprocessorOptions,
     ConfigInput as SvelteInMarkdownConfigInput,
+    ConfigOutput as SvelteInMarkdownConfigOutput,
 } from "../../types.js"
 import { ConfigSchema, type ConfigInput, type ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
 export const transformer = (async (
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
+    svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,
     config?: ConfigInput
 ) => {
     // TODO: [^1]
@@ -85,9 +88,7 @@ export const transformer = (async (
     processor.use(
         config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.before
     )
-    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
-        processor.use(rehypeMarkdownElementsContext)
-    }
+    processor.use(rehypeMarkdownElementsContext)
     processor.use(
         config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.after
     )
@@ -125,8 +126,14 @@ export const transformer = (async (
     )
 
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
-    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
+    if (svelteInMarkdownConfig.markdownElementsStrategy === "expensive") {
         processor.use(rehypeMarkdownElements)
+    }
+    if (svelteInMarkdownConfig.markdownElementsStrategy === "cheap") {
+        processor.use(
+            rehypeMarkdownElementsCheapStrategy,
+            svelteInMarkdownConfig
+        )
     }
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
 

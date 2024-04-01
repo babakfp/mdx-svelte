@@ -43,7 +43,8 @@ type ConfigCallbacks = {
      * Use this to build your own transformer.
      */
     onTransform?: (
-        markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>
+        markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
+        config: ConfigOutput
     ) => Promise<{
         content: string
         data: MarkdownData
@@ -72,6 +73,13 @@ export const ConfigSchema = v.optional(
                 ),
                 DEFAULT_EXTENSIONS
             ),
+            markdownElementsStrategy: v.optional(
+                v.union([v.literal("cheap"), v.literal("expensive")]),
+                "cheap"
+            ),
+            layouts: v.optional(
+                v.record(v.array(v.string([v.regex(/[a-z]/)])))
+            ),
             /** Should files in packages located in the `node_modules` folder be preprocessed? */
             allowNodeModules: v.optional(v.boolean(), false),
             /** Include the name of the installed packages you want to exclude from being preprocessed. */
@@ -88,6 +96,12 @@ export const ConfigSchema = v.optional(
 export type ConfigInput = v.Input<typeof ConfigSchema> & ConfigCallbacks
 export type ConfigOutput = v.Output<typeof ConfigSchema> & ConfigCallbacks
 
-// TODO: Maybe make it generic
-// Record<"frontmatter", Record<string, unknown>> & Record<string, unknown>
 export type MarkdownData = Data
+
+declare module "vfile" {
+    interface DataMap {
+        frontmatter?: {
+            layout?: string
+        } & Record<string, unknown>
+    }
+}

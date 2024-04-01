@@ -15,8 +15,8 @@ export const markupPreprocessor = (config: ConfigOutput) => {
         if (config?.onFileIgnore?.(options_)) return
 
         const markdownResult =
-            (await config?.onTransform?.(options_)) ||
-            (await transformer(options_))
+            (await config?.onTransform?.(options_, config)) ||
+            (await transformer(options_, config))
 
         if (!markdownResult) return
 
