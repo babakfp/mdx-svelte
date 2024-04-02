@@ -1,5 +1,10 @@
 # Svelte in Markdown
 
+## Limitations
+
+-   To use `{}` in attributes in markdown files, they must be wrapped in quotes. Example: `="{}"`.
+-   Can't use Script Module (A `<script>` tag with a `context="module"` attribute) in markdown files.
+
 ## Todo
 
 -   [ ] Add lots of JSDoc comments.
@@ -9,5 +14,4 @@
 
 ## Note
 
--   Currently, you can't use `<script context="module"` in markdown files. If you need this feature, just let me know, and I'll fix it.
 -   We're not directly using the package called `"vfile"`, but it's automatically helping out by providing types.
