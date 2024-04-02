@@ -2,7 +2,6 @@ import type { MarkdownData } from "./types.js"
 
 export const getMarkdownDataExportCode = (markdownData: MarkdownData) => {
     return `
-        export const markdownData = ${JSON.stringify(markdownData)};
-        const { ${Object.keys(markdownData).join(", ")} } = markdownData;
+        export const markdownData_ = ${JSON.stringify(markdownData)};
     `
 }
