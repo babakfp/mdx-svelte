@@ -32,7 +32,7 @@ export type Options = (
  *     import { onMount } from "svelte"
  *     import { page } from "$app/stores"
  *     import { browser } from "$app/environment"
- *     import { getTableOfContents } from "svelte-in-markdown/getTableOfContents"
+ *     import { getTableOfContents } from "svelte-in-markdown"
  *
  *     export let isOpen: boolean
  *     export let name: string
