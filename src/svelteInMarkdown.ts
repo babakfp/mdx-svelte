@@ -23,6 +23,17 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  *     ]
  * }
  * ```
+ *
+ * Add this into your layout file (`+layout.svelte`) to get frontmatter data working:
+ *
+ * ```ts
+ * <script lang="ts">
+ *     import { setContext } from "svelte"
+ *
+ *     setContext("markdownElements_", markdownElements)
+ * //                              ^ (important)
+ * </script>
+ * ```
  */
 export const svelteInMarkdown = (config?: ConfigInput) => {
     // TODO: [^1]
