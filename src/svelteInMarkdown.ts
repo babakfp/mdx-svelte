@@ -13,9 +13,10 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  * Add the following into the `svelte.config.js` file (in a SvelteKit project):
  *
  * ```ts
- * import { svelteInMarkdown } from "svelte-in-markdown"
+ * import { svelteInMarkdown, DEFAULT_EXTENSIONS } from "svelte-in-markdown"
  *
  * const config = {
+ *     extensions: [".svelte", ...DEFAULT_EXTENSIONS],
  *     preprocess: [
  *         vitePreprocess(),
  *         svelteInMarkdown(),
