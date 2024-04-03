@@ -14,10 +14,15 @@ export const isFileIgnored = (
         return true
     }
 
+    let isContainsExtension = false
     for (const extension of config.extensions) {
-        if (!filename.endsWith(extension)) {
-            return true
+        if (filename.endsWith(extension)) {
+            isContainsExtension = true
+            break
         }
+    }
+    if (!isContainsExtension) {
+        return true
     }
 
     return false
