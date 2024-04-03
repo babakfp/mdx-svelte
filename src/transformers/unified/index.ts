@@ -26,6 +26,9 @@ import type {
 import { ConfigSchema, type ConfigInput, type ConfigOutput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
+/**
+ * This is a transformer for that used unified ecosystem.
+ */
 export const transformer = (async (
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
     svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,

@@ -15,7 +15,10 @@ import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 const CustomPluginsSchema = v.optional(
     v.object(
         {
+            /** Useful to add a plugin before this plugin. */
             before: v.optional(v.special<Preset>(() => true)),
+
+            /** Useful to add a plugin after this plugin. */
             after: v.optional(v.special<Preset>(() => true)),
         },
         v.never()
@@ -28,20 +31,25 @@ export const ConfigSchema = v.optional(
             builtInPlugins: v.optional(
                 v.object(
                     {
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-frontmatter).
-                         */
+                        /** [View on NPM](https://npmjs.com/package/remark-frontmatter). */
                         remarkFrontmatter: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
                                     // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
-                                    /** Only `"yaml"` is supported for now. */
+                                    /**
+                                     * **Important**: Don't change!
+                                     *
+                                     * Only `"yaml"` is supported for now.
+                                     */
                                     lang: v.optional(
                                         v.union([v.literal("yaml")]),
                                         "yaml"
                                     ),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -58,6 +66,8 @@ export const ConfigSchema = v.optional(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -65,14 +75,14 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-gfm).
-                         */
+                        /** [View on NPM](https://npmjs.com/package/remark-gfm). */
                         remarkGfm: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -80,14 +90,14 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-unwrap-images).
-                         */
+                        /** [View on NPM](https://npmjs.com/package/remark-unwrap-images). */
                         remarkUnwrapImages: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -97,12 +107,26 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/remark-toc).
+                         *
+                         * If you are importing markdown files into other markdown files, Remark Toc won't be able to extract the headings of those components.
+                         * In order to fix this issue, use need to select the headings on runtime, which there is a built-in plugin that you can use.
+                         * Don't forget to disable this plugin first:
+                         *
+                         * ```ts
+                         * {
+                         *     remarkToc: {
+                         *         enable: false,
+                         *     },
+                         * }
+                         * ```
                          */
                         remarkToc: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -117,6 +141,7 @@ export const ConfigSchema = v.optional(
                         remarkRehype: v.optional(
                             v.object(
                                 {
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -124,12 +149,11 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /**
-                         * Can't be disabled.
-                         */
+                        /** Can't be disabled. */
                         rehypeMarkdownElementsContext: v.optional(
                             v.object(
                                 {
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -137,14 +161,14 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/rehype-slug).
-                         */
+                        /** [View on NPM](https://npmjs.com/package/rehype-slug). */
                         rehypeSlug: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -154,12 +178,42 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
+                         *
+                         * ## Example usage
+                         *
+                         * ```ts
+                         * {
+                         *     rehypeAutolinkHeadings: {
+                         *         enable: true,
+                         *         options: {
+                         *             behavior: "append",
+                         *             properties: {
+                         *                 class: "heading-permalink",
+                         *                 "aria-label": "Permalink to this headline",
+                         *             },
+                         *             content() {
+                         *                 // import { fromHtml } from "svelte-in-markdown/transformers/unified/hast-util-from-html"
+                         *                 return fromHtml(
+                         *                     `<svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"/></svg>`,
+                         *                     {
+                         *                         fragment: true,
+                         * //                      ^^^^^^^^^^^^^^^ (important)
+                         *                     },
+                         *                 ).children
+                         *             },
+                         *             test: ["h2", "h3", "h4", "h5", "h6"],
+                         *         },
+                         *     },
+                         * }
+                         * ```
                          */
                         rehypeAutolinkHeadings: v.optional(
                             v.object(
                                 {
                                     /** @default false */
                                     enable: v.optional(v.boolean(), false),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -169,12 +223,34 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
+                         *
+                         * ## Example usage
+                         *
+                         * ```ts
+                         * {
+                         *     rehypeShiki: {
+                         *         options: {
+                         *             theme: "rose-pine-moon",
+                         *             langs: [
+                         *                 "html",
+                         *                 "css",
+                         *                 "js",
+                         *                 "svelte",
+                         *                 "php",
+                         *                 "bash",
+                         *             ],
+                         *         },
+                         *     },
+                         * }
+                         * ```
                          */
                         rehypeShiki: v.optional(
                             v.object(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -184,12 +260,15 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * A custom plugin that sanitizes the some characters in code elements.
-                         * Important: This plugin changes the `type` property of `text` nodes to `"raw"`.
+                         *
+                         * **Important**: This plugin changes the `type` property of `text` nodes to `"raw"`.
+                         *
                          * Can't be disabled.
                          */
                         rehypeSanitizeCodeElement: v.optional(
                             v.object(
                                 {
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -205,6 +284,7 @@ export const ConfigSchema = v.optional(
                         rehypeMarkdownElements: v.optional(
                             v.object(
                                 {
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -221,6 +301,8 @@ export const ConfigSchema = v.optional(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
@@ -235,6 +317,7 @@ export const ConfigSchema = v.optional(
                         rehypeStringify: v.optional(
                             v.object(
                                 {
+                                    /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
                                 v.unknown()
