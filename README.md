@@ -2,6 +2,8 @@
 
 A preprocessor that allows you to write Svelte in Markdown.
 
+[![NPM](https://img.shields.io/npm/v/svelte-in-markdown?style=for-the-badge&label=NPM&color=%23cb0000)](https://www.npmjs.com/package/svelte-in-markdown "View on NPM")
+
 ## What is this?
 
 This library exports a function that acts as a preprocessor for Svelte. It transforms Markdown files into HTML, preparing them for further processing by Svelte or other preprocessors.
