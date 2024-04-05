@@ -15,7 +15,7 @@ This library is an alternative to ["mdsvex"](https://github.com/pngwn/mdsvex).
 This library is useful when you want to display markdown content on a web page.
 
 > [!IMPORTANT]
-> This library is meant to be using in a SvelteKit project.
+> This library is built to be used in a SvelteKit project.
 
 ## What motivated me to create this?
 
