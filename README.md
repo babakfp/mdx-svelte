@@ -91,7 +91,7 @@ In this context, transformers are functions that take a string as an argument an
 
 ## Contributions
 
-Feel welcome to open issues and PRs, fix things related to type safety and documentation, jsDoc comments, and more. It's OK to make mistakes and not to know everything.
+Feel welcome to open issues and PRs, and fix things related to type safety, documentation, jsDoc comments, etc. It's OK to make mistakes and not to know everything.
 
 ## Todo
 
