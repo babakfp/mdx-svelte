@@ -24,14 +24,14 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  * }
  * ```
  *
- * Add this into your layout file (`+layout.svelte`) to get frontmatter data working:
+ * Add this into your layout file (`+layout.svelte`) to get the frontmatter data working:
  *
  * ```ts
  * <script lang="ts">
  *     import { setContext } from "svelte"
  *
  *     setContext("markdownElements_", markdownElements)
- * //                              ^ (important)
+ *     //                          ^ IMPORTANT
  * </script>
  * ```
  */

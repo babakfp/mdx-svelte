@@ -182,7 +182,7 @@ export const ConfigSchema = v.optional(
              *     import { setContext } from "svelte"
              *
              *     setContext("markdownElements_", markdownElements)
-             * //                              ^ (important)
+             *     //                          ^ IMPORTANT
              * </script>
              *
              * <slot />
