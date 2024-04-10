@@ -1,6 +1,7 @@
 import * as v from "valibot"
 import { unified } from "unified"
 import remarkParse from "remark-parse" // Options not needed because `Options: {}`.
+import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
@@ -40,6 +41,8 @@ export const transformer = (async (
     const processor = unified()
 
     processor.use(remarkParse)
+
+    processor.use(remarkSvelteSpecialTags)
 
     processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.before)
     if (config_.builtInPlugins.remarkFrontmatter.enable) {
