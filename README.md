@@ -78,12 +78,16 @@ Add this into your layout file (`+layout.svelte`) to get the frontmatter data wo
 
 ## Limitations
 
--   Only valid HTML syntax is allowed in markdown files, meaning no syntax, specific to Svelte, like `<svelte:` tags, etc.
--   To use `{}` in attributes in markdown files, they must be wrapped in quotes. Example: `="{}"`.
--   Can't use Script Module (A `<script>` tag with a `context="module"` attribute) in markdown files.
--   You can only use it in SvelteKit projects. (at the moment, I don't care to fix).
-    -   It depends on the routing system for passing the markdown data (like the frontmatter data) and custom markdown elements functionality into markdown files. This can be fixed by doing what ["mdsvex"](https://github.com/pngwn/mdsvex) does.
--   Prettier cannot format Svelte code embedded within Markdown files, and there is a lack of IntelliSense support for it as well.
+-   Can't use The Module Script (`<script>` tag with `context="module"` attribute) in markdown files.
+-   Only works in SvelteKit projects.
+-   Prettier can't format Svelte code in Markdown files (it formats it like its markdown content), and there's no IntelliSense support.
+
+### Somewhat Fixed Limitations
+
+These were previously part of the limitations, but they've been addressed. However, more testing may be needed, so feel free to report any problems you encounter.
+
+-   Only valid HTML syntax is allowed in Markdown files (no Svelte-specific syntax like `<svelte:` tags).
+-   `{}` in attributes must be wrapped in quotes (e.g., `="{}"`).
 
 ## Transformers
 
