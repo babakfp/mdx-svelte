@@ -27,7 +27,7 @@ import type {
     ConfigInput as SvelteInMarkdownConfigInput,
     ConfigOutput as SvelteInMarkdownConfigOutput,
 } from "../../types.js"
-import { ConfigSchema, type ConfigInput, type ConfigOutput } from "./types.js"
+import { ConfigSchema, type ConfigInput } from "./types.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
 /**
@@ -38,8 +38,7 @@ export const transformer = (async (
     svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,
     config?: ConfigInput
 ) => {
-    // TODO: [^1]
-    const config_: ConfigOutput = v.parse(ConfigSchema, config)
+    const config_ = v.parse(ConfigSchema, config)
 
     const processor = unified()
 

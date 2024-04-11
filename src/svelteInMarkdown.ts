@@ -1,7 +1,7 @@
 import * as v from "valibot"
 import type { PreprocessorGroup } from "svelte/compiler"
 
-import { type ConfigInput, type ConfigOutput, ConfigSchema } from "./types.js"
+import { type ConfigInput, ConfigSchema } from "./types.js"
 import { markupPreprocessor } from "./markupPreprocessor.js"
 
 /**
@@ -36,8 +36,7 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  * ```
  */
 export const svelteInMarkdown = (config?: ConfigInput) => {
-    // TODO: [^1]
-    const config_: ConfigOutput = v.parse(ConfigSchema, config)
+    const config_ = v.parse(ConfigSchema, config)
 
     return {
         name: "svelte-in-markdown",

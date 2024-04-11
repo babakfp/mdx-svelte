@@ -24,6 +24,14 @@ const CustomPluginsSchema = v.optional(
     )
 )
 
+// TODO: https://github.com/microsoft/TypeScript/issues/42873
+import * as _1 from "../../../node_modules/.pnpm/yaml@2.4.1/node_modules/yaml/dist/index.js"
+import * as _2 from "../../../node_modules/remark-gfm/lib/index.js"
+import * as _3 from "../../../node_modules/.pnpm/mdast-util-toc@7.0.0/node_modules/mdast-util-toc/lib/index.js"
+import * as _4 from "../../../node_modules/rehype-slug/lib/index.js"
+import * as _5 from "../../../node_modules/rehype-autolink-headings/lib/index.js"
+import * as _6 from "../../../node_modules/rehype-external-links/lib/index.js"
+
 export const ConfigSchema = v.optional(
     v.object(
         {
@@ -48,6 +56,12 @@ export const ConfigSchema = v.optional(
                                         "yaml"
                                     ),
 
+                                    options: v.optional(
+                                        v.special<RemarkFrontmatterCustomOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -66,6 +80,12 @@ export const ConfigSchema = v.optional(
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
 
+                                    options: v.optional(
+                                        v.special<RemarkFrontmatterYamlOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -80,6 +100,10 @@ export const ConfigSchema = v.optional(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    options: v.optional(
+                                        v.special<RemarkGfmOptions>(() => true)
+                                    ),
 
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
@@ -125,6 +149,10 @@ export const ConfigSchema = v.optional(
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
 
+                                    options: v.optional(
+                                        v.special<RemarkTocOptions>(() => true)
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -140,6 +168,12 @@ export const ConfigSchema = v.optional(
                         remarkRehype: v.optional(
                             v.object(
                                 {
+                                    options: v.optional(
+                                        v.special<OmittedRemarkRehypeOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -166,6 +200,10 @@ export const ConfigSchema = v.optional(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    options: v.optional(
+                                        v.special<RehypeSlugOptions>(() => true)
+                                    ),
 
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
@@ -208,6 +246,12 @@ export const ConfigSchema = v.optional(
                                     /** @default false */
                                     enable: v.optional(v.boolean(), false),
 
+                                    options: v.optional(
+                                        v.special<RehypeAutolinkHeadingsOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -244,6 +288,12 @@ export const ConfigSchema = v.optional(
                                 {
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
+
+                                    options: v.optional(
+                                        v.special<RehypeShikiOptions>(
+                                            () => true
+                                        )
+                                    ),
 
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
@@ -297,6 +347,12 @@ export const ConfigSchema = v.optional(
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
 
+                                    options: v.optional(
+                                        v.special<RehypeExternalLinksOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -312,6 +368,12 @@ export const ConfigSchema = v.optional(
                         rehypeStringify: v.optional(
                             v.object(
                                 {
+                                    options: v.optional(
+                                        v.special<OmittedRehypeStringifyOptions>(
+                                            () => true
+                                        )
+                                    ),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -367,51 +429,5 @@ type OmittedRehypeStringifyOptions = Omit<
     "allowDangerousCharacters" | "allowDangerousHtml"
 >
 
-// TODO: [^1]
-type BuiltInPluginsOptions = {
-    builtInPlugins: {
-        remarkFrontmatter: {
-            options?: RemarkFrontmatterCustomOptions
-        }
-        remarkFrontmatterYaml: {
-            options?: RemarkFrontmatterYamlOptions
-        }
-        remarkGfm: {
-            options?: RemarkGfmOptions
-        }
-        remarkToc: {
-            options?: RemarkTocOptions
-        }
-        remarkRehype: {
-            options?: OmittedRemarkRehypeOptions
-        }
-        rehypeSlug: {
-            options?: RehypeSlugOptions
-        }
-        rehypeAutolinkHeadings: {
-            options?: RehypeAutolinkHeadingsOptions
-        }
-        rehypeShiki: {
-            options?: RehypeShikiOptions
-        }
-        rehypeExternalLinks: {
-            options?: RehypeExternalLinksOptions
-        }
-        rehypeStringify: {
-            options?: OmittedRehypeStringifyOptions
-        }
-    }
-}
-
-// TODO: [^1]
-export type ConfigInput = v.Input<typeof ConfigSchema> &
-    Partial<BuiltInPluginsOptions>
-
-// TODO: [^1]
-export type ConfigOutput = v.Output<typeof ConfigSchema> & BuiltInPluginsOptions
-
-/*
-[^1]: TypeScript types with Valibot
-- This is how to use TypeScript types with Valibot: https://github.com/fabian-hiller/valibot/discussions/477.
-- Whenever https://github.com/microsoft/TypeScript/issues/42873 fixes, move the extra types from `ConfigInput` and `ConfigOutput` to the schema itself.
-*/
+export type ConfigInput = v.Input<typeof ConfigSchema>
+export type ConfigOutput = v.Output<typeof ConfigSchema>
