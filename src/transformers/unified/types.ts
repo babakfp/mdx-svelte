@@ -45,7 +45,6 @@ export const ConfigSchema = v.optional(
                                     /** @default true */
                                     enable: v.optional(v.boolean(), true),
 
-                                    // TODO: Add `"toml"`, `"json"`, `"jsonc"` and `"json5"` support.
                                     /**
                                      * **Important**: Don't change!
                                      *
@@ -72,6 +71,7 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
+                         *
                          * If `remarkFrontmatter` is disabled, this plugin will be disabled too.
                          */
                         remarkFrontmatterYaml: v.optional(
@@ -161,13 +161,13 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-rehype).
-                         * Can't be disabled.
-                         */
+                        /** [View on NPM](https://npmjs.com/package/remark-rehype). */
                         remarkRehype: v.optional(
                             v.object(
                                 {
+                                    /** @readonly This plugin can't be disabled. */
+                                    enable: v.optional(v.literal(true), true),
+
                                     options: v.optional(
                                         v.special<OmittedRemarkRehypeOptions>(
                                             () => true
@@ -182,10 +182,12 @@ export const ConfigSchema = v.optional(
                             {}
                         ),
 
-                        /** Can't be disabled. */
                         rehypeMarkdownElementsContext: v.optional(
                             v.object(
                                 {
+                                    /** @readonly This plugin can't be disabled. */
+                                    enable: v.optional(v.literal(true), true),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -307,12 +309,13 @@ export const ConfigSchema = v.optional(
                          * A custom plugin that sanitizes the some characters in code elements.
                          *
                          * **Important**: This plugin changes the `type` property of `text` nodes to `"raw"`.
-                         *
-                         * Can't be disabled.
                          */
                         rehypeSanitizeCodeElement: v.optional(
                             v.object(
                                 {
+                                    /** @readonly This plugin can't be disabled. */
+                                    enable: v.optional(v.literal(true), true),
+
                                     /** Useful to add a plugin before or after this plugin. */
                                     plugins: CustomPluginsSchema,
                                 },
@@ -339,6 +342,7 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/rehype-external-links).
+                         *
                          * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
                          */
                         rehypeExternalLinks: v.optional(
@@ -363,11 +367,13 @@ export const ConfigSchema = v.optional(
 
                         /**
                          * [View on NPM](https://npmjs.com/package/rehype-stringify).
-                         * Can't be disabled.
                          */
                         rehypeStringify: v.optional(
                             v.object(
                                 {
+                                    /** @readonly This plugin can't be disabled. */
+                                    enable: v.optional(v.literal(true), true),
+
                                     options: v.optional(
                                         v.special<OmittedRehypeStringifyOptions>(
                                             () => true
@@ -413,7 +419,8 @@ type RemarkFrontmatterCustomOptions = {
 
 /**
  * A modified version of the original option types of {@link RemarkRehypeOptions}.
- * Some options are omitted because they are required and should not be disabled.
+ *
+ * Some options (`allowDangerousHtml`) are omitted because they are required and should not modified!
  */
 type OmittedRemarkRehypeOptions = Omit<
     RemarkRehypeOptions,
@@ -422,7 +429,8 @@ type OmittedRemarkRehypeOptions = Omit<
 
 /**
  * A modified version of the original option types of {@link RehypeStringifyOptions}.
- * Some options are omitted because they are required and should not be disabled.
+ *
+ * Some options (`allowDangerousCharacters`, `allowDangerousHtml`) are omitted because they are required and should not modified!
  */
 type OmittedRehypeStringifyOptions = Omit<
     RehypeStringifyOptions,
