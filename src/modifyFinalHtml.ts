@@ -1,4 +1,4 @@
-import { MarkdownData } from "./types.js"
+import type { MarkdownData } from "./types/index.js"
 import { getMarkdownDataExportCode } from "./getMarkdownDataExportCode.js"
 import { scriptContextModuleWrapper } from "./scriptContextModuleWrapper.js"
 import { getMarkdownElementsContext } from "./getMarkdownElementsContext.js"

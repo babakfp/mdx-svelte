@@ -1,10 +1,10 @@
-export type TableOfContents = {
+type TableOfContents = {
     level: string
     textContent: string
     attributes: { [k: string]: string | null }
 }[]
 
-export type Options = (
+type Options = (
     | {
           /** @default document.body */
           containerElement?: Element

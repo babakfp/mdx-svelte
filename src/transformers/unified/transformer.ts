@@ -26,8 +26,9 @@ import type {
     MarkupPreprocessorOptions,
     ConfigInput as SvelteInMarkdownConfigInput,
     ConfigOutput as SvelteInMarkdownConfigOutput,
-} from "../../types.js"
-import { ConfigSchema, type ConfigInput } from "./types.js"
+} from "../../types/index.js"
+import { ConfigSchema } from "./schemas/index.js"
+import type { ConfigInput } from "./types/index.js"
 import { isHrefExternal } from "./isHrefExternal.js"
 
 /**

@@ -1,4 +1,4 @@
-export * from "./constants.js"
+export type { ConfigInput, ConfigOutput, MarkdownData } from "./types/index.js"
+export { DEFAULT_EXTENSIONS } from "./constants.js"
 export { getTableOfContents } from "./getTableOfContents.js"
-export { svelteInMarkdown } from "./svelteInMarkdown.js"
-export type { ConfigInput, ConfigOutput, MarkdownData } from "./types.js"
+export { svelteInMarkdownPreprocess } from "./svelteInMarkdownPreprocess.js"

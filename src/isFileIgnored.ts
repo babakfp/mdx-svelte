@@ -1,4 +1,4 @@
-import type { ConfigOutput, MarkupPreprocessorOptions } from "./types.js"
+import type { ConfigOutput, MarkupPreprocessorOptions } from "./types/index.js"
 
 // This is used to prevent some files from being preprocessed.
 export const isFileIgnored = (

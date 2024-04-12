@@ -1,6 +1,6 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
 
-import type { ConfigOutput, RequiredNonNullable } from "./types.js"
+import type { ConfigOutput, RequiredNonNullable } from "./types/index.js"
 import { isFileIgnored } from "./isFileIgnored.js"
 import { transformer } from "./transformers/unified/index.js"
 import { modifyFinalHtml } from "./modifyFinalHtml.js"

@@ -1,7 +1,7 @@
 import type { Transformer } from "unified"
 import type { Root } from "hast"
 import { visit } from "unist-util-visit"
-import type { ConfigOutput } from "../../../types.js"
+import type { ConfigOutput } from "../../../types/index.js"
 
 export default (config: ConfigOutput): Transformer<Root> => {
     return (tree, file) => {

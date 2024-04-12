@@ -24,16 +24,17 @@ export default (): Transformer<Root> => {
         visit(tree, "element", (node) => {
             if (node.tagName !== "code") return
 
-            visit(node, "text", (childNode) => {
-                // TODO: Replace parent child instead of modifying the type.
-                // @ts-expect-error
-                childNode.type = "raw"
+            visit(node, "text", (text_node, text_index, text_parent) => {
+                if (!text_parent || text_index === undefined) return
 
-                childNode.value = stringifyEntities(childNode.value, {
-                    subset: [
-                        ...HTML_DANGEROUS_CHARACTERS,
-                        ...SVELTE_DANGEROUS_CHARACTERS,
-                    ],
+                text_parent.children.splice(text_index, 1, {
+                    type: "raw",
+                    value: stringifyEntities(text_node.value, {
+                        subset: [
+                            ...HTML_DANGEROUS_CHARACTERS,
+                            ...SVELTE_DANGEROUS_CHARACTERS,
+                        ],
+                    }),
                 })
             })
         })

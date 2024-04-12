@@ -1,7 +1,8 @@
 import * as v from "valibot"
 import type { PreprocessorGroup } from "svelte/compiler"
 
-import { type ConfigInput, ConfigSchema } from "./types.js"
+import { ConfigSchema } from "./schemas/index.js"
+import type { ConfigInput } from "./types/index.js"
 import { markupPreprocessor } from "./markupPreprocessor.js"
 
 /**
@@ -13,13 +14,13 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  * Add the following into the `svelte.config.js` file (in a SvelteKit project):
  *
  * ```ts
- * import { svelteInMarkdown, DEFAULT_EXTENSIONS } from "svelte-in-markdown"
+ * import { svelteInMarkdownPreprocess, DEFAULT_EXTENSIONS } from "svelte-in-markdown"
  *
  * const config = {
  *     extensions: [".svelte", ...DEFAULT_EXTENSIONS],
  *     preprocess: [
  *         vitePreprocess(),
- *         svelteInMarkdown(),
+ *         svelteInMarkdownPreprocess(),
  *     ]
  * }
  * ```
@@ -35,7 +36,7 @@ import { markupPreprocessor } from "./markupPreprocessor.js"
  * </script>
  * ```
  */
-export const svelteInMarkdown = (config?: ConfigInput) => {
+export const svelteInMarkdownPreprocess = (config?: ConfigInput) => {
     const config_ = v.parse(ConfigSchema, config)
 
     return {
