@@ -12,10 +12,6 @@ A preprocessor that allows you to write Svelte in Markdown.
 
 Feel welcome to open issues and PRs, fix things related to type safety, [documentation](http://github.com/babakfp/babakfp.ir), send suggestions, improve code, etc. It's OK to make mistakes and not to know everything.
 
-## Todo
-
--   [ ] Add `mdsvex` to `svelte-in-markdown` guide.
-
 ## Note
 
 -   We're not directly using the package called `"vfile"`, but it's automatically helping out by providing types.
