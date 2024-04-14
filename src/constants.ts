@@ -1,2 +1,3 @@
-// IMPORTANT: The type must match with `ConfigOutput["extensions"]` in `./types/index.ts`.
-export const DEFAULT_EXTENSIONS: string[] = [".md", ".svelte.md"]
+export const SVELTE_EXTENSION = ".svelte"
+export const MARKDOWN_EXTENSIONS = [".md", `${SVELTE_EXTENSION}.md`]
+export const SVELTE_EXTENSIONS = [SVELTE_EXTENSION, ...MARKDOWN_EXTENSIONS]

@@ -3,10 +3,11 @@ import { visit } from "unist-util-visit"
 import type { Transformer } from "unified"
 import type { Root } from "hast"
 
-import {
-    HTML_DANGEROUS_CHARACTERS,
-    SVELTE_DANGEROUS_CHARACTERS,
-} from "../constants.js"
+// Default values used in `"stringify-entities"` package.
+const HTML_DANGEROUS_CHARACTERS = ['"', "&", "'", "<", ">", "`"] as const
+
+// Svelte syntax characters.
+const SVELTE_DANGEROUS_CHARACTERS = ["{", "}"] as const
 
 /*
 This code resolves an issue with the Rehype Stringify plugin. 

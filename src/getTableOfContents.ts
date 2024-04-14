@@ -22,66 +22,6 @@ type Options = (
     headingLevels?: (1 | 2 | 3 | 4 | 5 | 6)[]
 }
 
-/**
- * When using this way of getting the TOC, please remember to disable `remarkToc` built-in Unified plugin.
- *
- * ## Example usage
- *
- * ```svelte
- * <script lang="ts">
- *     import { onMount } from "svelte"
- *     import { page } from "$app/stores"
- *     import { browser } from "$app/environment"
- *     import { getTableOfContents } from "svelte-in-markdown"
- *
- *     export let isOpen: boolean
- *     export let name: string
- *
- *     type Headings = {
- *         id: string
- *         level: number
- *         textContent: string
- *     }[]
- *
- *     let headings: Headings = []
- *
- *     onMount(() => {
- *         headings = getHeadings()
- *     })
- *
- *     $: if (browser && $page.url.pathname) {
- *         headings = getHeadings()
- *     }
- *
- *     const getHeadings = () =>
- *         getTableOfContents({
- *             containerSelector: ".article-content",
- *             headingLevels: [2, 3, 4, 5, 6],
- *         })?.map(heading => ({
- *             id: heading.attributes.id ?? "",
- *             level: Number(heading.level),
- *             textContent: heading.textContent,
- *         })) satisfies Headings
- * </script>
- *
- * {#if headings.length}
- *     <ul>
- *         {#each headings as heading}
- *             <li>
- *                 <a
- *                     href="#{heading.id}"
- *                     style="margin-left: calc(1rem * {item.level})"
- *                 >
- *                     {heading.textContent}
- *                 </a>
- *             </li>
- *         {/each}
- *     </ul>
- * {:else}
- *     <p>No headings found!</p>
- * {/if}
- * ```
- */
 export const getTableOfContents = (options?: Options) => {
     const headingsDataItems: TableOfContents = []
 

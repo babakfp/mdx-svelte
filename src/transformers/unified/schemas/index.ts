@@ -1,19 +1,15 @@
 import * as v from "valibot"
 
-import { RemarkFrontmatterSchema } from "./RemarkFrontmatterSchema.js"
-import { RemarkFrontmatterYamlSchema } from "./RemarkFrontmatterYamlSchema.js"
-import { RemarkGfmSchema } from "./RemarkGfmSchema.js"
-import { RemarkUnwrapImagesSchema } from "./RemarkUnwrapImagesSchema.js"
-import { RemarkTocSchema } from "./RemarkTocSchema.js"
-import { RemarkRehypeSchema } from "./RemarkRehypeSchema.js"
-import { RehypeMarkdownElementsContextSchema } from "./RehypeMarkdownElementsContextSchema.js"
-import { RehypeSlugSchema } from "./RehypeSlugSchema.js"
-import { RehypeAutolinkHeadingsSchema } from "./RehypeAutolinkHeadingsSchema.js"
-import { RehypeShikiSchema } from "./RehypeShikiSchema.js"
-import { RehypeSanitizeCodeElementSchema } from "./RehypeSanitizeCodeElementSchema.js"
-import { RehypeMarkdownElementsSchema } from "./RehypeMarkdownElementsSchema.js"
-import { RehypeExternalLinksSchema } from "./RehypeExternalLinksSchema.js"
-import { RehypeStringifySchema } from "./RehypeStringifySchema.js"
+import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
+import type { Options as RemarkFrontmatterYamlOptions } from "remark-frontmatter-yaml"
+import type { Options as RemarkGfmOptions } from "remark-gfm"
+import type { Options as RemarkTocOptions } from "remark-toc"
+import type { Options as RemarkRehypeOptions } from "remark-rehype"
+import type { Options as RehypeSlugOptions } from "rehype-slug"
+import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings"
+import type { RehypeShikiOptions } from "@shikijs/rehype"
+import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
+import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
 // TODO: https://github.com/microsoft/TypeScript/issues/42873
 import * as _1 from "../../../../node_modules/.pnpm/yaml@2.4.1/node_modules/yaml/dist/index.js"
@@ -25,6 +21,8 @@ import * as _6 from "../../../../node_modules/rehype-external-links/lib/index.js
 import * as _7 from "../../../../node_modules/hast-util-to-html/lib/index.js"
 import * as _8 from "../../../../node_modules/.pnpm/mdast-util-to-hast@13.1.0/node_modules/mdast-util-to-hast/index.js"
 
+import { getPluginBaseSchema } from "./getPluginBaseSchema.js"
+
 export const ConfigSchema = v.optional(
     v.object(
         {
@@ -32,127 +30,136 @@ export const ConfigSchema = v.optional(
                 v.object(
                     {
                         /** [View on NPM](https://npmjs.com/package/remark-frontmatter). */
-                        remarkFrontmatter: RemarkFrontmatterSchema,
+                        remarkFrontmatter: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            /** **Important**: Don't change! Only `"yaml"` is supported for now. */
+                            lang: v.optional(
+                                v.union([v.literal("yaml")]),
+                                "yaml"
+                            ),
+                            options: v.optional(
+                                v.special<RemarkFrontmatterCustomOptions>(
+                                    () => true
+                                )
+                            ),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml).
-                         *
-                         * If `remarkFrontmatter` is disabled, this plugin will be disabled too.
-                         */
-                        remarkFrontmatterYaml: RemarkFrontmatterYamlSchema,
+                        /** [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml). */
+                        remarkFrontmatterYaml: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RemarkFrontmatterYamlCustomOptions>(
+                                    () => true
+                                )
+                            ),
+                        }),
 
                         /** [View on NPM](https://npmjs.com/package/remark-gfm). */
-                        remarkGfm: RemarkGfmSchema,
+                        remarkGfm: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RemarkGfmOptions>(() => true)
+                            ),
+                        }),
 
                         /** [View on NPM](https://npmjs.com/package/remark-unwrap-images). */
-                        remarkUnwrapImages: RemarkUnwrapImagesSchema,
+                        remarkUnwrapImages: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/remark-toc).
-                         *
-                         * If you are importing markdown files into other markdown files, Remark Toc won't be able to extract the headings of those components.
-                         * In order to fix this issue, use need to select the headings on runtime, which there is a built-in plugin that you can use.
-                         * Don't forget to disable this plugin first:
-                         *
-                         * ```ts
-                         * {
-                         *     remarkToc: {
-                         *         enable: false,
-                         *     },
-                         * }
-                         * ```
-                         */
-                        remarkToc: RemarkTocSchema,
+                        /** [View on NPM](https://npmjs.com/package/remark-toc). */
+                        remarkToc: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RemarkTocOptions>(() => true)
+                            ),
+                        }),
 
                         /** [View on NPM](https://npmjs.com/package/remark-rehype). */
-                        remarkRehype: RemarkRehypeSchema,
+                        remarkRehype: getPluginBaseSchema({
+                            /** @readonly This plugin can't be disabled. */
+                            enable: v.optional(v.literal(true), true),
+                            options: v.optional(
+                                v.special<RemarkRehypeCustomOptions>(() => true)
+                            ),
+                        }),
 
-                        rehypeMarkdownElementsContext:
-                            RehypeMarkdownElementsContextSchema,
+                        rehypeMarkdownElementsContext: getPluginBaseSchema({
+                            /** @readonly This plugin can't be disabled. */
+                            enable: v.optional(v.literal(true), true),
+                        }),
 
                         /** [View on NPM](https://npmjs.com/package/rehype-slug). */
-                        rehypeSlug: RehypeSlugSchema,
+                        rehypeSlug: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RehypeSlugOptions>(() => true)
+                            ),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/rehype-autolink-headings).
-                         *
-                         * ## Example usage
-                         *
-                         * ```ts
-                         * {
-                         *     rehypeAutolinkHeadings: {
-                         *         enable: true,
-                         *         options: {
-                         *             behavior: "append",
-                         *             properties: {
-                         *                 class: "heading-permalink",
-                         *                 "aria-label": "Permalink to this headline",
-                         *             },
-                         *             content() {
-                         *                 // import { hastFromHtml } from "svelte-in-markdown/transformers/unified"
-                         *                 return hastFromHtml(
-                         *                     `<svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"/></svg>`,
-                         *                 )
-                         *             },
-                         *             test: ["h2", "h3", "h4", "h5", "h6"],
-                         *         },
-                         *     },
-                         * }
-                         * ```
-                         */
-                        rehypeAutolinkHeadings: RehypeAutolinkHeadingsSchema,
+                        /** [View on NPM](https://npmjs.com/package/rehype-autolink-headings). */
+                        rehypeAutolinkHeadings: getPluginBaseSchema({
+                            /** @default false */
+                            enable: v.optional(v.boolean(), false),
+                            options: v.optional(
+                                v.special<RehypeAutolinkHeadingsOptions>(
+                                    () => true
+                                )
+                            ),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/@shikijs/rehype).
-                         *
-                         * ## Example usage
-                         *
-                         * ```ts
-                         * {
-                         *     rehypeShiki: {
-                         *         options: {
-                         *             theme: "rose-pine-moon",
-                         *             langs: [
-                         *                 "html",
-                         *                 "css",
-                         *                 "js",
-                         *                 "svelte",
-                         *                 "php",
-                         *                 "bash",
-                         *             ],
-                         *         },
-                         *     },
-                         * }
-                         * ```
-                         */
-                        rehypeShiki: RehypeShikiSchema,
+                        /** [View on NPM](https://npmjs.com/package/@shikijs/rehype). */
+                        rehypeShiki: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RehypeShikiOptions>(() => true)
+                            ),
+                        }),
 
                         /**
                          * A custom plugin that sanitizes the some characters in code elements.
                          *
                          * **Important**: This plugin changes the `type` property of `text` nodes to `"raw"`.
                          */
-                        rehypeSanitizeCodeElement:
-                            RehypeSanitizeCodeElementSchema,
+                        rehypeSanitizeCodeElement: getPluginBaseSchema({
+                            /** @readonly This plugin can't be disabled. */
+                            enable: v.optional(v.literal(true), true),
+                        }),
 
-                        /**
-                         * A custom plugin that enables customizing HTML elements with Svelte components.
-                         *
-                         * Can be enabled by setting `'markdownElementsStrategy'` in `svelteInMarkdownPreprocess` to `"expensive"`.
-                         */
-                        rehypeMarkdownElements: RehypeMarkdownElementsSchema,
+                        /** A custom plugin that enables customizing HTML elements with Svelte components. */
+                        rehypeMarkdownElements: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/rehype-external-links).
-                         *
-                         * This function sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
-                         */
-                        rehypeExternalLinks: RehypeExternalLinksSchema,
+                        /** [View on NPM](https://npmjs.com/package/rehype-external-links). */
+                        rehypeExternalLinks: getPluginBaseSchema({
+                            /** @default true */
+                            enable: v.optional(v.boolean(), true),
+                            options: v.optional(
+                                v.special<RehypeExternalLinksOptions>(
+                                    () => true
+                                )
+                            ),
+                        }),
 
-                        /**
-                         * [View on NPM](https://npmjs.com/package/rehype-stringify).
-                         */
-                        rehypeStringify: RehypeStringifySchema,
+                        /** [View on NPM](https://npmjs.com/package/rehype-stringify). */
+                        rehypeStringify: getPluginBaseSchema({
+                            /** @readonly This plugin can't be disabled. */
+                            enable: v.optional(v.literal(true), true),
+                            options: v.optional(
+                                v.special<RehypeStringifyCustomOptions>(
+                                    () => true
+                                )
+                            ),
+                        }),
                     },
                     v.never()
                 ),
@@ -163,3 +170,48 @@ export const ConfigSchema = v.optional(
     ),
     {}
 )
+
+/**
+ * A simplified version of the original option types of {@link RemarkFrontmatterOptions}.
+ * Some options are omitted for simplicity and readability.
+ */
+type RemarkFrontmatterCustomOptions = {
+    /**
+     * @default
+     * { open: "---", close: "---" }
+     */
+    fence?: {
+        /** @default "---" */
+        close: string
+        /** @default "---" */
+        open: string
+    }
+}
+
+/**
+ * A modified version of the original option types of {@link RemarkFrontmatterYamlOptions}.
+ *
+ * Some options (`"name"`) are omitted because they are required and should not modified!
+ * Removed the `"name"` option for type-safety reasons.
+ */
+type RemarkFrontmatterYamlCustomOptions = Omit<
+    NonNullable<RemarkFrontmatterYamlOptions>,
+    "name"
+>
+
+/**
+ * A modified version of the original option types of {@link Options}.
+ *
+ * Some options (`allowDangerousHtml`) are omitted because they are required and should not modified!
+ */
+type RemarkRehypeCustomOptions = Omit<RemarkRehypeOptions, "allowDangerousHtml">
+
+/**
+ * A modified version of the original option types of {@link RehypeStringifyOptions}.
+ *
+ * Some options (`allowDangerousCharacters`, `allowDangerousHtml`) are omitted because they are required and should not modified!
+ */
+type RehypeStringifyCustomOptions = Omit<
+    RehypeStringifyOptions,
+    "allowDangerousCharacters" | "allowDangerousHtml"
+>

@@ -1,3 +1,3 @@
-export { transformer } from "./transformer.js"
-export { hastFromHtml } from "./hastFromHtml.js"
-export type { ConfigInput, ConfigOutput } from "./types/index.js"
+export * from "./transformer.js"
+export * from "./hastFromHtml.js"
+export type * from "./types/index.js"

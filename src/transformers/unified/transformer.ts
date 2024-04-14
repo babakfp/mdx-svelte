@@ -16,7 +16,7 @@ import rehypeSlug from "rehype-slug"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeShiki from "@shikijs/rehype"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
-import rehypeMarkdownElements from "./plugins/rehype-markdown-elements.js" // No `Options` export.
+import rehypeMarkdownElementsExpensiveStrategy from "./plugins/rehype-markdown-elements-expensive-strategy.js" // No `Options` export.
 import rehypeMarkdownElementsCheapStrategy from "./plugins/rehype-markdown-elements-cheap-strategy.js" // No `Options` export.
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeStringify from "rehype-stringify"
@@ -64,10 +64,7 @@ export const transformer = (async (
     processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.after)
 
     processor.use(config_.builtInPlugins.remarkFrontmatterYaml.plugins?.before)
-    if (
-        config_.builtInPlugins.remarkFrontmatter.enable &&
-        config_.builtInPlugins.remarkFrontmatterYaml.enable
-    ) {
+    if (config_.builtInPlugins.remarkFrontmatterYaml.enable) {
         processor.use(
             remarkFrontmatterYaml,
             config_.builtInPlugins.remarkFrontmatterYaml.options
@@ -141,14 +138,16 @@ export const transformer = (async (
     )
 
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
-    if (svelteInMarkdownConfig.markdownElementsStrategy === "expensive") {
-        processor.use(rehypeMarkdownElements)
-    }
-    if (svelteInMarkdownConfig.markdownElementsStrategy === "cheap") {
-        processor.use(
-            rehypeMarkdownElementsCheapStrategy,
-            svelteInMarkdownConfig
-        )
+    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
+        if (svelteInMarkdownConfig.markdownElementsStrategy === "expensive") {
+            processor.use(rehypeMarkdownElementsExpensiveStrategy)
+        }
+        if (svelteInMarkdownConfig.markdownElementsStrategy === "cheap") {
+            processor.use(
+                rehypeMarkdownElementsCheapStrategy,
+                svelteInMarkdownConfig
+            )
+        }
     }
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
 

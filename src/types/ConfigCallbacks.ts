@@ -7,7 +7,7 @@ import type { ConfigOutput } from "./index.js"
 export type ConfigCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
-     * It runs after `allowNodeModules` and `allowNodeModulesItems` options.
+     * It runs after the `nodeModules` option.
      * @param options - Contains file path and content.
      * @returns Return `true` to ignore the file, otherwise return `false`.
      */
@@ -18,23 +18,6 @@ export type ConfigCallbacks = {
     /**
      * Use this to build your own transformer or customize the built-in plugins.
      * You will receive every markdown file and'll get to transform it.
-     *
-     * ## Example usage
-     *
-     * ```ts
-     * {
-     *     onTransform: async (options, config) => {
-     *         // import { transformer } from "svelte-in-markdown/transformers/unified"
-     *         return await transformer(options, config, {
-     *             builtInPlugins: {
-     *                 remarkToc: {
-     *                     enable: false,
-     *                 },
-     *             },
-     *         })
-     *     },
-     * }
-     * ```
      */
     onTransform?: (
         /** Info about the markdown file that is going to be preprocessed. */

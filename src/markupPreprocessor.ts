@@ -9,7 +9,7 @@ export const markupPreprocessor = (config: ConfigOutput) => {
     return (async (options) => {
         if (isFileIgnored(options.filename, config)) return
 
-        // NOTE: I have verified that `filename` is not `undefined` but TypeScript doesn't understand it.
+        // NOTE: I've verified that `filename` isn't `undefined` in the above code, but TypeScript doesn't understand it, so I added `as` to shut it off!
         const options_ = options as RequiredNonNullable<typeof options>
 
         if (config?.onFileIgnore?.(options_)) return

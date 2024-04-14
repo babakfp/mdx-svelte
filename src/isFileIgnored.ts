@@ -5,13 +5,27 @@ export const isFileIgnored = (
     filename: MarkupPreprocessorOptions["filename"],
     config: ConfigOutput
 ) => {
-    // NOTE: I'm don't know why this variable can be nullable, but that is what TypeScript says.
+    // NOTE: I don't know why this variable can be nullable, but that is what TypeScript says.
     if (!filename) {
         return true
     }
 
     if (filename.includes("/.svelte-kit/")) {
         return true
+    }
+
+    if (config.nodeModules.ignore && filename.includes("/node_modules/")) {
+        let isAllowed = false
+
+        for (const item of config.nodeModules.allowedDependencies) {
+            if (filename.includes(`/node_modules/${item}/`)) {
+                isAllowed = true
+            }
+        }
+
+        if (!isAllowed) {
+            return true
+        }
     }
 
     let isContainsExtension = false
