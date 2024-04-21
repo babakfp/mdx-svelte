@@ -1,8 +1,8 @@
 # Svelte in Markdown
 
-Hey there! Welcome to [Svelte in Markdown](https://babakfp.ir/docs/svelte-in-markdown). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [Svelte in Markdown](https://babakfp.ir/docs/svelte-in-markdown), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
-
 [![NPM](https://img.shields.io/npm/v/svelte-in-markdown?style=for-the-badge&label=NPM&color=%23cb0000)](https://www.npmjs.com/package/svelte-in-markdown "View on NPM")
+
+Hey there! Welcome to [Svelte in Markdown](https://babakfp.ir/docs/svelte-in-markdown). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [Svelte in Markdown](https://babakfp.ir/docs/svelte-in-markdown), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
 
 -   [Documentation](https://babakfp.ir/docs/svelte-in-markdown)
 -   [CHANGELOG](https://babakfp.ir/docs/svelte-in-markdown/changelog)
