@@ -16,7 +16,7 @@ the plugin mistakenly attempts to sanitize them again, leading to unexpected out
 
 To fix this:
 
-1. We convert the node types from `text` to 'raw', bypassing the plugin's sanitation process.
+1. We convert the node types from `text` to `raw`, bypassing the plugin's sanitation process.
 2. Then, we use the same library that the plugin uses to sanitize both its default characters 
    and our custom characters related to Svelte syntax.
 */

@@ -41,11 +41,13 @@
         "vfile": "6.0.1"
     },
     "files": [
-        "./dist/"
+        "./dist/",
+        "./src/transformers/unified/plugins/remark-github-alerts/styles/"
     ],
     "exports": {
         ".": "./dist/index.js",
-        "./transformers/unified": "./dist/transformers/unified/index.js"
+        "./transformers/unified": "./dist/transformers/unified/index.js",
+        "./transformers/unified/remark-github-alerts": "./src/transformers/unified/plugins/remark-github-alerts/styles/*"
     },
     "keywords": [
         "svelte",

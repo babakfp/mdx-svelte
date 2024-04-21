@@ -6,8 +6,8 @@ import { visit, SKIP } from "unist-util-visit"
 Unwraps HTML of Paragraph:
 ```
 {
-    type: 'paragraph',
-    children: [ { type: 'html', value: '<svelte:head>' } ],
+    type: "paragraph",
+    children: [ { type: "html", value: "<svelte:head>" } ],
 }
 ```
 */

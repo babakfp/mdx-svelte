@@ -7,8 +7,8 @@ Turns this:
 
 ```
 {
-    type: 'text',
-    value: '</svelte:fragment>',
+    type: "text",
+    value: "</svelte:fragment>",
 }
 ```
 
@@ -16,8 +16,8 @@ To this:
 
 ```
 {
-    type: 'html',
-    value: '</svelte:fragment>',
+    type: "html",
+    value: "</svelte:fragment>",
 }
 ```
 

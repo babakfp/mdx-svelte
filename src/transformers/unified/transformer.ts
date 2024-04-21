@@ -8,6 +8,7 @@ import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
+import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
 import remarkToc from "remark-toc"
 import remarkRehype from "remark-rehype"
@@ -77,6 +78,15 @@ export const transformer = (async (
         processor.use(remarkGfm, config_.builtInPlugins.remarkGfm.options)
     }
     processor.use(config_.builtInPlugins.remarkGfm.plugins?.after)
+
+    processor.use(config_.builtInPlugins.remarkGithubAlerts.plugins?.before)
+    if (config_.builtInPlugins.remarkGithubAlerts.enable) {
+        processor.use(
+            remarkGithubAlerts,
+            config_.builtInPlugins.remarkGithubAlerts.options
+        )
+    }
+    processor.use(config_.builtInPlugins.remarkGithubAlerts.plugins?.after)
 
     processor.use(config_.builtInPlugins.remarkUnwrapImages.plugins?.before)
     if (config_.builtInPlugins.remarkUnwrapImages.enable) {
