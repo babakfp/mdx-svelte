@@ -11,7 +11,3 @@ Hey there! Welcome to [Svelte in Markdown](https://babakfp.ir/docs/svelte-in-mar
 ## Contributions
 
 Feel welcome to open issues and PRs, fix things related to type safety, [documentation](http://github.com/babakfp/babakfp.ir), send suggestions, improve code, etc. It's OK to make mistakes and not to know everything.
-
-## Note
-
--   We're not directly using the package called `"vfile"`, but it's automatically helping out by providing types.
