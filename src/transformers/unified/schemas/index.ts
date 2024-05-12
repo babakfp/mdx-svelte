@@ -12,16 +12,6 @@ import type { RehypeShikiOptions } from "@shikijs/rehype"
 import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
 import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 
-// TODO: https://github.com/microsoft/TypeScript/issues/42873
-import * as _1 from "../../../../node_modules/.pnpm/yaml@2.4.1/node_modules/yaml/dist/index.js"
-import * as _2 from "../../../../node_modules/remark-gfm/lib/index.js"
-import * as _3 from "../../../../node_modules/.pnpm/mdast-util-toc@7.0.0/node_modules/mdast-util-toc/lib/index.js"
-import * as _4 from "../../../../node_modules/rehype-slug/lib/index.js"
-import * as _5 from "../../../../node_modules/rehype-autolink-headings/lib/index.js"
-import * as _6 from "../../../../node_modules/rehype-external-links/lib/index.js"
-import * as _7 from "../../../../node_modules/hast-util-to-html/lib/index.js"
-import * as _8 from "../../../../node_modules/.pnpm/mdast-util-to-hast@13.1.0/node_modules/mdast-util-to-hast/index.js"
-
 import { getPluginBaseSchema } from "./getPluginBaseSchema.js"
 
 export const ConfigSchema = v.optional(
