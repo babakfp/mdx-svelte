@@ -10,7 +10,7 @@ export default (): Transformer<Root> => {
             if (node.value.includes("</script>")) {
                 node.value = node.value.replace(
                     "</script>",
-                    getMarkdownElementsContext + "</script>"
+                    getMarkdownElementsContext + "</script>",
                 )
                 return EXIT
             }

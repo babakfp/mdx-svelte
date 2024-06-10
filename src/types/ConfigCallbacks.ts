@@ -12,7 +12,7 @@ export type ConfigCallbacks = {
      * @returns Return `true` to ignore the file, otherwise return `false`.
      */
     onFileIgnore?: (
-        options: RequiredNonNullable<MarkupPreprocessorOptions>
+        options: RequiredNonNullable<MarkupPreprocessorOptions>,
     ) => boolean
 
     /**
@@ -23,7 +23,7 @@ export type ConfigCallbacks = {
         /** Info about the markdown file that is going to be preprocessed. */
         markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
         /** The config that is passed to `svelteInMarkdownPreprocess()` by you, which also contains the default values for options. */
-        config: ConfigOutput
+        config: ConfigOutput,
     ) => Promise<{
         /** Transformed content. */
         content: string

@@ -40,7 +40,7 @@ export default (): Transformer<Root> => {
                 {
                     type: "raw",
                     value: "{/if}",
-                }
+                },
             )
 
             if (node.tagName === "code" || node.tagName === "pre")

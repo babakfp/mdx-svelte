@@ -8,7 +8,9 @@
     "main": "./dist/index.js",
     "scripts": {
         "dev": "tsc -w",
-        "build": "tsc"
+        "build": "tsc",
+        "prepublishOnly": "tsc",
+        "format": "prettier -w ."
     },
     "peerDependencies": {
         "@sveltejs/kit": "^2.0",
@@ -38,6 +40,7 @@
         "@types/hast": "3.0.4",
         "@types/mdast": "4.0.3",
         "@types/node": "20.12.11",
+        "prettier": "3.3.1",
         "typescript": "5.4.5",
         "vfile": "6.0.1"
     },

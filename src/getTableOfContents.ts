@@ -44,7 +44,7 @@ export const getTableOfContents = (options?: Options) => {
             Object.entries(headingElement.attributes).map(([_, v]) => [
                 v.nodeName,
                 v.nodeValue,
-            ])
+            ]),
         )
     }
 

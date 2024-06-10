@@ -38,7 +38,7 @@ import { isHrefExternal } from "./isHrefExternal.js"
 export const transformer = (async (
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
     svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,
-    config?: ConfigInput
+    config?: ConfigInput,
 ) => {
     const config_ = v.parse(ConfigSchema, config)
 
@@ -68,7 +68,7 @@ export const transformer = (async (
     if (config_.builtInPlugins.remarkFrontmatterYaml.enable) {
         processor.use(
             remarkFrontmatterYaml,
-            config_.builtInPlugins.remarkFrontmatterYaml.options
+            config_.builtInPlugins.remarkFrontmatterYaml.options,
         )
     }
     processor.use(config_.builtInPlugins.remarkFrontmatterYaml.plugins?.after)
@@ -83,7 +83,7 @@ export const transformer = (async (
     if (config_.builtInPlugins.remarkGithubAlerts.enable) {
         processor.use(
             remarkGithubAlerts,
-            config_.builtInPlugins.remarkGithubAlerts.options
+            config_.builtInPlugins.remarkGithubAlerts.options,
         )
     }
     processor.use(config_.builtInPlugins.remarkGithubAlerts.plugins?.after)
@@ -108,11 +108,11 @@ export const transformer = (async (
     processor.use(config_.builtInPlugins.remarkRehype.plugins?.after)
 
     processor.use(
-        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.before
+        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.before,
     )
     processor.use(rehypeMarkdownElementsContext)
     processor.use(
-        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.after
+        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.after,
     )
 
     processor.use(config_.builtInPlugins.rehypeSlug.plugins?.before)
@@ -125,7 +125,7 @@ export const transformer = (async (
     if (config_.builtInPlugins.rehypeAutolinkHeadings.enable) {
         processor.use(
             rehypeAutolinkHeadings,
-            config_.builtInPlugins.rehypeAutolinkHeadings.options
+            config_.builtInPlugins.rehypeAutolinkHeadings.options,
         )
     }
     processor.use(config_.builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
@@ -140,11 +140,11 @@ export const transformer = (async (
     processor.use(config_.builtInPlugins.rehypeShiki.plugins?.after)
 
     processor.use(
-        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before
+        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before,
     )
     processor.use(rehypeSanitizeCodeElement)
     processor.use(
-        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after
+        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after,
     )
 
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
@@ -155,7 +155,7 @@ export const transformer = (async (
         if (svelteInMarkdownConfig.markdownElementsStrategy === "cheap") {
             processor.use(
                 rehypeMarkdownElementsCheapStrategy,
-                svelteInMarkdownConfig
+                svelteInMarkdownConfig,
             )
         }
     }

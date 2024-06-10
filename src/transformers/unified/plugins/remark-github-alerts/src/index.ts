@@ -60,7 +60,7 @@ const DEFAULT_GITHUB_ICONS = {
 }
 
 const remarkGithubAlerts: Plugin<RemarkGitHubAlertsOptions[], Root> = (
-    options = {}
+    options = {},
 ) => {
     const {
         markers = ["TIP", "NOTE", "IMPORTANT", "WARNING", "CAUTION"],
@@ -75,7 +75,7 @@ const remarkGithubAlerts: Plugin<RemarkGitHubAlertsOptions[], Root> = (
         ignoreSquareBracket
             ? `^!(${markerNameRE})\\s?`
             : `^\\[\\!(${markerNameRE})\\]\\s`,
-        matchCaseSensitive ? "" : "i"
+        matchCaseSensitive ? "" : "i",
     )
 
     return (tree) => {

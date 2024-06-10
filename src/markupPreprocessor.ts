@@ -22,7 +22,7 @@ export const markupPreprocessor = (config: ConfigOutput) => {
 
         const html = modifyFinalHtml(
             markdownResult.content,
-            markdownResult.data
+            markdownResult.data,
         )
 
         return { code: html }

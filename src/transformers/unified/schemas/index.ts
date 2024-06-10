@@ -27,12 +27,12 @@ export const ConfigSchema = v.optional(
                             /** **Important**: Don't change! Only `"yaml"` is supported for now. */
                             lang: v.optional(
                                 v.union([v.literal("yaml")]),
-                                "yaml"
+                                "yaml",
                             ),
                             options: v.optional(
                                 v.special<RemarkFrontmatterCustomOptions>(
-                                    () => true
-                                )
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -42,8 +42,8 @@ export const ConfigSchema = v.optional(
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
                                 v.special<RemarkFrontmatterYamlCustomOptions>(
-                                    () => true
-                                )
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -52,7 +52,7 @@ export const ConfigSchema = v.optional(
                             /** @default true */
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
-                                v.special<RemarkGfmOptions>(() => true)
+                                v.special<RemarkGfmOptions>(() => true),
                             ),
                         }),
 
@@ -64,7 +64,9 @@ export const ConfigSchema = v.optional(
                             /** @default true */
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
-                                v.special<RemarkGitHubAlertsOptions>(() => true)
+                                v.special<RemarkGitHubAlertsOptions>(
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -79,7 +81,7 @@ export const ConfigSchema = v.optional(
                             /** @default true */
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
-                                v.special<RemarkTocOptions>(() => true)
+                                v.special<RemarkTocOptions>(() => true),
                             ),
                         }),
 
@@ -88,7 +90,9 @@ export const ConfigSchema = v.optional(
                             /** @readonly This plugin can't be disabled. */
                             enable: v.optional(v.literal(true), true),
                             options: v.optional(
-                                v.special<RemarkRehypeCustomOptions>(() => true)
+                                v.special<RemarkRehypeCustomOptions>(
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -102,7 +106,7 @@ export const ConfigSchema = v.optional(
                             /** @default true */
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
-                                v.special<RehypeSlugOptions>(() => true)
+                                v.special<RehypeSlugOptions>(() => true),
                             ),
                         }),
 
@@ -112,8 +116,8 @@ export const ConfigSchema = v.optional(
                             enable: v.optional(v.boolean(), false),
                             options: v.optional(
                                 v.special<RehypeAutolinkHeadingsOptions>(
-                                    () => true
-                                )
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -122,7 +126,7 @@ export const ConfigSchema = v.optional(
                             /** @default true */
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
-                                v.special<RehypeShikiOptions>(() => true)
+                                v.special<RehypeShikiOptions>(() => true),
                             ),
                         }),
 
@@ -148,8 +152,8 @@ export const ConfigSchema = v.optional(
                             enable: v.optional(v.boolean(), true),
                             options: v.optional(
                                 v.special<RehypeExternalLinksOptions>(
-                                    () => true
-                                )
+                                    () => true,
+                                ),
                             ),
                         }),
 
@@ -159,19 +163,19 @@ export const ConfigSchema = v.optional(
                             enable: v.optional(v.literal(true), true),
                             options: v.optional(
                                 v.special<RehypeStringifyCustomOptions>(
-                                    () => true
-                                )
+                                    () => true,
+                                ),
                             ),
                         }),
                     },
-                    v.never()
+                    v.never(),
                 ),
-                {}
+                {},
             ),
         },
-        v.never()
+        v.never(),
     ),
-    {}
+    {},
 )
 
 /**

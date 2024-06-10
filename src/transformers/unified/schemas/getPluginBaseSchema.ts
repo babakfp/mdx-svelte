@@ -2,7 +2,7 @@ import * as v from "valibot"
 import type { Preset } from "unified"
 
 export const getPluginBaseSchema = (
-    options: Parameters<typeof v.object>[0]
+    options: Parameters<typeof v.object>[0],
 ) => {
     return v.optional(
         v.merge(
@@ -15,21 +15,21 @@ export const getPluginBaseSchema = (
                             {
                                 /** Useful to add a plugin before this plugin. */
                                 before: v.optional(
-                                    v.special<Preset>(() => true)
+                                    v.special<Preset>(() => true),
                                 ),
 
                                 /** Useful to add a plugin after this plugin. */
                                 after: v.optional(
-                                    v.special<Preset>(() => true)
+                                    v.special<Preset>(() => true),
                                 ),
                             },
-                            v.never()
-                        )
+                            v.never(),
+                        ),
                     ),
                 }),
             ],
-            v.never()
+            v.never(),
         ),
-        {}
+        {},
     )
 }

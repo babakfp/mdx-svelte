@@ -32,7 +32,7 @@ export default (): Transformer<Root> => {
             if (
                 !node.value.startsWith("</") &&
                 !node.value.match(
-                    /<\/?[a-z][a-z0-9]*(?:\:[a-z][a-z0-9]*)*.*?\s*\/?>/
+                    /<\/?[a-z][a-z0-9]*(?:\:[a-z][a-z0-9]*)*.*?\s*\/?>/,
                 )
             )
                 return

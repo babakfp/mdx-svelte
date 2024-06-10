@@ -3,7 +3,7 @@ import type { ConfigOutput, MarkupPreprocessorOptions } from "./types/index.js"
 // This is used to prevent some files from being preprocessed.
 export const isFileIgnored = (
     filename: MarkupPreprocessorOptions["filename"],
-    config: ConfigOutput
+    config: ConfigOutput,
 ) => {
     // NOTE: I don't know why this variable can be nullable, but that is what TypeScript says.
     if (!filename) {
