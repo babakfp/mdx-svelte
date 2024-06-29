@@ -33,7 +33,7 @@
         "stringify-entities": "4.0.4",
         "unified": "11.0.4",
         "unist-util-visit": "5.0.0",
-        "valibot": "0.30.0"
+        "zod": "3.23.8"
     },
     "devDependencies": {
         "@sveltejs/kit": "2.5.18",

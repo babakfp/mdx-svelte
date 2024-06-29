@@ -1,4 +1,3 @@
-import * as v from "valibot"
 import { unified } from "unified"
 import remarkParse from "remark-parse" // Options not needed because `Options: {}`.
 import remarkSvelteElementAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
@@ -40,7 +39,7 @@ export const transformer = (async (
     svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,
     config?: ConfigInput,
 ) => {
-    const config_ = v.parse(ConfigSchema, config)
+    const config_ = ConfigSchema.parse(config)
 
     const processor = unified()
 
