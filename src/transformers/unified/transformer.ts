@@ -42,6 +42,10 @@ export const transformer = (async (
 
     const processor = unified()
 
+    processor.use(() => (_, file) => {
+        file.data.frontmatter = {}
+    })
+
     processor.use(remarkParse)
 
     processor.use(remarkHtmlAttributeCurlyBracket)
