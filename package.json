@@ -60,7 +60,8 @@
         "markdown",
         "preprocess",
         "preprocessor",
-        "mdx"
+        "mdx",
+        "mdsvex"
     ],
     "type": "module"
 }
