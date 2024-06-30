@@ -1,4 +1,4 @@
-export type * from "./types/index.js"
 export * from "./constants.js"
 export * from "./getTableOfContents.js"
-export * from "./svelteInMarkdownPreprocess.js"
+export * from "./mdxSvelte.js"
+export type * from "./types/index.js"

@@ -1,7 +1,7 @@
-import { stringifyEntities } from "stringify-entities"
-import { visit } from "unist-util-visit"
-import type { Transformer } from "unified"
 import type { Root } from "hast"
+import { stringifyEntities } from "stringify-entities"
+import type { Transformer } from "unified"
+import { visit } from "unist-util-visit"
 
 // Default values used in `"stringify-entities"` package.
 const HTML_DANGEROUS_CHARACTERS = ['"', "&", "'", "<", ">", "`"] as const

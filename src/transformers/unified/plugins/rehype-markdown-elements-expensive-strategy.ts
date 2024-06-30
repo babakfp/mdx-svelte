@@ -1,6 +1,6 @@
-import type { Transformer } from "unified"
 import type { Root } from "hast"
-import { visit, SKIP } from "unist-util-visit"
+import type { Transformer } from "unified"
+import { SKIP, visit } from "unist-util-visit"
 
 export default (): Transformer<Root> => {
     return (tree) => {

@@ -1,3 +1,4 @@
-export const SVELTE_EXTENSION = ".svelte"
-export const MARKDOWN_EXTENSIONS = [".md", `${SVELTE_EXTENSION}.md`]
-export const SVELTE_EXTENSIONS = [SVELTE_EXTENSION, ...MARKDOWN_EXTENSIONS]
+export const DOT_SVELTE = ".svelte"
+export const DOT_MD = ".md"
+export const DOT_SVELTE_DOT_MD = `${DOT_SVELTE}${DOT_MD}`
+export const EXTENSIONS = [DOT_SVELTE, DOT_MD, DOT_SVELTE_DOT_MD] as const

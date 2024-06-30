@@ -1,22 +1,17 @@
 import { z } from "zod"
+import { DOT_MD, DOT_SVELTE_DOT_MD } from "../constants.js"
 
-import { MARKDOWN_EXTENSIONS } from "../constants.js"
-
-export const ConfigSchema = z
+export const mdxSvelteSchema = z
     .object({
         extensions: z
             .string()
             .regex(
                 /^\.[a-z]+(\.[a-z]+)?$/,
-                `Invalid file extension! Examples: ${JSON.stringify(
-                    MARKDOWN_EXTENSIONS,
-                )
-                    .split(",")
-                    .join(", ")}.`,
+                `Invalid file extension! Examples: ["${DOT_MD}", "${DOT_SVELTE_DOT_MD}"].`,
             )
             .array()
             .min(1)
-            .default(MARKDOWN_EXTENSIONS),
+            .default([DOT_MD, DOT_SVELTE_DOT_MD]),
         markdownElementsStrategy: z
             .union([z.literal("cheap"), z.literal("expensive")])
             .default("cheap"),

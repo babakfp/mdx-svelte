@@ -1,12 +1,15 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
-
-import type { ConfigOutput, RequiredNonNullable } from "./types/index.js"
 import { isFileIgnored } from "./isFileIgnored.js"
-import { transformer } from "./transformers/unified/index.js"
 import { modifyFinalHtml } from "./modifyFinalHtml.js"
+import { transformer } from "./transformers/unified/index.js"
+import type {
+    MdxSvelteConfigSchemaOutput,
+    RequiredNonNullable,
+} from "./types/index.js"
 
-export const markupPreprocessor = (config: ConfigOutput) => {
+export const markupToMdx = (config: MdxSvelteConfigSchemaOutput) => {
     return (async (options) => {
+        if (!options.content.trim()) return
         if (isFileIgnored(options.filename, config)) return
 
         // NOTE: I've verified that `filename` isn't `undefined` in the above code, but TypeScript doesn't understand it, so I added `as` to shut it off!
@@ -14,17 +17,17 @@ export const markupPreprocessor = (config: ConfigOutput) => {
 
         if (config?.onFileIgnore?.(options_)) return
 
-        const markdownResult =
+        const transformationResult =
             (await config?.onTransform?.(options_, config)) ||
             (await transformer(options_, config))
 
-        if (!markdownResult) return
+        if (!transformationResult) return
 
-        const html = modifyFinalHtml(
-            markdownResult.content,
-            markdownResult.data,
+        const code = modifyFinalHtml(
+            transformationResult.content,
+            transformationResult.data,
         )
 
-        return { code: html }
+        return { code }
     }) satisfies MarkupPreprocessor
 }

@@ -1,6 +1,6 @@
-import { SKIP, visit } from "unist-util-visit"
-import type { Transformer } from "unified"
 import type { Root } from "mdast"
+import type { Transformer } from "unified"
+import { visit } from "unist-util-visit"
 
 /*
 Turns this:

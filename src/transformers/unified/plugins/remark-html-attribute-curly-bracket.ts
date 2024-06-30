@@ -1,6 +1,6 @@
-import { visit } from "unist-util-visit"
-import type { Transformer } from "unified"
 import type { Root } from "mdast"
+import type { Transformer } from "unified"
+import { visit } from "unist-util-visit"
 
 /*
 HTML elements that contains (Svelte) curly brackets (in their attributes) will be parsed incorrectly! This fixes that.

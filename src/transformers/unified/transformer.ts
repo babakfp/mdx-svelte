@@ -1,43 +1,42 @@
-import { unified } from "unified"
-import remarkParse from "remark-parse" // Options not needed because `Options: {}`.
-import remarkSvelteElementAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
-import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
-import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
-import remarkTextToHtml from "./plugins/remark-text-to-html.js"
+import rehypeShiki from "@shikijs/rehype"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import rehypeExternalLinks from "rehype-external-links"
+import rehypeSlug from "rehype-slug"
+import rehypeStringify from "rehype-stringify"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
-import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
-import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
-import remarkToc from "remark-toc"
+import remarkParse from "remark-parse" // Options not needed because `Options: {}`.
 import remarkRehype from "remark-rehype"
-import rehypeMarkdownElementsContext from "./plugins/rehype-markdown-elements-context.js" // No `Options` export.
-import rehypeSlug from "rehype-slug"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
-import rehypeShiki from "@shikijs/rehype"
-import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
-import rehypeMarkdownElementsExpensiveStrategy from "./plugins/rehype-markdown-elements-expensive-strategy.js" // No `Options` export.
-import rehypeMarkdownElementsCheapStrategy from "./plugins/rehype-markdown-elements-cheap-strategy.js" // No `Options` export.
-import rehypeExternalLinks from "rehype-external-links"
-import rehypeStringify from "rehype-stringify"
-
+import remarkToc from "remark-toc"
+import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
+import { unified } from "unified"
 import type {
-    RequiredNonNullable,
     MarkupPreprocessorOptions,
-    ConfigInput as SvelteInMarkdownConfigInput,
-    ConfigOutput as SvelteInMarkdownConfigOutput,
+    MdxSvelteConfigSchemaInput,
+    MdxSvelteConfigSchemaOutput,
+    RequiredNonNullable,
 } from "../../types/index.js"
-import { ConfigSchema } from "./schemas/index.js"
-import type { ConfigInput } from "./types/index.js"
 import { isHrefExternal } from "./isHrefExternal.js"
+import rehypeMarkdownElementsCheapStrategy from "./plugins/rehype-markdown-elements-cheap-strategy.js" // No `Options` export.
+import rehypeMarkdownElementsContext from "./plugins/rehype-markdown-elements-context.js" // No `Options` export.
+import rehypeMarkdownElementsExpensiveStrategy from "./plugins/rehype-markdown-elements-expensive-strategy.js" // No `Options` export.
+import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
+import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
+import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
+import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
+import remarkTextToHtml from "./plugins/remark-text-to-html.js"
+import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
+import { ConfigSchema } from "./schemas/index.js"
+import type { UnifiedTransformerConfigSchemaInput } from "./types/index.js"
 
 /**
- * This is a transformer for that used unified ecosystem.
+ * This is a transformer that uses unified ecosystem.
  */
 export const transformer = (async (
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
-    svelteInMarkdownConfig: SvelteInMarkdownConfigOutput,
-    config?: ConfigInput,
+    mdxSvelteConfig: MdxSvelteConfigSchemaOutput,
+    config?: UnifiedTransformerConfigSchemaInput,
 ) => {
     const config_ = ConfigSchema.parse(config)
 
@@ -45,7 +44,7 @@ export const transformer = (async (
 
     processor.use(remarkParse)
 
-    processor.use(remarkSvelteElementAttributeCurlyBracket)
+    processor.use(remarkHtmlAttributeCurlyBracket)
 
     processor.use(remarkSvelteSpecialTags)
 
@@ -55,11 +54,10 @@ export const transformer = (async (
 
     processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.before)
     if (config_.builtInPlugins.remarkFrontmatter.enable) {
-        processor.use(remarkFrontmatter, {
-            type: config_.builtInPlugins.remarkFrontmatter.lang,
-            fence: { open: "---", close: "---" },
-            ...config_.builtInPlugins.remarkFrontmatter.options,
-        })
+        processor.use(
+            remarkFrontmatter,
+            config_.builtInPlugins.remarkFrontmatter.options,
+        )
     }
     processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.after)
 
@@ -148,14 +146,11 @@ export const transformer = (async (
 
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
     if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
-        if (svelteInMarkdownConfig.markdownElementsStrategy === "expensive") {
+        if (mdxSvelteConfig.markdownElementsStrategy === "expensive") {
             processor.use(rehypeMarkdownElementsExpensiveStrategy)
         }
-        if (svelteInMarkdownConfig.markdownElementsStrategy === "cheap") {
-            processor.use(
-                rehypeMarkdownElementsCheapStrategy,
-                svelteInMarkdownConfig,
-            )
+        if (mdxSvelteConfig.markdownElementsStrategy === "cheap") {
+            processor.use(rehypeMarkdownElementsCheapStrategy, mdxSvelteConfig)
         }
     }
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
@@ -193,4 +188,4 @@ export const transformer = (async (
         content: result.value.toString(),
         data: result.data,
     }
-}) satisfies SvelteInMarkdownConfigInput["onTransform"]
+}) satisfies MdxSvelteConfigSchemaInput["onTransform"]
