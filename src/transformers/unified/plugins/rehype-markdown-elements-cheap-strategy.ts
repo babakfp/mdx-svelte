@@ -1,9 +1,9 @@
 import type { Root } from "hast"
 import type { Transformer } from "unified"
 import { visit } from "unist-util-visit"
-import type { MdxSvelteConfigSchemaOutput } from "../../../types/index.js"
+import type { MdxPreprocessConfigSchemaOutput } from "../../../types/index.js"
 
-export default (config: MdxSvelteConfigSchemaOutput): Transformer<Root> => {
+export default (config: MdxPreprocessConfigSchemaOutput): Transformer<Root> => {
     return (tree, file) => {
         const frontmatterLayout = file.data.frontmatter?.layout
         const elements =

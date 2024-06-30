@@ -1,8 +1,8 @@
-import { mdxSvelteSchema } from "../dist/schemas/index.js"
+import { mdxPreprocessSchema } from "../dist/schemas/index.js"
 import { transformer } from "../dist/transformers/unified/index.js"
 import { ConfigSchema as TransformerSchema } from "../dist/transformers/unified/schemas/index.js"
 
-const mdxSvelteConfig = mdxSvelteSchema.parse()
+const mdxPreprocessConfig = mdxPreprocessSchema.parse()
 const transformerConfig = TransformerSchema.parse()
 
 const yaml = `---
@@ -15,4 +15,4 @@ title = "Hello World"
 
 const content = yaml
 
-await transformer({ content }, mdxSvelteConfig, transformerConfig)
+await transformer({ content }, mdxPreprocessConfig, transformerConfig)

@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { DOT_MD, DOT_SVELTE_DOT_MD } from "../constants.js"
 
-export const mdxSvelteSchema = z
+export const mdxPreprocessSchema = z
     .object({
         extensions: z
             .string()

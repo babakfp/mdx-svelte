@@ -1,12 +1,16 @@
 import { z } from "zod"
-import { mdxSvelteSchema } from "../schemas/index.js"
-import type { MdxSvelteConfigCallbacks } from "./MdxSvelteConfigCallbacks.js"
+import { mdxPreprocessSchema } from "../schemas/index.js"
+import type { MdxPreprocessConfigCallbacks } from "./MdxPreprocessConfigCallbacks.js"
 
 export * from "./MarkdownData.js"
 export * from "./MarkupPreprocessorOptions.js"
 export * from "./RequiredNonNullable.js"
 
-export type MdxSvelteConfigSchemaInput = z.input<typeof mdxSvelteSchema> &
-    MdxSvelteConfigCallbacks
-export type MdxSvelteConfigSchemaOutput = z.output<typeof mdxSvelteSchema> &
-    MdxSvelteConfigCallbacks
+export type MdxPreprocessConfigSchemaInput = z.input<
+    typeof mdxPreprocessSchema
+> &
+    MdxPreprocessConfigCallbacks
+export type MdxPreprocessConfigSchemaOutput = z.output<
+    typeof mdxPreprocessSchema
+> &
+    MdxPreprocessConfigCallbacks

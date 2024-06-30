@@ -1,10 +1,10 @@
-import type { MdxSvelteConfigSchemaOutput } from "./index.js"
+import type { MdxPreprocessConfigSchemaOutput } from "./index.js"
 import type { MarkdownData } from "./MarkdownData.js"
 import type { MarkupPreprocessorOptions } from "./MarkupPreprocessorOptions.js"
 import type { RequiredNonNullable } from "./RequiredNonNullable.js"
 
 /** MDX Svelte config callback options. */
-export type MdxSvelteConfigCallbacks = {
+export type MdxPreprocessConfigCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
      * It runs after the `nodeModules` option.
@@ -22,8 +22,8 @@ export type MdxSvelteConfigCallbacks = {
     onTransform?: (
         /** Info about the markdown file that is going to be preprocessed. */
         markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
-        /** The config that is passed to `mdxSvelte()` by you, which also contains the default values for options. */
-        config: MdxSvelteConfigSchemaOutput,
+        /** The config that is passed to `mdxPreprocess()` by you, which also contains the default values for options. */
+        config: MdxPreprocessConfigSchemaOutput,
     ) => Promise<{
         /** Transformed content. */
         content: string

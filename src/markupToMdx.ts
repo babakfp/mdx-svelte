@@ -3,11 +3,11 @@ import { isFileIgnored } from "./isFileIgnored.js"
 import { modifyFinalHtml } from "./modifyFinalHtml.js"
 import { transformer } from "./transformers/unified/index.js"
 import type {
-    MdxSvelteConfigSchemaOutput,
+    MdxPreprocessConfigSchemaOutput,
     RequiredNonNullable,
 } from "./types/index.js"
 
-export const markupToMdx = (config: MdxSvelteConfigSchemaOutput) => {
+export const markupToMdx = (config: MdxPreprocessConfigSchemaOutput) => {
     return (async (options) => {
         if (!options.content.trim()) return
         if (isFileIgnored(options.filename, config)) return

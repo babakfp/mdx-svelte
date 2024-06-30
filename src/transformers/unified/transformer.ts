@@ -13,8 +13,8 @@ import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
 import { unified } from "unified"
 import type {
     MarkupPreprocessorOptions,
-    MdxSvelteConfigSchemaInput,
-    MdxSvelteConfigSchemaOutput,
+    MdxPreprocessConfigSchemaInput,
+    MdxPreprocessConfigSchemaOutput,
     RequiredNonNullable,
 } from "../../types/index.js"
 import { isHrefExternal } from "./isHrefExternal.js"
@@ -35,7 +35,7 @@ import type { UnifiedTransformerConfigSchemaInput } from "./types/index.js"
  */
 export const transformer = (async (
     markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
-    mdxSvelteConfig: MdxSvelteConfigSchemaOutput,
+    mdxPreprocessConfig: MdxPreprocessConfigSchemaOutput,
     config?: UnifiedTransformerConfigSchemaInput,
 ) => {
     const config_ = ConfigSchema.parse(config)
@@ -146,11 +146,14 @@ export const transformer = (async (
 
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
     if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
-        if (mdxSvelteConfig.markdownElementsStrategy === "expensive") {
+        if (mdxPreprocessConfig.markdownElementsStrategy === "expensive") {
             processor.use(rehypeMarkdownElementsExpensiveStrategy)
         }
-        if (mdxSvelteConfig.markdownElementsStrategy === "cheap") {
-            processor.use(rehypeMarkdownElementsCheapStrategy, mdxSvelteConfig)
+        if (mdxPreprocessConfig.markdownElementsStrategy === "cheap") {
+            processor.use(
+                rehypeMarkdownElementsCheapStrategy,
+                mdxPreprocessConfig,
+            )
         }
     }
     processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
@@ -188,4 +191,4 @@ export const transformer = (async (
         content: result.value.toString(),
         data: result.data,
     }
-}) satisfies MdxSvelteConfigSchemaInput["onTransform"]
+}) satisfies MdxPreprocessConfigSchemaInput["onTransform"]
