@@ -1,11 +1,11 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
-import { isFileIgnored } from "./isFileIgnored.js"
-import { modifyFinalHtml } from "./modifyFinalHtml.js"
-import { transformer } from "./transformers/unified/index.js"
+import { transformer } from "../transformers/unified/index.js"
 import type {
     MdxPreprocessConfigSchemaOutput,
     RequiredNonNullable,
-} from "./types/index.js"
+} from "../types/index.js"
+import { isFileIgnored } from "./isFileIgnored.js"
+import { modifyFinalHtml } from "./modifyFinalHtml.js"
 
 export const markupToMdx = (config: MdxPreprocessConfigSchemaOutput) => {
     return (async (options) => {

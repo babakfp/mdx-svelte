@@ -1,4 +1,4 @@
-import type { MarkdownData } from "./types/index.js"
+import type { MarkdownData } from "../types/index.js"
 
 export const getMarkdownDataExportCode = (markdownData: MarkdownData) => {
     return `

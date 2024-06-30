@@ -1,7 +1,7 @@
 import type {
     MarkupPreprocessorOptions,
     MdxPreprocessConfigSchemaOutput,
-} from "./types/index.js"
+} from "../types/index.js"
 
 // This is used to prevent some files from being preprocessed.
 export const isFileIgnored = (

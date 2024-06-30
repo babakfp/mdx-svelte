@@ -1,7 +1,7 @@
 import type { Root } from "hast"
 import type { Transformer } from "unified"
 import { EXIT, visit } from "unist-util-visit"
-import { getMarkdownElementsContext } from "../../../getMarkdownElementsContext.js"
+import { getMarkdownElementsContext } from "../../../utils/getMarkdownElementsContext.js"
 
 export default (): Transformer<Root> => {
     return (tree) => {
