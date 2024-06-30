@@ -2,6 +2,8 @@
 
 # MDX Svelte
 
+MDX for Svelte - A Svelte Preprocessor that allows you to write Svelte code in Markdown files.
+
 Hey there! Welcome to [MDX Svelte](https://babakfp.ir/docs/mdx-svelte). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [MDX Svelte](https://babakfp.ir/docs/mdx-svelte), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
 
 -   [Documentation](https://babakfp.ir/docs/mdx-svelte)
