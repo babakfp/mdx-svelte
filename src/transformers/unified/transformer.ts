@@ -40,10 +40,6 @@ export const unifiedTransformer = (async (
 
     const processor = unified()
 
-    processor.use(() => (_, file) => {
-        file.data.frontmatter = {}
-    })
-
     processor.use(remarkMdxDataAndCustomElements)
 
     processor.use(remarkParse)
