@@ -117,14 +117,6 @@ export const ConfigSchema = z
                     .merge(BaseSchema)
                     .default({}),
 
-                rehypeMarkdownElementsContext: z
-                    .object({
-                        /** @readonly This plugin can't be disabled. */
-                        enable: z.literal(true).default(true),
-                    })
-                    .merge(BaseSchema)
-                    .default({}),
-
                 /** [View on NPM](https://npmjs.com/package/rehype-slug). */
                 rehypeSlug: z
                     .object({
@@ -171,7 +163,7 @@ export const ConfigSchema = z
                     .default({}),
 
                 /** A custom plugin that enables customizing HTML elements with Svelte components. */
-                rehypeMarkdownElements: z
+                rehypeCustomMarkdownElements: z
                     .object({
                         /** @default true */
                         enable: z.boolean().default(true),

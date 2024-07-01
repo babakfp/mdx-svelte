@@ -12,18 +12,16 @@ import remarkToc from "remark-toc"
 import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
 import { unified } from "unified"
 import type {
-    MarkupPreprocessorOptions,
-    MdxPreprocessConfigSchemaInput,
-    MdxPreprocessConfigSchemaOutput,
-    RequiredNonNullable,
-} from "../../types/index.js"
+    MdxPreprocessOptionsInput,
+    MdxPreprocessOptionsOutput,
+} from "../../mdxPreprocess/types.js"
+import type { PreprocessFile } from "../../types/index.js"
 import { isHrefExternal } from "./isHrefExternal.js"
-import rehypeMarkdownElementsCheapStrategy from "./plugins/rehype-markdown-elements-cheap-strategy.js" // No `Options` export.
-import rehypeMarkdownElementsContext from "./plugins/rehype-markdown-elements-context.js" // No `Options` export.
-import rehypeMarkdownElementsExpensiveStrategy from "./plugins/rehype-markdown-elements-expensive-strategy.js" // No `Options` export.
+import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js" // No `Options` export.
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
 import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
+import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom-elements.js"
 import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
@@ -34,8 +32,8 @@ import type { UnifiedTransformerConfigSchemaInput } from "./types/index.js"
  * This is a transformer that uses unified ecosystem.
  */
 export const transformer = (async (
-    markupPreprocessorOptions: RequiredNonNullable<MarkupPreprocessorOptions>,
-    mdxPreprocessConfig: MdxPreprocessConfigSchemaOutput,
+    markupPreprocessorOptions: PreprocessFile,
+    mdxPreprocessConfig: MdxPreprocessOptionsOutput,
     config?: UnifiedTransformerConfigSchemaInput,
 ) => {
     const config_ = ConfigSchema.parse(config)
@@ -45,6 +43,8 @@ export const transformer = (async (
     processor.use(() => (_, file) => {
         file.data.frontmatter = {}
     })
+
+    processor.use(remarkMdxDataAndCustomElements)
 
     processor.use(remarkParse)
 
@@ -108,14 +108,6 @@ export const transformer = (async (
     })
     processor.use(config_.builtInPlugins.remarkRehype.plugins?.after)
 
-    processor.use(
-        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.before,
-    )
-    processor.use(rehypeMarkdownElementsContext)
-    processor.use(
-        config_.builtInPlugins.rehypeMarkdownElementsContext.plugins?.after,
-    )
-
     processor.use(config_.builtInPlugins.rehypeSlug.plugins?.before)
     if (config_.builtInPlugins.rehypeSlug.enable) {
         processor.use(rehypeSlug, config_.builtInPlugins.rehypeSlug.options)
@@ -148,19 +140,15 @@ export const transformer = (async (
         config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after,
     )
 
-    processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.before)
-    if (config_.builtInPlugins.rehypeMarkdownElements.enable) {
-        if (mdxPreprocessConfig.markdownElementsStrategy === "expensive") {
-            processor.use(rehypeMarkdownElementsExpensiveStrategy)
-        }
-        if (mdxPreprocessConfig.markdownElementsStrategy === "cheap") {
-            processor.use(
-                rehypeMarkdownElementsCheapStrategy,
-                mdxPreprocessConfig,
-            )
-        }
+    processor.use(
+        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before,
+    )
+    if (config_.builtInPlugins.rehypeCustomMarkdownElements.enable) {
+        processor.use(rehypeCustomMarkdownElements, mdxPreprocessConfig)
     }
-    processor.use(config_.builtInPlugins.rehypeMarkdownElements.plugins?.after)
+    processor.use(
+        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.after,
+    )
 
     processor.use(config_.builtInPlugins.rehypeExternalLinks.plugins?.before)
     if (config_.builtInPlugins.rehypeExternalLinks.enable) {
@@ -195,4 +183,4 @@ export const transformer = (async (
         content: result.value.toString(),
         data: result.data,
     }
-}) satisfies MdxPreprocessConfigSchemaInput["onTransform"]
+}) satisfies MdxPreprocessOptionsInput["onTransform"]

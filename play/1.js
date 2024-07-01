@@ -1,4 +1,4 @@
-import { mdxPreprocessSchema } from "../dist/schemas/index.js"
+import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
 import { transformer } from "../dist/transformers/unified/index.js"
 import { ConfigSchema as TransformerSchema } from "../dist/transformers/unified/schemas/index.js"
 
