@@ -25,8 +25,8 @@ import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom
 import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
-import { ConfigSchema } from "./schema.js"
-import type { UnifiedTransformerConfigSchemaInput } from "./types.js"
+import { unifiedTransformerSchema } from "./schema.js"
+import type { UnifiedTransformerOptionsInput } from "./types.js"
 
 /**
  * A transformer that uses unified ecosystem.
@@ -34,9 +34,9 @@ import type { UnifiedTransformerConfigSchemaInput } from "./types.js"
 export const unifiedTransformer = (async (
     markupPreprocessorOptions: PreprocessFile,
     mdxPreprocessConfig: MdxPreprocessOptionsOutput,
-    config?: UnifiedTransformerConfigSchemaInput,
+    options?: UnifiedTransformerOptionsInput,
 ) => {
-    const config_ = ConfigSchema.parse(config)
+    const parsedOptions = unifiedTransformerSchema.parse(options)
 
     const processor = unified()
 
@@ -56,102 +56,127 @@ export const unifiedTransformer = (async (
 
     processor.use(remarkTextToHtml)
 
-    processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.before)
-    if (config_.builtInPlugins.remarkFrontmatter.enable) {
+    processor.use(
+        parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.remarkFrontmatter.enable) {
         processor.use(
             remarkFrontmatter,
-            config_.builtInPlugins.remarkFrontmatter.options,
+            parsedOptions.builtInPlugins.remarkFrontmatter.options,
         )
     }
-    processor.use(config_.builtInPlugins.remarkFrontmatter.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkFrontmatterYaml.plugins?.before)
-    if (config_.builtInPlugins.remarkFrontmatterYaml.enable) {
-        processor.use(
-            remarkFrontmatterYaml,
-            config_.builtInPlugins.remarkFrontmatterYaml.options,
-        )
-    }
-    processor.use(config_.builtInPlugins.remarkFrontmatterYaml.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkGfm.plugins?.before)
-    if (config_.builtInPlugins.remarkGfm.enable) {
-        processor.use(remarkGfm, config_.builtInPlugins.remarkGfm.options)
-    }
-    processor.use(config_.builtInPlugins.remarkGfm.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkGithubAlerts.plugins?.before)
-    if (config_.builtInPlugins.remarkGithubAlerts.enable) {
-        processor.use(
-            remarkGithubAlerts,
-            config_.builtInPlugins.remarkGithubAlerts.options,
-        )
-    }
-    processor.use(config_.builtInPlugins.remarkGithubAlerts.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkUnwrapImages.plugins?.before)
-    if (config_.builtInPlugins.remarkUnwrapImages.enable) {
-        processor.use(remarkUnwrapImages)
-    }
-    processor.use(config_.builtInPlugins.remarkUnwrapImages.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkToc.plugins?.before)
-    if (config_.builtInPlugins.remarkToc.enable) {
-        processor.use(remarkToc)
-    }
-    processor.use(config_.builtInPlugins.remarkToc.plugins?.after)
-
-    processor.use(config_.builtInPlugins.remarkRehype.plugins?.before)
-    processor.use(remarkRehype, {
-        ...config_.builtInPlugins.remarkRehype.options,
-        allowDangerousHtml: true,
-    })
-    processor.use(config_.builtInPlugins.remarkRehype.plugins?.after)
-
-    processor.use(config_.builtInPlugins.rehypeSlug.plugins?.before)
-    if (config_.builtInPlugins.rehypeSlug.enable) {
-        processor.use(rehypeSlug, config_.builtInPlugins.rehypeSlug.options)
-    }
-    processor.use(config_.builtInPlugins.rehypeSlug.plugins?.after)
-
-    processor.use(config_.builtInPlugins.rehypeAutolinkHeadings.plugins?.before)
-    if (config_.builtInPlugins.rehypeAutolinkHeadings.enable) {
-        processor.use(
-            rehypeAutolinkHeadings,
-            config_.builtInPlugins.rehypeAutolinkHeadings.options,
-        )
-    }
-    processor.use(config_.builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
-
-    processor.use(config_.builtInPlugins.rehypeShiki.plugins?.before)
-    if (config_.builtInPlugins.rehypeShiki.enable) {
-        processor.use(rehypeShiki, {
-            theme: "github-dark",
-            ...config_.builtInPlugins.rehypeShiki.options,
-        })
-    }
-    processor.use(config_.builtInPlugins.rehypeShiki.plugins?.after)
+    processor.use(parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.after)
 
     processor.use(
-        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before,
+        parsedOptions.builtInPlugins.remarkFrontmatterYaml.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.remarkFrontmatterYaml.enable) {
+        processor.use(
+            remarkFrontmatterYaml,
+            parsedOptions.builtInPlugins.remarkFrontmatterYaml.options,
+        )
+    }
+    processor.use(
+        parsedOptions.builtInPlugins.remarkFrontmatterYaml.plugins?.after,
+    )
+
+    processor.use(parsedOptions.builtInPlugins.remarkGfm.plugins?.before)
+    if (parsedOptions.builtInPlugins.remarkGfm.enable) {
+        processor.use(remarkGfm, parsedOptions.builtInPlugins.remarkGfm.options)
+    }
+    processor.use(parsedOptions.builtInPlugins.remarkGfm.plugins?.after)
+
+    processor.use(
+        parsedOptions.builtInPlugins.remarkGithubAlerts.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.remarkGithubAlerts.enable) {
+        processor.use(
+            remarkGithubAlerts,
+            parsedOptions.builtInPlugins.remarkGithubAlerts.options,
+        )
+    }
+    processor.use(
+        parsedOptions.builtInPlugins.remarkGithubAlerts.plugins?.after,
+    )
+
+    processor.use(
+        parsedOptions.builtInPlugins.remarkUnwrapImages.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.remarkUnwrapImages.enable) {
+        processor.use(remarkUnwrapImages)
+    }
+    processor.use(
+        parsedOptions.builtInPlugins.remarkUnwrapImages.plugins?.after,
+    )
+
+    processor.use(parsedOptions.builtInPlugins.remarkToc.plugins?.before)
+    if (parsedOptions.builtInPlugins.remarkToc.enable) {
+        processor.use(remarkToc)
+    }
+    processor.use(parsedOptions.builtInPlugins.remarkToc.plugins?.after)
+
+    processor.use(parsedOptions.builtInPlugins.remarkRehype.plugins?.before)
+    processor.use(remarkRehype, {
+        ...parsedOptions.builtInPlugins.remarkRehype.options,
+        allowDangerousHtml: true,
+    })
+    processor.use(parsedOptions.builtInPlugins.remarkRehype.plugins?.after)
+
+    processor.use(parsedOptions.builtInPlugins.rehypeSlug.plugins?.before)
+    if (parsedOptions.builtInPlugins.rehypeSlug.enable) {
+        processor.use(
+            rehypeSlug,
+            parsedOptions.builtInPlugins.rehypeSlug.options,
+        )
+    }
+    processor.use(parsedOptions.builtInPlugins.rehypeSlug.plugins?.after)
+
+    processor.use(
+        parsedOptions.builtInPlugins.rehypeAutolinkHeadings.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.rehypeAutolinkHeadings.enable) {
+        processor.use(
+            rehypeAutolinkHeadings,
+            parsedOptions.builtInPlugins.rehypeAutolinkHeadings.options,
+        )
+    }
+    processor.use(
+        parsedOptions.builtInPlugins.rehypeAutolinkHeadings.plugins?.after,
+    )
+
+    processor.use(parsedOptions.builtInPlugins.rehypeShiki.plugins?.before)
+    if (parsedOptions.builtInPlugins.rehypeShiki.enable) {
+        processor.use(rehypeShiki, {
+            theme: "github-dark",
+            ...parsedOptions.builtInPlugins.rehypeShiki.options,
+        })
+    }
+    processor.use(parsedOptions.builtInPlugins.rehypeShiki.plugins?.after)
+
+    processor.use(
+        parsedOptions.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before,
     )
     processor.use(rehypeSanitizeCodeElement)
     processor.use(
-        config_.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after,
+        parsedOptions.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after,
     )
 
     processor.use(
-        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.before,
+        parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.plugins
+            ?.before,
     )
-    if (config_.builtInPlugins.rehypeCustomMarkdownElements.enable) {
+    if (parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.enable) {
         processor.use(rehypeCustomMarkdownElements, mdxPreprocessConfig)
     }
     processor.use(
-        config_.builtInPlugins.rehypeCustomMarkdownElements.plugins?.after,
+        parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.plugins
+            ?.after,
     )
 
-    processor.use(config_.builtInPlugins.rehypeExternalLinks.plugins?.before)
-    if (config_.builtInPlugins.rehypeExternalLinks.enable) {
+    processor.use(
+        parsedOptions.builtInPlugins.rehypeExternalLinks.plugins?.before,
+    )
+    if (parsedOptions.builtInPlugins.rehypeExternalLinks.enable) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
                 if (isHrefExternal(element.properties.href?.toString())) {
@@ -163,19 +188,21 @@ export const unifiedTransformer = (async (
                     return "_blank"
                 }
             },
-            ...config_.builtInPlugins.rehypeExternalLinks.options,
+            ...parsedOptions.builtInPlugins.rehypeExternalLinks.options,
         })
     }
-    processor.use(config_.builtInPlugins.rehypeExternalLinks.plugins?.after)
+    processor.use(
+        parsedOptions.builtInPlugins.rehypeExternalLinks.plugins?.after,
+    )
 
-    processor.use(config_.builtInPlugins.rehypeStringify.plugins?.before)
+    processor.use(parsedOptions.builtInPlugins.rehypeStringify.plugins?.before)
     processor.use(rehypeStringify, {
-        ...config_.builtInPlugins.rehypeStringify.options,
+        ...parsedOptions.builtInPlugins.rehypeStringify.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
         allowParseErrors: true,
     })
-    processor.use(config_.builtInPlugins.rehypeStringify.plugins?.after)
+    processor.use(parsedOptions.builtInPlugins.rehypeStringify.plugins?.after)
 
     const result = await processor.process(markupPreprocessorOptions.content)
 

@@ -19,7 +19,7 @@ import * as _5 from "../../../node_modules/remark-gfm/lib/index.js"
 import type { RemarkGitHubAlertsOptions } from "./plugins/remark-github-alerts/src/index.js"
 import * as _7 from ".pnpm/yaml@2.4.1/node_modules/yaml"
 
-const BaseSchema = z.object({
+const baseSchema = z.object({
     /** Useful to add a plugin before or after this plugin. */
     plugins: z
         .object({
@@ -32,7 +32,7 @@ const BaseSchema = z.object({
         .optional(),
 })
 
-export const ConfigSchema = z
+export const unifiedTransformerSchema = z
     .object({
         builtInPlugins: z
             .object({
@@ -46,7 +46,7 @@ export const ConfigSchema = z
                             .custom<RemarkFrontmatterOptions>()
                             .default("yaml"),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/remark-frontmatter-yaml). */
@@ -58,7 +58,7 @@ export const ConfigSchema = z
                             .custom<RemarkFrontmatterYamlCustomOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/remark-gfm). */
@@ -68,7 +68,7 @@ export const ConfigSchema = z
                         enable: z.boolean().default(true),
                         options: z.custom<RemarkGfmOptions>().optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /**
@@ -83,7 +83,7 @@ export const ConfigSchema = z
                             .custom<RemarkGitHubAlertsOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/remark-unwrap-images). */
@@ -92,7 +92,7 @@ export const ConfigSchema = z
                         /** @default true */
                         enable: z.boolean().default(true),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/remark-toc). */
@@ -102,7 +102,7 @@ export const ConfigSchema = z
                         enable: z.boolean().default(true),
                         options: z.custom<RemarkTocOptions>().optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/remark-rehype). */
@@ -114,7 +114,7 @@ export const ConfigSchema = z
                             .custom<RemarkRehypeCustomOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/rehype-slug). */
@@ -124,7 +124,7 @@ export const ConfigSchema = z
                         enable: z.boolean().default(true),
                         options: z.custom<RehypeSlugOptions>().optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/rehype-autolink-headings). */
@@ -136,7 +136,7 @@ export const ConfigSchema = z
                             .custom<RehypeAutolinkHeadingsOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/@shikijs/rehype). */
@@ -146,7 +146,7 @@ export const ConfigSchema = z
                         enable: z.boolean().default(true),
                         options: z.custom<RehypeShikiOptions>().optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /**
@@ -159,7 +159,7 @@ export const ConfigSchema = z
                         /** @readonly This plugin can't be disabled. */
                         enable: z.literal(true).default(true),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** A custom plugin that enables customizing HTML elements with Svelte components. */
@@ -168,7 +168,7 @@ export const ConfigSchema = z
                         /** @default true */
                         enable: z.boolean().default(true),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/rehype-external-links). */
@@ -180,7 +180,7 @@ export const ConfigSchema = z
                             .custom<RehypeExternalLinksOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
 
                 /** [View on NPM](https://npmjs.com/package/rehype-stringify). */
@@ -192,7 +192,7 @@ export const ConfigSchema = z
                             .custom<RehypeStringifyCustomOptions>()
                             .optional(),
                     })
-                    .merge(BaseSchema)
+                    .merge(baseSchema)
                     .default({}),
             })
             .default({}),

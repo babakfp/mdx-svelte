@@ -1,5 +1,9 @@
 import { z } from "zod"
-import { ConfigSchema } from "./schema.js"
+import { unifiedTransformerSchema } from "./schema.js"
 
-export type UnifiedTransformerConfigSchemaInput = z.input<typeof ConfigSchema>
-export type UnifiedTransformerConfigSchemaOutput = z.output<typeof ConfigSchema>
+export type UnifiedTransformerOptionsInput = z.input<
+    typeof unifiedTransformerSchema
+>
+export type UnifiedTransformerOptionsOutput = z.output<
+    typeof unifiedTransformerSchema
+>
