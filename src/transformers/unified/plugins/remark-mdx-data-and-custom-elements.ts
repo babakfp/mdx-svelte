@@ -35,7 +35,7 @@ export default (): Transformer<Root> => {
 
                     node.value = node.value.replace(
                         "</script>",
-                        "\n" + mdxCustomElementsContext + "</script>",
+                        mdxCustomElementsContext + "</script>",
                     )
                 }
             }
