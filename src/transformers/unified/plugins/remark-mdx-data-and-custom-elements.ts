@@ -46,17 +46,22 @@ export default (): Transformer<Root> => {
             }
         })
 
+        let indexToInsert = tree.children.length > 0 ? 1 : 0
+
         if (!isModuleScriptMatched) {
-            tree.children.unshift({
+            tree.children.splice(indexToInsert, 0, {
                 type: "html",
                 value: `<script context="module">
                     export const mdxData = __mdxData__;
                 </script>`,
             })
+
+            // NOTE: The order of isModuleScriptMatched and isNormalScriptMatched matters.
+            indexToInsert += 1
         }
 
         if (!isNormalScriptMatched) {
-            tree.children.unshift({
+            tree.children.splice(indexToInsert, 0, {
                 type: "html",
                 value: `<script>${mdxCustomElementsContext}</script>`,
             })
