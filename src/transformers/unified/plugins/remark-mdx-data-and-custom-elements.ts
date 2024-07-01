@@ -38,7 +38,7 @@ export default (): Transformer<Root> => {
                 )
             }
 
-            if (isNormalScriptMatched && isModuleScriptMatched) {
+            if (isModuleScriptMatched && isNormalScriptMatched) {
                 return EXIT
             }
         })
