@@ -25,7 +25,7 @@ import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom
 import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
-import { ConfigSchema } from "./schemas/index.js"
+import { ConfigSchema } from "./schema.js"
 import type { UnifiedTransformerConfigSchemaInput } from "./types.js"
 
 /**
