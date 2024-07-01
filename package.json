@@ -61,7 +61,9 @@
         "preprocess",
         "preprocessor",
         "mdx",
-        "mdsvex"
+        "mdsvex",
+        "sveltekit",
+        "kit"
     ],
     "type": "module"
 }
