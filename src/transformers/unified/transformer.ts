@@ -6,19 +6,19 @@ import rehypeStringify from "rehype-stringify"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
-import remarkParse from "remark-parse" // Options not needed because `Options: {}`.
+import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import remarkToc from "remark-toc"
-import remarkUnwrapImages from "remark-unwrap-images" // No `Options` export.
+import remarkUnwrapImages from "remark-unwrap-images"
+import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
 import type {
     MdxPreprocessOptionsInput,
     MdxPreprocessOptionsOutput,
 } from "../../mdxPreprocess/types.js"
-import type { PreprocessFile } from "../../types/index.js"
 import { isHrefExternal } from "./isHrefExternal.js"
-import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js" // No `Options` export.
-import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js" // No `Options` export.
+import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js"
+import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js"
 import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
 import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom-elements.js"
@@ -32,7 +32,7 @@ import type { UnifiedTransformerOptionsInput } from "./types.js"
  * A transformer that uses unified ecosystem.
  */
 export const unifiedTransformer = (async (
-    markupPreprocessorOptions: PreprocessFile,
+    markupPreprocessorOptions: Parameters<MarkupPreprocessor>[0],
     mdxPreprocessConfig: MdxPreprocessOptionsOutput,
     options?: UnifiedTransformerOptionsInput,
 ) => {

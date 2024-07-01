@@ -1,7 +1,7 @@
+import type { MarkupPreprocessor } from "svelte/compiler"
 import type { Data } from "vfile"
 import { z } from "zod"
 import { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
-import type { PreprocessFile } from "../types/index.js"
 
 /** MDX Svelte config callback options. */
 export type MdxPreprocessConfigCallbacks = {
@@ -11,7 +11,7 @@ export type MdxPreprocessConfigCallbacks = {
      * @param options - Contains file path and content.
      * @returns Return `true` to ignore the file, otherwise return `false`.
      */
-    onFileIgnore?: (options: PreprocessFile) => boolean
+    onFileIgnore?: (options: Parameters<MarkupPreprocessor>[0]) => boolean
 
     /**
      * Use this to build your own transformer or customize the built-in plugins.
@@ -19,7 +19,7 @@ export type MdxPreprocessConfigCallbacks = {
      */
     onTransform?: (
         /** Info about the markdown file that is going to be preprocessed. */
-        markupPreprocessorOptions: PreprocessFile,
+        markupPreprocessorOptions: Parameters<MarkupPreprocessor>[0],
         /** The config that is passed to `mdxPreprocess()` by you, which also contains the default values for options. */
         config: MdxPreprocessOptionsOutput,
     ) => Promise<{

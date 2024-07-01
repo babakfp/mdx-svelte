@@ -6,11 +6,11 @@ import { shouldPreprocessFile } from "./shouldPreprocessFile.js"
 
 export const preprocessMarkupToMdx = (config: MdxPreprocessOptionsOutput) => {
     return (async (options) => {
-        const file = shouldPreprocessFile(options, config)
-        if (!file || config?.onFileIgnore?.(file)) return
+        if (!shouldPreprocessFile(options, config)) return
+        if (config?.onFileIgnore?.(options)) return
 
-        const result = await (config?.onTransform?.(file, config) ??
-            unifiedTransformer(file, config))
+        const result = await (config?.onTransform?.(options, config) ??
+            unifiedTransformer(options, config))
 
         const code = replaceMdxDataPlaceholderWithData(
             result.content,
