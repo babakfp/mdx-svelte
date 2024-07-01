@@ -26,7 +26,7 @@ import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
 import { ConfigSchema } from "./schemas/index.js"
-import type { UnifiedTransformerConfigSchemaInput } from "./types/index.js"
+import type { UnifiedTransformerConfigSchemaInput } from "./types.js"
 
 /**
  * A transformer that uses unified ecosystem.
