@@ -3,25 +3,26 @@ import type { MdxPreprocessOptionsOutput } from "../mdxPreprocess/types.js"
 import { unifiedTransformer } from "../transformers/unified/index.js"
 import { replaceMdxDataPlaceholderWithData } from "./replaceMdxDataPlaceholderWithData.js"
 
-export const preprocessMarkupToMdx = (config: MdxPreprocessOptionsOutput) => {
-    return (async (options) => {
-        if (!options.content.trim()) {
-            return { code: "" }
-        }
+export const preprocessMarkup = async (
+    options: Parameters<MarkupPreprocessor>[0],
+    config: MdxPreprocessOptionsOutput,
+) => {
+    if (!options.content.trim()) {
+        return { content: "" }
+    }
 
-        if (ignoreFile(options.filename, config)) return
-        if (config?.onFileIgnore?.(options)) return
+    if (ignoreFile(options.filename, config)) return
+    if (config?.onFileIgnore?.(options)) return
 
-        const result = await (config?.onTransform?.(options, config) ??
-            unifiedTransformer(options, config))
+    const transformResult = await (config?.onTransform?.(options, config) ??
+        unifiedTransformer(options, config))
 
-        const code = replaceMdxDataPlaceholderWithData(
-            result.content,
-            result.data,
-        )
+    const newContent = replaceMdxDataPlaceholderWithData(
+        transformResult.content,
+        transformResult.data,
+    )
 
-        return { code }
-    }) satisfies MarkupPreprocessor
+    return { content: newContent, data: transformResult.data }
 }
 
 const ignoreFile = (

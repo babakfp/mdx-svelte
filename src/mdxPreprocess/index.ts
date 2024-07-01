@@ -1,5 +1,5 @@
 import type { PreprocessorGroup } from "svelte/compiler"
-import { preprocessMarkupToMdx } from "../utils/preprocessMarkupToMdx.js"
+import { markupPreprocess } from "../utils/markupPreprocess.js"
 import { mdxPreprocessSchema } from "./schema.js"
 import type { MdxPreprocessOptionsInput } from "./types.js"
 
@@ -8,6 +8,6 @@ export const mdxPreprocess = (options?: MdxPreprocessOptionsInput) => {
 
     return {
         name: "mdx-svelte",
-        markup: preprocessMarkupToMdx(parsedOptions),
+        markup: markupPreprocess(parsedOptions),
     } satisfies PreprocessorGroup
 }
