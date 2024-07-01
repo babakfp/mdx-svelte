@@ -1,7 +1,7 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
+import type { Data } from "vfile"
 import type { MdxPreprocessOptionsOutput } from "../mdxPreprocess/types.js"
 import { unifiedTransformer } from "../transformers/unified/index.js"
-import { replaceMdxDataPlaceholderWithData } from "./replaceMdxDataPlaceholderWithData.js"
 
 export const preprocessMarkup = async (
     options: Parameters<MarkupPreprocessor>[0],
@@ -45,4 +45,8 @@ const ignoreFile = (
     ) {
         return true
     }
+}
+
+const replaceMdxDataPlaceholderWithData = (content: string, data: Data) => {
+    return content.replace("__mdxData__", JSON.stringify(data))
 }

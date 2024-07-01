@@ -1,10 +1,7 @@
 import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
-import { unifiedTransformer } from "../dist/transformers/unified/index.js"
-import { unifiedTransformerSchema } from "../dist/transformers/unified/schema.js"
-import { replaceMdxDataPlaceholderWithData } from "../dist/utils/replaceMdxDataPlaceholderWithData.js"
+import { preprocessMarkup } from "../dist/utils/preprocessMarkup.js"
 
 const mdxPreprocessConfig = mdxPreprocessSchema.parse()
-const transformerConfig = unifiedTransformerSchema.parse()
 
 const content = `
 <script></script>
@@ -13,11 +10,6 @@ const content = `
 # Hello, World!
 `
 
-const result = await unifiedTransformer(
-    { content },
-    mdxPreprocessConfig,
-    transformerConfig,
-)
-const code = replaceMdxDataPlaceholderWithData(result.content, result.data)
+const result = await preprocessMarkup({ content }, mdxPreprocessConfig)
 
-console.log(code)
+console.dir(result)
