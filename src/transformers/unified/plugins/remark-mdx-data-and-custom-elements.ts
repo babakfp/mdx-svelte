@@ -7,7 +7,8 @@ const mdxCustomElementsContext = `
     const MdxCustomElements = mdx_getContext("MdxCustomElements") ?? {};
 `
 
-const moduleScriptRegex = /<script\s+context="module"[^>]*>(.*?)<\/script>/s
+const moduleScriptRegex =
+    /<script\s+[^>]*context="module"[^>]*>(.*?)<\/script>/s
 const normalScriptRegex = /<script\b(?!.*context=).*?>(.*?)<\/script>/s
 
 export default (): Transformer<Root> => {
