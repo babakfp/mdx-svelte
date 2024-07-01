@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { DOT_MD, DOT_SVELTE_MD } from "../helpers/constants.js"
+import { DOT_MD } from "../helpers/constants.js"
 
 export const mdxPreprocessSchema = z
     .object({
@@ -9,13 +9,10 @@ export const mdxPreprocessSchema = z
          */
         extensions: z
             .string()
-            .regex(
-                /^\.[a-z]+(\.[a-z]+)?$/,
-                `Invalid file extension! Examples: ["${DOT_MD}", "${DOT_SVELTE_MD}"].`,
-            )
+            .regex(/^\.[a-z]+(\.[a-z]+)?$/)
             .array()
             .min(1)
-            .default([DOT_MD, DOT_SVELTE_MD]),
+            .default([DOT_MD]),
         layouts: z
             .record(z.string().min(1), z.string().regex(/[a-z]/).array())
             .optional(),
