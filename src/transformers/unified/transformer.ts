@@ -29,9 +29,9 @@ import { ConfigSchema } from "./schemas/index.js"
 import type { UnifiedTransformerConfigSchemaInput } from "./types/index.js"
 
 /**
- * This is a transformer that uses unified ecosystem.
+ * A transformer that uses unified ecosystem.
  */
-export const transformer = (async (
+export const unifiedTransformer = (async (
     markupPreprocessorOptions: PreprocessFile,
     mdxPreprocessConfig: MdxPreprocessOptionsOutput,
     config?: UnifiedTransformerConfigSchemaInput,

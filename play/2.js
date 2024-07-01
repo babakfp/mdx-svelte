@@ -1,5 +1,5 @@
 import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
-import { transformer } from "../dist/transformers/unified/index.js"
+import { unifiedTransformer } from "../dist/transformers/unified/index.js"
 import { ConfigSchema as TransformerSchema } from "../dist/transformers/unified/schemas/index.js"
 import { replaceMdxDataPlaceholderWithData } from "../dist/utils/replaceMdxDataPlaceholderWithData.js"
 
@@ -13,7 +13,7 @@ const content = `
 # Hello, World!
 `
 
-const result = await transformer(
+const result = await unifiedTransformer(
     { content },
     mdxPreprocessConfig,
     transformerConfig,
