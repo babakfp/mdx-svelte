@@ -9,9 +9,13 @@ export const shouldPreprocessFile = (
 ) => {
     const { filename: name, content } = options
 
-    if (!name) return
-    if (!content.trim()) return
-    if (name.includes("/.svelte-kit/")) return
+    if (!name) return false
+    if (!content.trim()) return false
+    if (name.includes("/.svelte-kit/")) return false
+
+    if (!config.extensions.some((extension) => name.endsWith(extension))) {
+        return false
+    }
 
     if (
         name.includes("/node_modules/") &&
@@ -19,10 +23,8 @@ export const shouldPreprocessFile = (
             name.includes(`/node_modules/${dep}/`),
         )
     ) {
-        return
+        return false
     }
-
-    if (!config.extensions.some((extension) => name.endsWith(extension))) return
 
     const file: PreprocessFile = { name, content }
 

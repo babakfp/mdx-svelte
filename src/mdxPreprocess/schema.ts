@@ -3,6 +3,10 @@ import { DOT_MD, DOT_SVELTE_MD } from "../helpers/constants.js"
 
 export const mdxPreprocessSchema = z
     .object({
+        /**
+         * @default
+         * [".md", ".svelte.md"]
+         */
         extensions: z
             .string()
             .regex(

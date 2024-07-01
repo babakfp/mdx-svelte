@@ -2,36 +2,23 @@ import type { Root } from "mdast"
 import type { Transformer } from "unified"
 import { EXIT, visit } from "unist-util-visit"
 
-const customMarkdownElementsContext = `
+const mdxCustomElementsContext = `
     import { getContext as mdx_getContext } from "svelte";
     const MdxCustomElements = mdx_getContext("MdxCustomElements") ?? {};
 `
 
+const moduleScriptRegex = /<script\s+context="module"[^>]*>(.*?)<\/script>/s
 const normalScriptRegex = /<script\b(?!.*context=).*?>(.*?)<\/script>/s
-const contextModuleScriptRegex =
-    /<script\s+context="module"[^>]*>(.*?)<\/script>/s
 
 export default (): Transformer<Root> => {
-    let isNormalScriptMatched = false
-    let isContextModuleScriptMatched = false
-
     return (tree) => {
+        let isNormalScriptMatched = false
+        let isModuleScriptMatched = false
+
         visit(tree, "html", (node) => {
-            const normalScriptMatch = node.value.match(normalScriptRegex)
-            if (!isNormalScriptMatched && normalScriptMatch) {
-                isNormalScriptMatched = true
-
-                node.value = node.value.replace(
-                    "</script>",
-                    "\n" + customMarkdownElementsContext + "</script>",
-                )
-            }
-
-            const contextModuleScriptMatch = node.value.match(
-                contextModuleScriptRegex,
-            )
-            if (!isContextModuleScriptMatched && contextModuleScriptMatch) {
-                isContextModuleScriptMatched = true
+            const moduleScriptMatch = node.value.match(moduleScriptRegex)
+            if (!isModuleScriptMatched && moduleScriptMatch) {
+                isModuleScriptMatched = true
 
                 node.value = node.value.replace(
                     "</script>",
@@ -41,24 +28,34 @@ export default (): Transformer<Root> => {
                 )
             }
 
-            if (isNormalScriptMatched && isContextModuleScriptMatched) {
+            const normalScriptMatch = node.value.match(normalScriptRegex)
+            if (!isNormalScriptMatched && normalScriptMatch) {
+                isNormalScriptMatched = true
+
+                node.value = node.value.replace(
+                    "</script>",
+                    "\n" + mdxCustomElementsContext + "</script>",
+                )
+            }
+
+            if (isNormalScriptMatched && isModuleScriptMatched) {
                 return EXIT
             }
         })
 
-        if (!isNormalScriptMatched) {
-            tree.children.unshift({
-                type: "html",
-                value: `<script>${customMarkdownElementsContext}</script>`,
-            })
-        }
-
-        if (!isContextModuleScriptMatched) {
+        if (!isModuleScriptMatched) {
             tree.children.unshift({
                 type: "html",
                 value: `<script context="module">
                     export const mdxData = __mdxData__;
                 </script>`,
+            })
+        }
+
+        if (!isNormalScriptMatched) {
+            tree.children.unshift({
+                type: "html",
+                value: `<script>${mdxCustomElementsContext}</script>`,
             })
         }
     }
