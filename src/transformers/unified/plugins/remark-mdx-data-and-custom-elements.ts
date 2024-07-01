@@ -12,30 +12,34 @@ const normalScriptRegex = /<script\b(?!.*context=).*?>(.*?)<\/script>/s
 
 export default (): Transformer<Root> => {
     return (tree) => {
-        let isNormalScriptMatched = false
         let isModuleScriptMatched = false
+        let isNormalScriptMatched = false
 
         visit(tree, "html", (node) => {
-            const moduleScriptMatch = node.value.match(moduleScriptRegex)
-            if (!isModuleScriptMatched && moduleScriptMatch) {
-                isModuleScriptMatched = true
+            if (!isModuleScriptMatched) {
+                const moduleScriptMatch = node.value.match(moduleScriptRegex)
+                if (moduleScriptMatch) {
+                    isModuleScriptMatched = true
 
-                node.value = node.value.replace(
-                    "</script>",
-                    `
-                        export const mdxData = __mdxData__;
-                    </script>`,
-                )
+                    node.value = node.value.replace(
+                        "</script>",
+                        `
+                            export const mdxData = __mdxData__;
+                        </script>`,
+                    )
+                }
             }
 
-            const normalScriptMatch = node.value.match(normalScriptRegex)
-            if (!isNormalScriptMatched && normalScriptMatch) {
-                isNormalScriptMatched = true
+            if (!isNormalScriptMatched) {
+                const normalScriptMatch = node.value.match(normalScriptRegex)
+                if (normalScriptMatch) {
+                    isNormalScriptMatched = true
 
-                node.value = node.value.replace(
-                    "</script>",
-                    "\n" + mdxCustomElementsContext + "</script>",
-                )
+                    node.value = node.value.replace(
+                        "</script>",
+                        "\n" + mdxCustomElementsContext + "</script>",
+                    )
+                }
             }
 
             if (isModuleScriptMatched && isNormalScriptMatched) {
