@@ -55,12 +55,10 @@ export const unifiedTransformer = (async (
     processor.use(
         parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.before,
     )
-    if (parsedOptions.builtInPlugins.remarkFrontmatter.enable) {
-        processor.use(
-            remarkFrontmatter,
-            parsedOptions.builtInPlugins.remarkFrontmatter.options,
-        )
-    }
+    processor.use(
+        remarkFrontmatter,
+        parsedOptions.builtInPlugins.remarkFrontmatter.options,
+    )
     processor.use(parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.after)
 
     processor.use(

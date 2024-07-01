@@ -39,8 +39,6 @@ export const unifiedTransformerSchema = z
                 /** [View on NPM](https://npmjs.com/package/remark-frontmatter). */
                 remarkFrontmatter: z
                     .object({
-                        /** @default true */
-                        enable: z.boolean().default(true),
                         /** @default "yaml" */
                         options: z
                             .custom<RemarkFrontmatterOptions>()
@@ -108,8 +106,6 @@ export const unifiedTransformerSchema = z
                 /** [View on NPM](https://npmjs.com/package/remark-rehype). */
                 remarkRehype: z
                     .object({
-                        /** @readonly This plugin can't be disabled. */
-                        enable: z.literal(true).default(true),
                         options: z
                             .custom<RemarkRehypeCustomOptions>()
                             .optional(),
@@ -186,8 +182,6 @@ export const unifiedTransformerSchema = z
                 /** [View on NPM](https://npmjs.com/package/rehype-stringify). */
                 rehypeStringify: z
                     .object({
-                        /** @readonly This plugin can't be disabled. */
-                        enable: z.literal(true).default(true),
                         options: z
                             .custom<RehypeStringifyCustomOptions>()
                             .optional(),
