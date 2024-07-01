@@ -42,7 +42,8 @@ export const mdxPreprocessSchema = z
                         /[a-z]/,
                         "A custom element name, in the property of `layouts` in the first argument of the `mdxPreprocess(options)` function, can't me empty and can only contain lowercase letters.",
                     )
-                    .array(),
+                    .array()
+                    .default([]),
             )
             .optional(),
         preprocessDependencies: z
