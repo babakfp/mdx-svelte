@@ -17,8 +17,7 @@ export default (): Transformer<Root> => {
 
         visit(tree, "html", (node) => {
             if (!isModuleScriptMatched) {
-                const moduleScriptMatch = node.value.match(moduleScriptRegex)
-                if (moduleScriptMatch) {
+                if (node.value.match(moduleScriptRegex)) {
                     isModuleScriptMatched = true
 
                     node.value = node.value.replace(
@@ -31,8 +30,7 @@ export default (): Transformer<Root> => {
             }
 
             if (!isNormalScriptMatched) {
-                const normalScriptMatch = node.value.match(normalScriptRegex)
-                if (normalScriptMatch) {
+                if (node.value.match(normalScriptRegex)) {
                     isNormalScriptMatched = true
 
                     node.value = node.value.replace(
