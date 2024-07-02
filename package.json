@@ -13,8 +13,8 @@
         "format": "prettier -w ."
     },
     "peerDependencies": {
-        "@sveltejs/kit": "^2.0",
-        "svelte": "^4.0"
+        "@sveltejs/kit": ">= 2 < 3",
+        "svelte": ">= 4 < 6"
     },
     "dependencies": {
         "@shikijs/rehype": "1.10.0",
