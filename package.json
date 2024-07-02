@@ -7,9 +7,9 @@
     "homepage": "https://babakfp.ir/docs/mdx-svelte",
     "main": "./dist/index.js",
     "scripts": {
-        "dev": "tsc -w",
-        "build": "tsc",
-        "prepublishOnly": "tsc",
+        "dev": "rimraf dist && tsc -w",
+        "build": "rimraf dist && tsc",
+        "prepublishOnly": "rimraf dist && tsc",
         "format": "prettier -w ."
     },
     "peerDependencies": {
@@ -42,6 +42,7 @@
         "@types/mdast": "4.0.4",
         "@types/node": "20.14.9",
         "prettier": "3.3.2",
+        "rimraf": "5.0.7",
         "svelte": "4.2.18",
         "typescript": "5.5.3",
         "vfile": "6.0.1"
