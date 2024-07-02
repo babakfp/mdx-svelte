@@ -10,7 +10,7 @@ Hey there! Welcome to [MDX Svelte](https://babakfp.ir/docs/mdx-svelte). Ever wis
 -   [CHANGELOG](https://babakfp.ir/docs/mdx-svelte/changelog)
 -   [NPM](https://www.npmjs.com/package/mdx-svelte)
 
-## Example
+## Example (`+page.md`)
 
 ```
 ---
