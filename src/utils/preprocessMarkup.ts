@@ -44,5 +44,5 @@ const ignoreFile = (
 }
 
 const replaceMdxDataPlaceholderWithData = (content: string, data: Data) => {
-    return content.replace("__mdxData__", JSON.stringify(data))
+    return content.replace("__mdx__", JSON.stringify(data))
 }

@@ -24,7 +24,8 @@ export default (): Transformer<Root> => {
                     node.value = node.value.replace(
                         "</script>",
                         `
-                            export const mdxData = __mdxData__;
+                            export const mdx = __mdx__;
+                            export const frontmatter = mdx.frontmatter;
                         </script>`,
                     )
                 }
@@ -52,7 +53,8 @@ export default (): Transformer<Root> => {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
                 value: `<script context="module">
-                    export const mdxData = __mdxData__;
+                    export const mdx = __mdx__;
+                    export const frontmatter = mdx.frontmatter;
                 </script>`,
             })
 
