@@ -13,8 +13,8 @@ const mdxCustomElements = [
 ]
 
 const moduleScriptRegex =
-    /<script\s+[^>]*context="module"[^>]*>(.*?)<\/script>/s
-const normalScriptRegex = /<script\b(?!.*context=).*?>(.*?)<\/script>/s
+    /(<script\s+[^>]*context="module"[^>]*>)(.*?)(<\/script>)/s
+const normalScriptRegex = /(<script\b(?!.*context=).*?>)(.*?)(<\/script>)/s
 
 export default (): Transformer<Root> => {
     return (tree, file) => {
@@ -23,24 +23,38 @@ export default (): Transformer<Root> => {
 
         visit(tree, "html", (node) => {
             if (!isModuleScriptMatched) {
-                if (node.value.match(moduleScriptRegex)) {
+                const match = node.value.match(moduleScriptRegex)
+                if (match) {
                     isModuleScriptMatched = true
 
-                    node.value = node.value.replace(
-                        "</script>",
-                        [mdxData, "</script>"].join("\n"),
-                    )
+                    const openingTag = match[1]
+                    const content = match[2]
+                    const closingTag = match[3]
+
+                    node.value = [
+                        openingTag,
+                        ...mdxData,
+                        content,
+                        closingTag,
+                    ].join("\n")
                 }
             }
 
             if (!isNormalScriptMatched) {
-                if (node.value.match(normalScriptRegex)) {
+                const match = node.value.match(normalScriptRegex)
+                if (match) {
                     isNormalScriptMatched = true
 
-                    node.value = node.value.replace(
-                        "</script>",
-                        [...mdxCustomElements, "</script>"].join("\n"),
-                    )
+                    const openingTag = match[1]
+                    const content = match[2]
+                    const closingTag = match[3]
+
+                    node.value = [
+                        openingTag,
+                        ...mdxCustomElements,
+                        content,
+                        closingTag,
+                    ].join("\n")
                 }
             }
 
