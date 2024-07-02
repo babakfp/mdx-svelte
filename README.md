@@ -10,10 +10,24 @@ Hey there! Welcome to [MDX Svelte](https://babakfp.ir/docs/mdx-svelte). Ever wis
 -   [CHANGELOG](https://babakfp.ir/docs/mdx-svelte/changelog)
 -   [NPM](https://www.npmjs.com/package/mdx-svelte)
 
-## Example `+page.md` file
+## Example
 
-![329851731-741ecf48-e345-4fa5-9874-68531fc6759c-min](https://github.com/babakfp/mdx-svelte/assets/44144724/aa646e33-1d40-4a67-be2b-124120b7080a)
+```
+---
+title: Hello, World!
+---
+
+<script>
+    import Markdown from "./Markdown.md"
+    import Component from "./Component.svelte"
+</script>
+
+Some text here.
+
+<Markdown />
+<Component />
+```
 
 ## Contributions
 
-Feel welcome to open issues and PRs, fix things related to type safety, [documentation](http://github.com/babakfp/babakfp.ir), send suggestions, improve code, etc. It's OK to make mistakes and not to know everything.
+Awesome, jump in and help however you can! Open issues, submit PRs, improve docs - no worries about not knowing it all, we're all learning.
