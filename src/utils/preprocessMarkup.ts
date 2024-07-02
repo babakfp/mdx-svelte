@@ -7,10 +7,6 @@ export const preprocessMarkup = async (
     options: Parameters<MarkupPreprocessor>[0],
     config: MdxPreprocessOptionsOutput,
 ) => {
-    if (!options.content.trim()) {
-        return { content: "" }
-    }
-
     if (ignoreFile(options.filename, config)) return
     if (config?.onFileIgnore?.(options)) return
 
