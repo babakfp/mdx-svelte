@@ -25,12 +25,12 @@ export default (): Transformer<Root> => {
         visit(tree, "element", (node) => {
             if (node.tagName !== "code") return
 
-            visit(node, "text", (text_node, text_index, text_parent) => {
-                if (!text_parent || text_index === undefined) return
+            visit(node, "text", (textNode, textIndex, textParent) => {
+                if (!textParent || textIndex === undefined) return
 
-                text_parent.children.splice(text_index, 1, {
+                textParent.children.splice(textIndex, 1, {
                     type: "raw",
-                    value: stringifyEntities(text_node.value, {
+                    value: stringifyEntities(textNode.value, {
                         subset: [
                             ...HTML_DANGEROUS_CHARACTERS,
                             ...SVELTE_DANGEROUS_CHARACTERS,
