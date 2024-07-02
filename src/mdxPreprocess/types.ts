@@ -1,7 +1,7 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
 import type { Data } from "vfile"
-import { z } from "zod"
-import { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
+import type { z } from "zod"
+import type { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
 
 /** MDX Svelte config callback options. */
 export type MdxPreprocessConfigCallbacks = {

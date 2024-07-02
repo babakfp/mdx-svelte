@@ -1,5 +1,5 @@
-import { z } from "zod"
-import { unifiedTransformerSchema } from "./schema.js"
+import type { z } from "zod"
+import type { unifiedTransformerSchema } from "./schema.js"
 
 export type UnifiedTransformerOptionsInput = z.input<
     typeof unifiedTransformerSchema
