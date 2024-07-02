@@ -1,4 +1,3 @@
-export const isHrefExternal = (href: string | undefined) => {
-    if (!href) return false
+export const isHrefExternal = (href: string) => {
     return href.startsWith("http://") || href.startsWith("https://")
 }

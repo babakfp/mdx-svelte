@@ -173,12 +173,12 @@ export const unifiedTransformer = (async (
     if (parsedOptions.builtInPlugins.rehypeExternalLinks.enable) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
-                if (isHrefExternal(element.properties.href?.toString())) {
+                if (isHrefExternal(String(element.properties.href))) {
                     return ["nofollow", "noopener", "noreferrer"].join(" ")
                 }
             },
             target: (element) => {
-                if (isHrefExternal(element.properties.href?.toString())) {
+                if (isHrefExternal(String(element.properties.href))) {
                     return "_blank"
                 }
             },
