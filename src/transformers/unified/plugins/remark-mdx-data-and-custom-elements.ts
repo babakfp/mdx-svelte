@@ -2,10 +2,15 @@ import type { Root } from "mdast"
 import type { Transformer } from "unified"
 import { EXIT, visit } from "unist-util-visit"
 
-const mdxCustomElementsContext = `
-    import { getContext as mdx_getContext } from "svelte";
-    const MdxCustomElements = mdx_getContext("MdxCustomElements") ?? {};
-`
+const mdxData = [
+    "    export const mdx = __mdx__;",
+    "    export const frontmatter = mdx.frontmatter;",
+]
+
+const mdxCustomElements = [
+    '    import { getContext as getContext_ } from "svelte";',
+    '    const MdxCustomElements = getContext_("MdxCustomElements") ?? {};',
+]
 
 const moduleScriptRegex =
     /<script\s+[^>]*context="module"[^>]*>(.*?)<\/script>/s
@@ -23,10 +28,7 @@ export default (): Transformer<Root> => {
 
                     node.value = node.value.replace(
                         "</script>",
-                        `
-                            export const mdx = __mdx__;
-                            export const frontmatter = mdx.frontmatter;
-                        </script>`,
+                        [mdxData, "</script>"].join("\n"),
                     )
                 }
             }
@@ -37,7 +39,7 @@ export default (): Transformer<Root> => {
 
                     node.value = node.value.replace(
                         "</script>",
-                        mdxCustomElementsContext + "</script>",
+                        [...mdxCustomElements, "</script>"].join("\n"),
                     )
                 }
             }
@@ -52,10 +54,11 @@ export default (): Transformer<Root> => {
         if (!isModuleScriptMatched) {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
-                value: `<script context="module">
-                    export const mdx = __mdx__;
-                    export const frontmatter = mdx.frontmatter;
-                </script>`,
+                value: [
+                    '<script context="module">',
+                    ...mdxData,
+                    "</script>",
+                ].join("\n"),
             })
 
             // NOTE: The order of isModuleScriptMatched and isNormalScriptMatched matters.
@@ -65,7 +68,9 @@ export default (): Transformer<Root> => {
         if (!isNormalScriptMatched && String(file.value).trim()) {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
-                value: `<script>${mdxCustomElementsContext}</script>`,
+                value: ["<script>", ...mdxCustomElements, "</script>"].join(
+                    "\n",
+                ),
             })
         }
     }
