@@ -52,8 +52,8 @@
     ],
     "exports": {
         ".": "./dist/index.js",
-        "./transformers/unified": "./dist/transformers/unified/index.js",
-        "./transformers/unified/remark-github-alerts/*": "./src/transformers/unified/plugins/remark-github-alerts/styles/*"
+        "./unified": "./dist/transformers/unified/index.js",
+        "./unified/remark-github-alerts/*": "./src/transformers/unified/plugins/remark-github-alerts/styles/*"
     },
     "keywords": [
         "svelte",
