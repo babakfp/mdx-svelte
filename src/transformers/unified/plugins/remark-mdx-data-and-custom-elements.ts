@@ -12,7 +12,7 @@ const moduleScriptRegex =
 const normalScriptRegex = /<script\b(?!.*context=).*?>(.*?)<\/script>/s
 
 export default (): Transformer<Root> => {
-    return (tree) => {
+    return (tree, file) => {
         let isModuleScriptMatched = false
         let isNormalScriptMatched = false
 
@@ -60,7 +60,7 @@ export default (): Transformer<Root> => {
             indexToInsert += 1
         }
 
-        if (!isNormalScriptMatched) {
+        if (!isNormalScriptMatched && String(file.value).trim()) {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
                 value: `<script>${mdxCustomElementsContext}</script>`,
