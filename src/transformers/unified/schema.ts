@@ -17,7 +17,6 @@ import * as _3 from "../../../node_modules/rehype-external-links/lib/index.js"
 import * as _4 from "../../../node_modules/rehype-slug/lib/index.js"
 import * as _5 from "../../../node_modules/remark-gfm/lib/index.js"
 import type { RemarkGitHubAlertsOptions } from "./plugins/remark-github-alerts/src/index.js"
-import * as _7 from ".pnpm/yaml@2.4.1/node_modules/yaml"
 
 const baseSchema = z.object({
     /** Useful to add a plugin before or after this plugin. */
