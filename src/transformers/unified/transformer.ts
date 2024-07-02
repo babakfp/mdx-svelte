@@ -16,7 +16,7 @@ import type {
     MdxPreprocessOptionsInput,
     MdxPreprocessOptionsOutput,
 } from "../../mdxPreprocess/types.js"
-import { isHrefExternal } from "./isHrefExternal.js"
+import { isHrefExternal } from "./helpers/isHrefExternal.js"
 import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js"
 import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
