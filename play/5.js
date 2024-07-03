@@ -2,10 +2,10 @@ import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
 import { unifiedTransformer } from "../dist/transformers/unified/index.js"
 import { preprocessMarkup } from "../dist/utils/preprocessMarkup.js"
 
-const mdxPreprocessConfig1 = mdxPreprocessSchema.parse()
-const mdxPreprocessConfig2 = mdxPreprocessSchema.parse({
-    onTransform: (options, config) => {
-        return unifiedTransformer(options, config, {
+const mdxPreprocessOptions1 = mdxPreprocessSchema.parse()
+const mdxPreprocessOptions2 = mdxPreprocessSchema.parse({
+    onTransform: (markup, options) => {
+        return unifiedTransformer(markup, options, {
             builtInPlugins: {
                 rehypeShiki: {
                     enable: false,
@@ -22,11 +22,11 @@ title: Hello, World!
 
 const result1 = await preprocessMarkup(
     { content: FILE_CONTENT },
-    mdxPreprocessConfig1,
+    mdxPreprocessOptions1,
 )
 const result2 = await preprocessMarkup(
     { content: FILE_CONTENT },
-    mdxPreprocessConfig2,
+    mdxPreprocessOptions2,
 )
 
 console.dir(result1)

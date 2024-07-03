@@ -9,8 +9,8 @@ const FILE_CONTENT = `
 `
 
 const mdxMarkupPreprocess = mdxPreprocess({
-    onTransform: (options, config) => {
-        return unifiedTransformer(options, config, {
+    onTransform: (markup, options) => {
+        return unifiedTransformer(markup, options, {
             builtInPlugins: {
                 remarkToc: {
                     enable: false,

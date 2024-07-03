@@ -4,14 +4,14 @@ import type { MdxPreprocessOptionsOutput } from "../mdxPreprocess/types.js"
 import { unifiedTransformer } from "../transformers/unified/index.js"
 
 export const preprocessMarkup = async (
-    options: Parameters<MarkupPreprocessor>[0],
-    config: MdxPreprocessOptionsOutput,
+    markup: Parameters<MarkupPreprocessor>[0],
+    options: MdxPreprocessOptionsOutput,
 ) => {
-    if (ignoreFile(options.filename, config)) return
-    if (config?.onFileIgnore?.(options)) return
+    if (ignoreFile(markup.filename, options)) return
+    if (options?.onFileIgnore?.(markup)) return
 
-    const transformResult = await (config?.onTransform?.(options, config) ??
-        unifiedTransformer(options, config))
+    const transformResult = await (options?.onTransform?.(markup, options) ??
+        unifiedTransformer(markup, options))
 
     const newContent = replaceMdxDataPlaceholderWithData(
         transformResult.content,
@@ -23,19 +23,19 @@ export const preprocessMarkup = async (
 
 const ignoreFile = (
     filename: Parameters<MarkupPreprocessor>[0]["filename"],
-    config: MdxPreprocessOptionsOutput,
+    options: MdxPreprocessOptionsOutput,
 ) => {
     if (!filename) return false
 
     if (filename.includes("/.svelte-kit/")) return true
 
-    if (!config.extensions.some((extension) => filename.endsWith(extension))) {
+    if (!options.extensions.some((extension) => filename.endsWith(extension))) {
         return true
     }
 
     if (
         filename.includes("/node_modules/") &&
-        !config.preprocessDependencies.some((dep) =>
+        !options.preprocessDependencies.some((dep) =>
             filename.includes(`/node_modules/${dep}/`),
         )
     ) {

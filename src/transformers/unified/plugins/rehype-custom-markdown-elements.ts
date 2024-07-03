@@ -3,14 +3,14 @@ import type { Transformer } from "unified"
 import { visit } from "unist-util-visit"
 import type { MdxPreprocessOptionsOutput } from "../../../mdxPreprocess/types.js"
 
-export default (config: MdxPreprocessOptionsOutput): Transformer<Root> => {
+export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
     return (tree, file) => {
         const frontmatterLayout = file.data.frontmatter?.layout
 
-        const elements = Array.isArray(config.elements)
-            ? config.elements
-            : frontmatterLayout && config.elements?.[frontmatterLayout]
-              ? config.elements[frontmatterLayout]
+        const elements = Array.isArray(options.elements)
+            ? options.elements
+            : frontmatterLayout && options.elements?.[frontmatterLayout]
+              ? options.elements[frontmatterLayout]
               : []
 
         if (!elements.length) return

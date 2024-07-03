@@ -3,8 +3,8 @@ import type { Data } from "vfile"
 import type { z } from "zod"
 import type { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
 
-/** MDX Svelte config callback options. */
-export type MdxPreprocessConfigCallbacks = {
+/** MDX Svelte callback options. */
+export type MdxPreprocessCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
      * It runs after the `preprocessDependencies` option.
@@ -19,9 +19,9 @@ export type MdxPreprocessConfigCallbacks = {
      */
     onTransform?: (
         /** Info about the markdown file that is going to be preprocessed. */
-        markupPreprocessorOptions: Parameters<MarkupPreprocessor>[0],
-        /** The config that is passed to `mdxPreprocess()` by you, which also contains the default values for options. */
-        config: MdxPreprocessOptionsOutput,
+        markup: Parameters<MarkupPreprocessor>[0],
+        /** The same options that are passed to the `mdxPreprocess()` function by you. These options are returned after being process. Meaning if an option is not set, it may be set to a default value. */
+        options: MdxPreprocessOptionsOutput,
     ) => Promise<{
         /** Transformed content. */
         content: string
@@ -31,6 +31,6 @@ export type MdxPreprocessConfigCallbacks = {
 }
 
 export type MdxPreprocessOptionsInput = z.input<typeof mdxPreprocessSchema> &
-    MdxPreprocessConfigCallbacks
+    MdxPreprocessCallbacks
 export type MdxPreprocessOptionsOutput = z.output<typeof mdxPreprocessSchema> &
-    MdxPreprocessConfigCallbacks
+    MdxPreprocessCallbacks

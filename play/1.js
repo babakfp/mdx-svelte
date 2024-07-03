@@ -2,8 +2,8 @@ import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
 import { unifiedTransformer } from "../dist/transformers/unified/index.js"
 import { unifiedTransformerSchema } from "../dist/transformers/unified/schema.js"
 
-const mdxPreprocessConfig = mdxPreprocessSchema.parse()
-const transformerConfig = unifiedTransformerSchema.parse()
+const mdxPreprocessOptions = mdxPreprocessSchema.parse()
+const unifiedTransformerOptions = unifiedTransformerSchema.parse()
 
 const yaml = `---
 title: Hello World
@@ -15,4 +15,8 @@ title = "Hello World"
 
 const content = yaml
 
-await unifiedTransformer({ content }, mdxPreprocessConfig, transformerConfig)
+await unifiedTransformer(
+    { content },
+    mdxPreprocessOptions,
+    unifiedTransformerOptions,
+)

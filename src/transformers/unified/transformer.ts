@@ -32,11 +32,12 @@ import type { UnifiedTransformerOptionsInput } from "./types.js"
  * A transformer that uses unified ecosystem.
  */
 export const unifiedTransformer = (async (
-    markupPreprocessorOptions: Parameters<MarkupPreprocessor>[0],
-    mdxPreprocessConfig: MdxPreprocessOptionsOutput,
-    options?: UnifiedTransformerOptionsInput,
+    markup: Parameters<MarkupPreprocessor>[0],
+    mdxPreprocessOptions: MdxPreprocessOptionsOutput,
+    transformerOptions?: UnifiedTransformerOptionsInput,
 ) => {
-    const parsedOptions = unifiedTransformerSchema.parse(options)
+    const { builtInPlugins } =
+        unifiedTransformerSchema.parse(transformerOptions)
 
     const processor = unified()
 
@@ -52,125 +53,89 @@ export const unifiedTransformer = (async (
 
     processor.use(remarkTextToHtml)
 
-    processor.use(
-        parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.before,
-    )
-    processor.use(
-        remarkFrontmatter,
-        parsedOptions.builtInPlugins.remarkFrontmatter.options,
-    )
-    processor.use(parsedOptions.builtInPlugins.remarkFrontmatter.plugins?.after)
+    processor.use(builtInPlugins.remarkFrontmatter.plugins?.before)
+    processor.use(remarkFrontmatter, builtInPlugins.remarkFrontmatter.options)
+    processor.use(builtInPlugins.remarkFrontmatter.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.remarkFrontmatterYaml.plugins?.before,
-    )
-    if (parsedOptions.builtInPlugins.remarkFrontmatterYaml.enable) {
+    processor.use(builtInPlugins.remarkFrontmatterYaml.plugins?.before)
+    if (builtInPlugins.remarkFrontmatterYaml.enable) {
         processor.use(
             remarkFrontmatterYaml,
-            parsedOptions.builtInPlugins.remarkFrontmatterYaml.options,
+            builtInPlugins.remarkFrontmatterYaml.options,
         )
     }
-    processor.use(
-        parsedOptions.builtInPlugins.remarkFrontmatterYaml.plugins?.after,
-    )
+    processor.use(builtInPlugins.remarkFrontmatterYaml.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.remarkGfm.plugins?.before)
-    if (parsedOptions.builtInPlugins.remarkGfm.enable) {
-        processor.use(remarkGfm, parsedOptions.builtInPlugins.remarkGfm.options)
+    processor.use(builtInPlugins.remarkGfm.plugins?.before)
+    if (builtInPlugins.remarkGfm.enable) {
+        processor.use(remarkGfm, builtInPlugins.remarkGfm.options)
     }
-    processor.use(parsedOptions.builtInPlugins.remarkGfm.plugins?.after)
+    processor.use(builtInPlugins.remarkGfm.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.remarkGithubAlerts.plugins?.before,
-    )
-    if (parsedOptions.builtInPlugins.remarkGithubAlerts.enable) {
+    processor.use(builtInPlugins.remarkGithubAlerts.plugins?.before)
+    if (builtInPlugins.remarkGithubAlerts.enable) {
         processor.use(
             remarkGithubAlerts,
-            parsedOptions.builtInPlugins.remarkGithubAlerts.options,
+            builtInPlugins.remarkGithubAlerts.options,
         )
     }
-    processor.use(
-        parsedOptions.builtInPlugins.remarkGithubAlerts.plugins?.after,
-    )
+    processor.use(builtInPlugins.remarkGithubAlerts.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.remarkUnwrapImages.plugins?.before,
-    )
-    if (parsedOptions.builtInPlugins.remarkUnwrapImages.enable) {
+    processor.use(builtInPlugins.remarkUnwrapImages.plugins?.before)
+    if (builtInPlugins.remarkUnwrapImages.enable) {
         processor.use(remarkUnwrapImages)
     }
-    processor.use(
-        parsedOptions.builtInPlugins.remarkUnwrapImages.plugins?.after,
-    )
+    processor.use(builtInPlugins.remarkUnwrapImages.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.remarkToc.plugins?.before)
-    if (parsedOptions.builtInPlugins.remarkToc.enable) {
+    processor.use(builtInPlugins.remarkToc.plugins?.before)
+    if (builtInPlugins.remarkToc.enable) {
         processor.use(remarkToc)
     }
-    processor.use(parsedOptions.builtInPlugins.remarkToc.plugins?.after)
+    processor.use(builtInPlugins.remarkToc.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.remarkRehype.plugins?.before)
+    processor.use(builtInPlugins.remarkRehype.plugins?.before)
     processor.use(remarkRehype, {
-        ...parsedOptions.builtInPlugins.remarkRehype.options,
+        ...builtInPlugins.remarkRehype.options,
         allowDangerousHtml: true,
     })
-    processor.use(parsedOptions.builtInPlugins.remarkRehype.plugins?.after)
+    processor.use(builtInPlugins.remarkRehype.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.rehypeSlug.plugins?.before)
-    if (parsedOptions.builtInPlugins.rehypeSlug.enable) {
-        processor.use(
-            rehypeSlug,
-            parsedOptions.builtInPlugins.rehypeSlug.options,
-        )
+    processor.use(builtInPlugins.rehypeSlug.plugins?.before)
+    if (builtInPlugins.rehypeSlug.enable) {
+        processor.use(rehypeSlug, builtInPlugins.rehypeSlug.options)
     }
-    processor.use(parsedOptions.builtInPlugins.rehypeSlug.plugins?.after)
+    processor.use(builtInPlugins.rehypeSlug.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeAutolinkHeadings.plugins?.before,
-    )
-    if (parsedOptions.builtInPlugins.rehypeAutolinkHeadings.enable) {
+    processor.use(builtInPlugins.rehypeAutolinkHeadings.plugins?.before)
+    if (builtInPlugins.rehypeAutolinkHeadings.enable) {
         processor.use(
             rehypeAutolinkHeadings,
-            parsedOptions.builtInPlugins.rehypeAutolinkHeadings.options,
+            builtInPlugins.rehypeAutolinkHeadings.options,
         )
     }
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeAutolinkHeadings.plugins?.after,
-    )
+    processor.use(builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.rehypeShiki.plugins?.before)
-    if (parsedOptions.builtInPlugins.rehypeShiki.enable) {
+    processor.use(builtInPlugins.rehypeShiki.plugins?.before)
+    if (builtInPlugins.rehypeShiki.enable) {
         processor.use(rehypeShiki, {
             theme: "github-dark",
-            ...parsedOptions.builtInPlugins.rehypeShiki.options,
+            ...builtInPlugins.rehypeShiki.options,
         })
     }
-    processor.use(parsedOptions.builtInPlugins.rehypeShiki.plugins?.after)
+    processor.use(builtInPlugins.rehypeShiki.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeSanitizeCodeElement.plugins?.before,
-    )
+    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.before)
     processor.use(rehypeSanitizeCodeElement)
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeSanitizeCodeElement.plugins?.after,
-    )
+    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.plugins
-            ?.before,
-    )
-    if (parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.enable) {
-        processor.use(rehypeCustomMarkdownElements, mdxPreprocessConfig)
+    processor.use(builtInPlugins.rehypeCustomMarkdownElements.plugins?.before)
+    if (builtInPlugins.rehypeCustomMarkdownElements.enable) {
+        processor.use(rehypeCustomMarkdownElements, mdxPreprocessOptions)
     }
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeCustomMarkdownElements.plugins
-            ?.after,
-    )
+    processor.use(builtInPlugins.rehypeCustomMarkdownElements.plugins?.after)
 
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeExternalLinks.plugins?.before,
-    )
-    if (parsedOptions.builtInPlugins.rehypeExternalLinks.enable) {
+    processor.use(builtInPlugins.rehypeExternalLinks.plugins?.before)
+    if (builtInPlugins.rehypeExternalLinks.enable) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
                 if (isHrefExternal(String(element.properties.href))) {
@@ -182,23 +147,21 @@ export const unifiedTransformer = (async (
                     return "_blank"
                 }
             },
-            ...parsedOptions.builtInPlugins.rehypeExternalLinks.options,
+            ...builtInPlugins.rehypeExternalLinks.options,
         })
     }
-    processor.use(
-        parsedOptions.builtInPlugins.rehypeExternalLinks.plugins?.after,
-    )
+    processor.use(builtInPlugins.rehypeExternalLinks.plugins?.after)
 
-    processor.use(parsedOptions.builtInPlugins.rehypeStringify.plugins?.before)
+    processor.use(builtInPlugins.rehypeStringify.plugins?.before)
     processor.use(rehypeStringify, {
-        ...parsedOptions.builtInPlugins.rehypeStringify.options,
+        ...builtInPlugins.rehypeStringify.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
         allowParseErrors: true,
     })
-    processor.use(parsedOptions.builtInPlugins.rehypeStringify.plugins?.after)
+    processor.use(builtInPlugins.rehypeStringify.plugins?.after)
 
-    const result = await processor.process(markupPreprocessorOptions.content)
+    const result = await processor.process(markup.content)
 
     return {
         content: result.value.toString(),
