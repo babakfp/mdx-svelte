@@ -9,7 +9,7 @@ const mdxData = [
 
 const mdxElements = [
     '    import { getContext as getContext_ } from "svelte";',
-    '    const MdxElements = getContext_("MdxElements") ?? {};',
+    '    const MdxElements = getContext_("mdxElements") ?? {};',
 ]
 
 const moduleScriptRegex =
