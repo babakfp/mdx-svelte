@@ -14,7 +14,7 @@ export default (config: MdxPreprocessOptionsOutput): Transformer<Root> => {
 
         visit(tree, "element", (node) => {
             if (elements.includes(node.tagName)) {
-                node.tagName = `MdxCustomElements.${node.tagName}`
+                node.tagName = `MdxElements.${node.tagName}`
             }
         })
     }

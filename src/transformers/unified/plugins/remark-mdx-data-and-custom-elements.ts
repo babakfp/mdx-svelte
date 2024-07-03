@@ -7,9 +7,9 @@ const mdxData = [
     "    export const frontmatter = mdx.frontmatter;",
 ]
 
-const mdxCustomElements = [
+const mdxElements = [
     '    import { getContext as getContext_ } from "svelte";',
-    '    const MdxCustomElements = getContext_("MdxCustomElements") ?? {};',
+    '    const MdxElements = getContext_("MdxElements") ?? {};',
 ]
 
 const moduleScriptRegex =
@@ -51,7 +51,7 @@ export default (): Transformer<Root> => {
 
                     node.value = [
                         openingTag,
-                        ...mdxCustomElements,
+                        ...mdxElements,
                         content,
                         closingTag,
                     ].join("\n")
@@ -82,9 +82,7 @@ export default (): Transformer<Root> => {
         if (!isNormalScriptMatched && String(file.value).trim()) {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
-                value: ["<script>", ...mdxCustomElements, "</script>"].join(
-                    "\n",
-                ),
+                value: ["<script>", ...mdxElements, "</script>"].join("\n"),
             })
         }
     }
