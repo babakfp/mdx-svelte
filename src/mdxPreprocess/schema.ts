@@ -1,6 +1,13 @@
 import { z } from "zod"
 import { DOT_MD } from "../helpers/constants.js"
 
+const elementsArraySchema = z
+    .string()
+    .min(1)
+    .regex(/[a-z]/, "Only lowercase letters")
+    .array()
+    .default([])
+
 export const mdxPreprocessSchema = z
     .object({
         /**
@@ -16,16 +23,8 @@ export const mdxPreprocessSchema = z
             .array()
             .min(1)
             .default([DOT_MD]),
-        layouts: z
-            .record(
-                z.string().min(1),
-                z
-                    .string()
-                    .min(1)
-                    .regex(/[a-z]/, "Only lowercase letters")
-                    .array()
-                    .default([]),
-            )
+        elements: elementsArraySchema
+            .or(z.record(z.string().min(1), elementsArraySchema))
             .optional(),
         preprocessDependencies: z.string().min(1).array().default([]),
     })

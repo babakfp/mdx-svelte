@@ -6,11 +6,14 @@ import type { MdxPreprocessOptionsOutput } from "../../../mdxPreprocess/types.js
 export default (config: MdxPreprocessOptionsOutput): Transformer<Root> => {
     return (tree, file) => {
         const frontmatterLayout = file.data.frontmatter?.layout
-        const elements =
-            (frontmatterLayout && config.layouts?.[frontmatterLayout]) ||
-            config.layouts?.default
 
-        if (!elements || !elements.length) return
+        const elements = Array.isArray(config.elements)
+            ? config.elements
+            : frontmatterLayout && config.elements?.[frontmatterLayout]
+              ? config.elements[frontmatterLayout]
+              : []
+
+        if (!elements.length) return
 
         visit(tree, "element", (node) => {
             if (elements.includes(node.tagName)) {
