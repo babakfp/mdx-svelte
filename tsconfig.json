@@ -6,7 +6,7 @@
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "outDir": "dist",
-        "sourceMap": true,
+        // "sourceMap": true, // Enable when Svelte can handle source maps.
         "strict": true
     },
     "include": ["src"]
