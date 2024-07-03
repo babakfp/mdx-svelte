@@ -22,7 +22,7 @@ title: Hello, World!
     import Component from "./Component.svelte"
 </script>
 
-Some text here.
+The title of this page is {frontmatter.title}!
 
 <Markdown />
 <Component />
