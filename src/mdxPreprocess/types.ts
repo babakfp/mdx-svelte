@@ -4,7 +4,7 @@ import type { z } from "zod"
 import type { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
 
 /** MDX Svelte callback options. */
-export type MdxPreprocessCallbacks = {
+type MdxPreprocessCallbacks = {
     /**
      * Callback function to determine whether a file should be ignored during preprocessing.
      * It runs after the `preprocessDependencies` option.
