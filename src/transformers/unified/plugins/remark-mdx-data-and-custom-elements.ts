@@ -1,6 +1,7 @@
 import type { Root } from "mdast"
 import type { Transformer } from "unified"
 import { EXIT, visit } from "unist-util-visit"
+import type { MdxPreprocessOptionsOutput } from "../../../mdxPreprocess/types.js"
 
 const mdxData = [
     "    export const mdx = __mdx__;",
@@ -16,10 +17,17 @@ const moduleScriptRegex =
     /(<script\s+[^>]*context="module"[^>]*>)(.*?)(<\/script>)/s
 const normalScriptRegex = /(<script\b(?!.*context=).*?>)(.*?)(<\/script>)/s
 
-export default (): Transformer<Root> => {
+export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
     return (tree, file) => {
         let isModuleScriptMatched = false
         let isNormalScriptMatched = false
+
+        const globalImportsWithNormalContext = options.globalImports
+            .filter((imp) => !imp.context)
+            .flatMap((imp) => imp.imports)
+        const globalImportsWithModuleContext = options.globalImports
+            .filter((imp) => imp.context)
+            .flatMap((imp) => imp.imports)
 
         visit(tree, "html", (node) => {
             if (!isModuleScriptMatched) {
@@ -34,6 +42,7 @@ export default (): Transformer<Root> => {
                     node.value = [
                         openingTag,
                         ...mdxData,
+                        ...globalImportsWithModuleContext,
                         content,
                         closingTag,
                     ].join("\n")
@@ -52,6 +61,7 @@ export default (): Transformer<Root> => {
                     node.value = [
                         openingTag,
                         ...mdxElements,
+                        ...globalImportsWithNormalContext,
                         content,
                         closingTag,
                     ].join("\n")
@@ -71,6 +81,7 @@ export default (): Transformer<Root> => {
                 value: [
                     '<script context="module">',
                     ...mdxData,
+                    ...globalImportsWithModuleContext,
                     "</script>",
                 ].join("\n"),
             })
@@ -82,7 +93,12 @@ export default (): Transformer<Root> => {
         if (!isNormalScriptMatched && String(file.value).trim()) {
             tree.children.splice(indexToInsert, 0, {
                 type: "html",
-                value: ["<script>", ...mdxElements, "</script>"].join("\n"),
+                value: [
+                    "<script>",
+                    ...mdxElements,
+                    ...globalImportsWithNormalContext,
+                    "</script>",
+                ].join("\n"),
             })
         }
     }

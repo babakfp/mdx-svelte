@@ -41,7 +41,7 @@ export const unifiedTransformer = (async (
 
     const processor = unified()
 
-    processor.use(remarkMdxDataAndCustomElements)
+    processor.use(remarkMdxDataAndCustomElements, mdxPreprocessOptions)
 
     processor.use(remarkParse)
 
