@@ -2,9 +2,22 @@ import { z } from "zod"
 import { DOT_MD } from "../helpers/constants.js"
 
 const elementsArraySchema = z
-    .string()
-    .min(1)
-    .regex(/[a-z]/, "Only lowercase letters")
+    .union([
+        z
+            .string()
+            .min(1)
+            .regex(/^[a-z]+$/, "Only lowercase letters"),
+        z.object({
+            /** Component name */
+            tag: z.string().min(1),
+            /**
+             * [CSS selector](https://www.npmjs.com/package/hast-util-select#support).
+             * - Block code: `"pre code"`
+             * - Inline code: `":not(pre) code"`
+             */
+            selector: z.string().min(1),
+        }),
+    ])
     .array()
     .default([])
 
@@ -23,8 +36,11 @@ export const mdxPreprocessSchema = z
             .array()
             .min(1)
             .default([DOT_MD]),
-        elements: elementsArraySchema
-            .or(z.record(z.string().min(1), elementsArraySchema))
+        elements: z
+            .union([
+                elementsArraySchema,
+                z.record(z.string().min(1), elementsArraySchema),
+            ])
             .optional(),
         preprocessDependencies: z.string().min(1).array().default([]),
     })
