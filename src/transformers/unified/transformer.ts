@@ -12,6 +12,7 @@ import remarkToc from "remark-toc"
 import remarkUnwrapImages from "remark-unwrap-images"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
+import { removePosition } from "unist-util-remove-position"
 import type {
     MdxPreprocessOptionsInput,
     MdxPreprocessOptionsOutput,
@@ -42,9 +43,11 @@ export const unifiedTransformer = (async (
 
     const processor = unified()
 
-    processor.use(remarkMdxDataAndCustomElements, mdxPreprocessOptions)
-
     processor.use(remarkParse)
+
+    processor.use(() => (tree) => removePosition(tree))
+
+    processor.use(remarkMdxDataAndCustomElements, mdxPreprocessOptions)
 
     processor.use(remarkHtmlAttributeCurlyBracket)
 
