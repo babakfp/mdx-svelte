@@ -11,7 +11,7 @@ const elementsArraySchema = z
             /** Component name */
             tag: z.string().min(1),
             /**
-             * [Which CSS selectors are allowed?](https://www.npmjs.com/package/hast-util-select#support)
+             * [Which CSS selectors are allowed?](https://npmjs.com/package/hast-util-select#support)
              * ## Examples
              * - Block code: `"pre code"`
              * - Inline code: `":not(pre) code"`
