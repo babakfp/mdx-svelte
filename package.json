@@ -17,7 +17,6 @@
         "svelte": ">= 4 < 6"
     },
     "dependencies": {
-        "@shikijs/rehype": "1.10.1",
         "hast-util-from-html": "2.0.1",
         "hast-util-select": "6.0.2",
         "rehype-autolink-headings": "7.1.0",

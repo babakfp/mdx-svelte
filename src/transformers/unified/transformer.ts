@@ -1,6 +1,6 @@
-import rehypeShiki, { type RehypeShikiOptions } from "@shikijs/rehype"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
+import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import remarkFrontmatter from "remark-frontmatter"
@@ -119,28 +119,11 @@ export const unifiedTransformer = (async (
     }
     processor.use(builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
 
-    processor.use(builtInPlugins.rehypeShiki.plugins?.before)
-    if (builtInPlugins.rehypeShiki.enable) {
-        const transformers: RehypeShikiOptions["transformers"] = [
-            {
-                name: "trim-end",
-                preprocess: (code) => code.trimEnd(),
-            },
-        ]
-
-        if (builtInPlugins.rehypeShiki.options?.transformers) {
-            transformers.push(
-                ...builtInPlugins.rehypeShiki.options.transformers,
-            )
-        }
-
-        processor.use(rehypeShiki, {
-            theme: "github-dark",
-            ...builtInPlugins.rehypeShiki.options,
-            transformers,
-        })
+    processor.use(builtInPlugins.rehypePrettyCode.plugins?.before)
+    if (builtInPlugins.rehypePrettyCode.enable) {
+        processor.use(rehypePrettyCode, builtInPlugins.rehypePrettyCode.options)
     }
-    processor.use(builtInPlugins.rehypeShiki.plugins?.after)
+    processor.use(builtInPlugins.rehypePrettyCode.plugins?.after)
 
     processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.before)
     if (builtInPlugins.rehypePreCodeContentToString.enable) {

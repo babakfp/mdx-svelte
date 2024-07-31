@@ -1,6 +1,6 @@
-import type { RehypeShikiOptions } from "@shikijs/rehype"
 import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings"
 import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
+import type { Options as RehypePrettyCodeOptions } from "rehype-pretty-code"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
 import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
@@ -134,12 +134,12 @@ export const unifiedTransformerSchema = z
                     .merge(baseSchema)
                     .default({}),
 
-                /** [View on NPM](https://npmjs.com/package/@shikijs/rehype). */
-                rehypeShiki: z
+                /** [View on NPM](https://npmjs.com/package/rehype-pretty-code). */
+                rehypePrettyCode: z
                     .object({
                         /** @default true */
                         enable: z.boolean().default(true),
-                        options: z.custom<RehypeShikiOptions>().optional(),
+                        options: z.custom<RehypePrettyCodeOptions>().optional(),
                     })
                     .merge(baseSchema)
                     .default({}),
