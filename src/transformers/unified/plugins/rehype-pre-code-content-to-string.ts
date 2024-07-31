@@ -1,10 +1,7 @@
 import type { Root } from "hast"
 import { toHtml } from "hast-util-to-html"
-import { stringifyEntities } from "stringify-entities"
 import type { Transformer } from "unified"
 import { visit } from "unist-util-visit"
-
-const DANGEROUS_CHARACTERS = ["&", "`", "{", "}"] as const
 
 export default (): Transformer<Root> => {
     return (tree) => {
@@ -16,8 +13,9 @@ export default (): Transformer<Root> => {
             if (node.children.length === 1 && node.children[0].type === "text")
                 return // The #1 issue only happens when Shiki turns text into HTML.
 
-            const htmlCode = stringifyEntities(toHtml(node), {
-                subset: DANGEROUS_CHARACTERS,
+            const htmlCode = toHtml(node, {
+                allowDangerousHtml: true,
+                allowDangerousCharacters: true,
             })
 
             parent.children.splice(index, 1, {

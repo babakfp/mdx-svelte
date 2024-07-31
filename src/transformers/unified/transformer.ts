@@ -125,15 +125,15 @@ export const unifiedTransformer = (async (
     }
     processor.use(builtInPlugins.rehypePrettyCode.plugins?.after)
 
+    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.before)
+    processor.use(rehypeSanitizeCodeElement)
+    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.after)
+
     processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.before)
     if (builtInPlugins.rehypePreCodeContentToString.enable) {
         processor.use(rehypePreCodeContentToString)
     }
     processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.after)
-
-    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.before)
-    processor.use(rehypeSanitizeCodeElement)
-    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.after)
 
     processor.use(builtInPlugins.rehypeCustomMarkdownElements.plugins?.before)
     if (builtInPlugins.rehypeCustomMarkdownElements.enable) {
