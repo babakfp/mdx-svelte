@@ -1,3 +1,7 @@
+## 3.5.2
+
+-   Removed regex validation for the `elements` option.
+
 ## 3.5.1
 
 -   The `"rehype-pretty-code"` dependency was missing from the `package.json` file.

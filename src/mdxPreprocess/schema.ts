@@ -3,10 +3,7 @@ import { DOT_MD } from "../helpers/constants.js"
 
 const elementsArraySchema = z
     .union([
-        z
-            .string()
-            .min(1)
-            .regex(/^[a-z]+$/, "Only lowercase letters"),
+        z.string().min(1),
         z.object({
             /** Component name */
             tag: z.string().min(1),
