@@ -2,7 +2,7 @@ import { mdxPreprocessSchema } from "../dist/mdxPreprocess/schema.js"
 import { preprocessMarkup } from "../dist/utils/preprocessMarkup.js"
 
 const mdxPreprocessOptions = mdxPreprocessSchema.parse({
-    globalImports: [
+    imports: [
         {
             context: "module",
             imports: ["import * from 'example-context-module'"],

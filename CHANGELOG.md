@@ -1,3 +1,7 @@
+## 3.5.0
+
+-   BREAKING: Renamed `globalImports` to `imports`.
+
 ## 3.4.0
 
 -   Find and replace HTML elements with custom components using CSS selectors.

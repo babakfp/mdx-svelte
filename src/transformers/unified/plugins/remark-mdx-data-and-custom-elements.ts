@@ -22,10 +22,10 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
         let isModuleScriptMatched = false
         let isNormalScriptMatched = false
 
-        const globalImportsWithNormalContext = options.globalImports
+        const normalImports = options.imports
             .filter((imp) => !imp.context)
             .flatMap((imp) => imp.imports)
-        const globalImportsWithModuleContext = options.globalImports
+        const moduleImports = options.imports
             .filter((imp) => imp.context)
             .flatMap((imp) => imp.imports)
 
@@ -42,7 +42,7 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                     node.value = [
                         openingTag,
                         ...mdxData,
-                        ...globalImportsWithModuleContext,
+                        ...moduleImports,
                         content,
                         closingTag,
                     ].join("\n")
@@ -61,7 +61,7 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                     node.value = [
                         openingTag,
                         ...mdxElements,
-                        ...globalImportsWithNormalContext,
+                        ...normalImports,
                         content,
                         closingTag,
                     ].join("\n")
@@ -81,7 +81,7 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                 value: [
                     '<script context="module">',
                     ...mdxData,
-                    ...globalImportsWithModuleContext,
+                    ...moduleImports,
                     "</script>",
                 ].join("\n"),
             })
@@ -96,7 +96,7 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                 value: [
                     "<script>",
                     ...mdxElements,
-                    ...globalImportsWithNormalContext,
+                    ...normalImports,
                     "</script>",
                 ].join("\n"),
             })

@@ -42,7 +42,7 @@ export const mdxPreprocessSchema = z
                 z.record(z.string().min(1), elementsArraySchema),
             ])
             .optional(),
-        globalImports: z
+        imports: z
             .object({
                 context: z.literal("module").optional(),
                 imports: z.string().min(1).array().default([]),
