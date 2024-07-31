@@ -45,7 +45,7 @@ export const mdxPreprocessSchema = z
         imports: z
             .object({
                 context: z.literal("module").optional(),
-                imports: z.string().min(1).array().default([]),
+                imports: z.string().startsWith("import").array().default([]),
             })
             .array()
             .default([]),
