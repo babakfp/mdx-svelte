@@ -1,3 +1,7 @@
+## 3.5.1
+
+-   The `"rehype-pretty-code"` dependency was missing from the `package.json` file.
+
 ## 3.5.0
 
 -   BREAKING: Renamed `globalImports` to `imports`.
