@@ -1,3 +1,17 @@
+:root {
+    --remark-github-alerts-dark-note: #2f81f7;
+    --remark-github-alerts-dark-tip: #3fb950;
+    --remark-github-alerts-dark-important: #a371f7;
+    --remark-github-alerts-dark-warning: #d29922;
+    --remark-github-alerts-dark-caution: #f85149;
+
+    --remark-github-alerts-light-note: #0969da;
+    --remark-github-alerts-light-tip: #1a7f37;
+    --remark-github-alerts-light-important: #8250df;
+    --remark-github-alerts-light-warning: #9a6700;
+    --remark-github-alerts-light-caution: #d1242f;
+}
+
 .remark-github-alerts {
     padding: 0.5rem 1rem;
     border-left: 0.25em solid #888;

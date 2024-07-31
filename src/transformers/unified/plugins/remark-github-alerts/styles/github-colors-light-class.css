@@ -1,4 +1,4 @@
-:root {
+.light {
     --remark-github-alerts-note: var(--remark-github-alerts-light-note);
     --remark-github-alerts-tip: var(--remark-github-alerts-light-tip);
     --remark-github-alerts-important: var(

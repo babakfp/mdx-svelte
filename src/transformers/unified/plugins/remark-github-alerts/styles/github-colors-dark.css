@@ -1,4 +1,4 @@
-.dark {
+:root {
     --remark-github-alerts-note: var(--remark-github-alerts-dark-note);
     --remark-github-alerts-tip: var(--remark-github-alerts-dark-tip);
     --remark-github-alerts-important: var(

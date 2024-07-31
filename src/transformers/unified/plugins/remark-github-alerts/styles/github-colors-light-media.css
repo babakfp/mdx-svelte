@@ -1,0 +1,15 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        --remark-github-alerts-note: var(--remark-github-alerts-light-note);
+        --remark-github-alerts-tip: var(--remark-github-alerts-light-tip);
+        --remark-github-alerts-important: var(
+            --remark-github-alerts-light-important
+        );
+        --remark-github-alerts-warning: var(
+            --remark-github-alerts-light-warning
+        );
+        --remark-github-alerts-caution: var(
+            --remark-github-alerts-light-caution
+        );
+    }
+}
