@@ -18,6 +18,7 @@ import type {
 } from "../../mdxPreprocess/types.js"
 import { isHrefExternal } from "./helpers/isHrefExternal.js"
 import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js"
+import rehypePreCodeContentToString from "./plugins/rehype-pre-code-content-to-string.js"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js"
 import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
@@ -137,6 +138,12 @@ export const unifiedTransformer = (async (
         })
     }
     processor.use(builtInPlugins.rehypeShiki.plugins?.after)
+
+    processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.before)
+    if (builtInPlugins.rehypePreCodeContentToString.enable) {
+        processor.use(rehypePreCodeContentToString)
+    }
+    processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.after)
 
     processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.before)
     processor.use(rehypeSanitizeCodeElement)

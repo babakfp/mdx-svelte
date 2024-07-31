@@ -144,6 +144,14 @@ export const unifiedTransformerSchema = z
                     .merge(baseSchema)
                     .default({}),
 
+                rehypePreCodeContentToString: z
+                    .object({
+                        /** @default true */
+                        enable: z.boolean().default(true),
+                    })
+                    .merge(baseSchema)
+                    .default({}),
+
                 /**
                  * A custom plugin that sanitizes the some characters in code elements.
                  *
