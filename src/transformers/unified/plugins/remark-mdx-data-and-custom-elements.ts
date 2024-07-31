@@ -18,16 +18,16 @@ const moduleScriptRegex =
 const normalScriptRegex = /(<script\b(?!.*context=).*?>)(.*?)(<\/script>)/s
 
 export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
+    const normalImports = options.imports
+        .filter((i) => !i.context)
+        .flatMap((i) => i.imports)
+    const moduleImports = options.imports
+        .filter((i) => i.context)
+        .flatMap((i) => i.imports)
+
     return (tree, file) => {
         let isModuleScriptMatched = false
         let isNormalScriptMatched = false
-
-        const normalImports = options.imports
-            .filter((imp) => !imp.context)
-            .flatMap((imp) => imp.imports)
-        const moduleImports = options.imports
-            .filter((imp) => imp.context)
-            .flatMap((imp) => imp.imports)
 
         visit(tree, "html", (node) => {
             if (!isModuleScriptMatched) {
