@@ -3,6 +3,7 @@ import rehypeExternalLinks from "rehype-external-links"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
+import remarkDirective from "remark-directive"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
 import remarkGfm from "remark-gfm"
@@ -21,6 +22,7 @@ import { isHrefExternal } from "./helpers/isHrefExternal.js"
 import rehypeCustomMarkdownElements from "./plugins/rehype-custom-markdown-elements.js"
 import rehypePreCodeContentToString from "./plugins/rehype-pre-code-content-to-string.js"
 import rehypeSanitizeCodeElement from "./plugins/rehype-sanitize-code-element.js"
+import remarkDirectiveCustom from "./plugins/remark-directive.js"
 import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
 import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom-elements.js"
@@ -96,6 +98,13 @@ export const unifiedTransformer = (async (
         processor.use(remarkToc)
     }
     processor.use(builtInPlugins.remarkToc.plugins?.after)
+
+    processor.use(builtInPlugins.remarkDirective.plugins?.before)
+    if (builtInPlugins.remarkDirective.enable) {
+        processor.use(remarkDirective)
+        processor.use(remarkDirectiveCustom)
+    }
+    processor.use(builtInPlugins.remarkDirective.plugins?.after)
 
     processor.use(builtInPlugins.remarkRehype.plugins?.before)
     processor.use(remarkRehype, {

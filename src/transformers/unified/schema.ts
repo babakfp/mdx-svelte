@@ -102,6 +102,38 @@ export const unifiedTransformerSchema = z
                     .merge(baseSchema)
                     .default({}),
 
+                /**
+                 * [View on NPM](https://npmjs.com/package/remark-directive).
+                 * ### Supported directives
+                 * - `info`
+                 * - `warning`
+                 * - `danger`
+                 * - `success`
+                 * - `tip`
+                 * - `details`
+                 * ### Examples
+                 * ```md
+                 * :::info
+                 * Hello, World!
+                 * :::
+                 *
+                 * :::info[Information]
+                 * Hello, World!
+                 * :::
+                 *
+                 * :::info{.custom-class}
+                 * Hello, World!
+                 * :::
+                 * ```
+                 */
+                remarkDirective: z
+                    .object({
+                        /** @default true */
+                        enable: z.boolean().default(true),
+                    })
+                    .merge(baseSchema)
+                    .default({}),
+
                 /** [View on NPM](https://npmjs.com/package/remark-rehype). */
                 remarkRehype: z
                     .object({
