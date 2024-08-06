@@ -16,6 +16,7 @@ import type * as _2 from "../../../node_modules/rehype-autolink-headings/lib/ind
 import type * as _3 from "../../../node_modules/rehype-external-links/lib/index.js"
 import type * as _4 from "../../../node_modules/rehype-slug/lib/index.js"
 import type * as _5 from "../../../node_modules/remark-gfm/lib/index.js"
+import type { Options as RemarkDirectiveOptions } from "./plugins/remark-directive.js"
 import type { RemarkGitHubAlertsOptions } from "./plugins/remark-github-alerts/src/index.js"
 
 const baseSchema = z.object({
@@ -130,6 +131,7 @@ export const unifiedTransformerSchema = z
                     .object({
                         /** @default true */
                         enable: z.boolean().default(true),
+                        options: z.custom<RemarkDirectiveOptions>().optional(),
                     })
                     .merge(baseSchema)
                     .default({}),

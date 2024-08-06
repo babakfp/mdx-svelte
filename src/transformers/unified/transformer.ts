@@ -102,7 +102,10 @@ export const unifiedTransformer = (async (
     processor.use(builtInPlugins.remarkDirective.plugins?.before)
     if (builtInPlugins.remarkDirective.enable) {
         processor.use(remarkDirective)
-        processor.use(remarkDirectiveCustom)
+        processor.use(
+            remarkDirectiveCustom,
+            builtInPlugins.remarkDirective.options,
+        )
     }
     processor.use(builtInPlugins.remarkDirective.plugins?.after)
 
