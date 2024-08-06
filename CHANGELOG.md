@@ -1,3 +1,7 @@
+## 3.6.1
+
+-   Fixed directives double label issue when using custom labels.
+
 ## 3.6.0
 
 -   Added directives support with `remark-directive` plugin.
