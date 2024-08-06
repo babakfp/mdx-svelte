@@ -1,3 +1,7 @@
+## 3.6.0
+
+-   Added directives support with `remark-directive` plugin.
+
 ## 3.5.2
 
 -   Removed regex validation for the `elements` option.
