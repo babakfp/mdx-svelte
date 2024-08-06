@@ -10,7 +10,7 @@ export type Options = {
      * @default
      * ["info", "warning", "danger", "success", "tip", "details"]
      */
-    directives?: string[]
+    directives?: string[] // TODO:FEATURE:IDEA: Add support for custom labels for custom directives.
 }
 
 export default (options?: Options): Transformer<Root> => {
