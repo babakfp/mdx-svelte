@@ -73,9 +73,12 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
             }
         })
 
-        let indexToInsert = ["yaml", "toml"].includes(tree.children[0].type)
-            ? 1
-            : 0
+        let indexToInsert = 0
+
+        const firstChild = tree.children.at(0)
+        if (firstChild && ["yaml", "toml"].includes(firstChild.type)) {
+            indexToInsert = 1
+        }
 
         if (!isModuleScriptMatched) {
             tree.children.splice(indexToInsert, 0, {
