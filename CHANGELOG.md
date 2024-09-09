@@ -1,3 +1,8 @@
+## 3.6.3
+
+-   Fixed logic blocks getting wrapped in `p` tag, and being parsed as directive.
+-   Fixed Svelte Special Elements being parsed incorrectly.
+
 ## 3.6.1
 
 -   Fixed directives double label issue when using custom labels.
