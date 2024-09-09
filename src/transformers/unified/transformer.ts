@@ -15,7 +15,7 @@ import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
 import { removePosition } from "unist-util-remove-position"
 import { replaceInBlocks } from "../../helpers/transformLogicBlocks.js"
-import { replaceInTags } from "../../helpers/transformSpecialTags.js"
+import { replaceInElements } from "../../helpers/transformSpecialElements.js"
 import type {
     MdxPreprocessOptionsInput,
     MdxPreprocessOptionsOutput,
@@ -29,7 +29,7 @@ import remarkGithubAlerts from "./plugins/remark-github-alerts/src/index.js"
 import remarkHtmlAttributeCurlyBracket from "./plugins/remark-html-attribute-curly-bracket.js"
 import remarkLogicBlocks from "./plugins/remark-logic-blocks.js"
 import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom-elements.js"
-import remarkSvelteSpecialTags from "./plugins/remark-svelte-special-tags.js"
+import remarkSvelteSpecialElements from "./plugins/remark-svelte-special-elements.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
 import { unifiedTransformerSchema } from "./schema.js"
@@ -51,7 +51,7 @@ export const unifiedTransformer = (async (
     processor.use(remarkParse)
 
     // NOTE: This should always be before syntax highlighting.
-    processor.use(remarkSvelteSpecialTags)
+    processor.use(remarkSvelteSpecialElements)
 
     processor.use(() => (tree) => removePosition(tree))
 
@@ -187,7 +187,7 @@ export const unifiedTransformer = (async (
     })
     processor.use(builtInPlugins.rehypeStringify.plugins?.after)
 
-    markup.content = replaceInTags(markup.content)
+    markup.content = replaceInElements(markup.content)
     markup.content = replaceInBlocks(markup.content)
 
     const result = await processor.process(markup.content)
