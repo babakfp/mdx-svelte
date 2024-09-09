@@ -14,6 +14,7 @@ import remarkUnwrapImages from "remark-unwrap-images"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
 import { removePosition } from "unist-util-remove-position"
+import { replaceInTags } from "../../helpers/transformSpecialTags.js"
 import type {
     MdxPreprocessOptionsInput,
     MdxPreprocessOptionsOutput,
@@ -47,13 +48,13 @@ export const unifiedTransformer = (async (
 
     processor.use(remarkParse)
 
+    processor.use(remarkSvelteSpecialTags)
+
     processor.use(() => (tree) => removePosition(tree))
 
     processor.use(remarkMdxDataAndCustomElements, mdxPreprocessOptions)
 
     processor.use(remarkHtmlAttributeCurlyBracket)
-
-    processor.use(remarkSvelteSpecialTags)
 
     processor.use(remarkUnwrapHtml)
 
@@ -179,6 +180,8 @@ export const unifiedTransformer = (async (
         allowParseErrors: true,
     })
     processor.use(builtInPlugins.rehypeStringify.plugins?.after)
+
+    markup.content = replaceInTags(markup.content)
 
     const result = await processor.process(markup.content)
 
