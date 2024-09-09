@@ -1,6 +1,6 @@
 {
     "name": "mdx-svelte",
-    "version": "3.6.3",
+    "version": "3.6.4",
     "description": "MDX for Svelte. Svelte in Markdown. A Markdown preprocessor for Svelte. A Preprocessor for Svelte that allows you to write Svelte code inside Markdown files.",
     "license": "MIT",
     "repository": "github:babakfp/mdx-svelte",
