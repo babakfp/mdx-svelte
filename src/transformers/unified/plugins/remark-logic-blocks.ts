@@ -35,8 +35,8 @@ export default (): Transformer<Root> => {
                         firstChild.value.startsWith(`\n{${tag}${block}`)
                     ) {
                         parent.children.splice(index, 1, ...node.children)
+                        break
                     }
-                    break
                 }
             }
 
