@@ -1,3 +1,11 @@
+## 3.7.0
+
+-   Updated dependencies.
+
+## 3.6.6
+
+-   Fixed logic blocks fix not working.
+
 ## 3.6.3
 
 -   Fixed logic blocks getting wrapped in `p` tag, and being parsed as directive.
