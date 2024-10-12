@@ -48,12 +48,12 @@ export const unifiedTransformer = (async (
 
     const processor = unified()
 
+    processor.use(() => (tree) => removePosition(tree, { force: true }))
+
     processor.use(remarkParse)
 
     // NOTE: This should always be before syntax highlighting.
     processor.use(remarkSvelteSpecialElements)
-
-    processor.use(() => (tree) => removePosition(tree))
 
     processor.use(remarkMdxDataAndCustomElements, mdxPreprocessOptions)
 
