@@ -14,8 +14,9 @@ const mdxElements = [
 ]
 
 const moduleScriptRegex =
-    /(<script\s+[^>]*context="module"[^>]*>)(.*?)(<\/script>)/s
-const normalScriptRegex = /(<script\b(?!.*context=).*?>)(.*?)(<\/script>)/s
+    /(<script\s+[^>]*(context="module"|module)[^>]*>)(.*?)(<\/script>)/s
+const normalScriptRegex =
+    /(<script\b(?!.*(context=|module)).*?>)(.*?)(<\/script>)/s
 
 export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
     const normalImports = options.imports
