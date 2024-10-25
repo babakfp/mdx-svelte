@@ -1,3 +1,7 @@
+## 3.8.0
+
+-   Supports Svelte 5 `<script module>` syntax.
+
 ## 3.7.0
 
 -   Updated dependencies.
