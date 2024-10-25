@@ -39,8 +39,8 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                     isModuleScriptMatched = true
 
                     const openingTag = match[1]
-                    const content = match[2]
-                    const closingTag = match[3]
+                    const content = match[3]
+                    const closingTag = match[4]
 
                     node.value = [
                         openingTag,
@@ -58,8 +58,8 @@ export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
                     isNormalScriptMatched = true
 
                     const openingTag = match[1]
-                    const content = match[2]
-                    const closingTag = match[3]
+                    const content = match[3]
+                    const closingTag = match[4]
 
                     node.value = [
                         openingTag,
