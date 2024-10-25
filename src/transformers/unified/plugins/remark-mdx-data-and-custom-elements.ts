@@ -13,9 +13,11 @@ const mdxElements = [
     '    const MdxElements = getContext_("mdxElements") ?? {};',
 ]
 
-const moduleScriptRegex =
+// Exported for Vitest.
+export const moduleScriptRegex =
     /(<script\s+[^>]*(context="module"|module)[^>]*>)(.*?)(<\/script>)/s
-const normalScriptRegex =
+// Exported for Vitest.
+export const normalScriptRegex =
     /(<script\b(?!.*(context=|module)).*?>)(.*?)(<\/script>)/s
 
 export default (options: MdxPreprocessOptionsOutput): Transformer<Root> => {
