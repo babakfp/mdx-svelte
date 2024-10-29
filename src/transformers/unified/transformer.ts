@@ -91,12 +91,6 @@ export const unifiedTransformer = (async (
     }
     processor.use(builtInPlugins.remarkGithubAlerts.plugins?.after)
 
-    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.before)
-    if (builtInPlugins.rehypeUnwrapImages.enable) {
-        processor.use(rehypeUnwrapImages)
-    }
-    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.after)
-
     processor.use(builtInPlugins.remarkToc.plugins?.before)
     if (builtInPlugins.remarkToc.enable) {
         processor.use(remarkToc)
@@ -123,6 +117,12 @@ export const unifiedTransformer = (async (
         allowDangerousHtml: true,
     })
     processor.use(builtInPlugins.remarkRehype.plugins?.after)
+
+    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.before)
+    if (builtInPlugins.rehypeUnwrapImages.enable) {
+        processor.use(rehypeUnwrapImages)
+    }
+    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.after)
 
     processor.use(builtInPlugins.rehypeSlug.plugins?.before)
     if (builtInPlugins.rehypeSlug.enable) {

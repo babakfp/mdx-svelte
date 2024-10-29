@@ -84,15 +84,6 @@ export const unifiedTransformerSchema = z
                     .merge(baseSchema)
                     .default({}),
 
-                /** [View on NPM](https://npmjs.com/package/rehype-unwrap-images). */
-                rehypeUnwrapImages: z
-                    .object({
-                        /** @default true */
-                        enable: z.boolean().default(true),
-                    })
-                    .merge(baseSchema)
-                    .default({}),
-
                 /** [View on NPM](https://npmjs.com/package/remark-toc). */
                 remarkToc: z
                     .object({
@@ -142,6 +133,15 @@ export const unifiedTransformerSchema = z
                         options: z
                             .custom<RemarkRehypeCustomOptions>()
                             .optional(),
+                    })
+                    .merge(baseSchema)
+                    .default({}),
+
+                /** [View on NPM](https://npmjs.com/package/rehype-unwrap-images). */
+                rehypeUnwrapImages: z
+                    .object({
+                        /** @default true */
+                        enable: z.boolean().default(true),
                     })
                     .merge(baseSchema)
                     .default({}),
