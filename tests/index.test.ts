@@ -1,4 +1,3 @@
-// sum.test.js
 import { expect, it, test } from "vitest"
 import {
     moduleScriptRegex,

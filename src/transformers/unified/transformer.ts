@@ -3,6 +3,7 @@ import rehypeExternalLinks from "rehype-external-links"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
+import rehypeUnwrapImages from "rehype-unwrap-images"
 import remarkDirective from "remark-directive"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
@@ -10,7 +11,6 @@ import remarkGfm from "remark-gfm"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import remarkToc from "remark-toc"
-import rehypeUnwrapImages from "rehype-unwrap-images"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
 import { removePosition } from "unist-util-remove-position"
@@ -119,6 +119,7 @@ export const unifiedTransformer = (async (
     processor.use(builtInPlugins.remarkRehype.plugins?.before)
     processor.use(remarkRehype, {
         ...builtInPlugins.remarkRehype.options,
+        // NOTE: Turns `type: "html"` to `type: "raw"`.
         allowDangerousHtml: true,
     })
     processor.use(builtInPlugins.remarkRehype.plugins?.after)
