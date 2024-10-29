@@ -1,3 +1,8 @@
+## 4.0.0
+
+-   Svelte 5 only.
+-   [remark-unwrap-images](https://npmjs.com/package/remark-unwrap-images) was depricated, so it got replaced with [rehype-unwrap-images](https://npmjs.com/package/rehype-unwrap-images).
+
 ## 3.8.0
 
 -   Supports Svelte 5 `<script module>` syntax.

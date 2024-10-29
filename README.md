@@ -10,6 +10,9 @@ Hey there! Welcome to [MDX Svelte](https://babakfp.ir/docs/mdx-svelte). Ever wis
 -   [CHANGELOG](https://github.com/babakfp/mdx-svelte/blob/main/CHANGELOG.md)
 -   [NPM](https://npmjs.com/package/mdx-svelte)
 
+> [!IMPORTANT]
+> The latest version of this package is not compatible with Svelte 4. Please use the version `3.8.0` for Svelte 4 compatibility.
+
 ## Example (`+page.md`)
 
 ```
