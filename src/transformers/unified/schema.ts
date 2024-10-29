@@ -84,8 +84,8 @@ export const unifiedTransformerSchema = z
                     .merge(baseSchema)
                     .default({}),
 
-                /** [View on NPM](https://npmjs.com/package/remark-unwrap-images). */
-                remarkUnwrapImages: z
+                /** [View on NPM](https://npmjs.com/package/rehype-unwrap-images). */
+                rehypeUnwrapImages: z
                     .object({
                         /** @default true */
                         enable: z.boolean().default(true),

@@ -10,7 +10,7 @@ import remarkGfm from "remark-gfm"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import remarkToc from "remark-toc"
-import remarkUnwrapImages from "remark-unwrap-images"
+import rehypeUnwrapImages from "rehype-unwrap-images"
 import type { MarkupPreprocessor } from "svelte/compiler"
 import { unified } from "unified"
 import { removePosition } from "unist-util-remove-position"
@@ -91,11 +91,11 @@ export const unifiedTransformer = (async (
     }
     processor.use(builtInPlugins.remarkGithubAlerts.plugins?.after)
 
-    processor.use(builtInPlugins.remarkUnwrapImages.plugins?.before)
-    if (builtInPlugins.remarkUnwrapImages.enable) {
-        processor.use(remarkUnwrapImages)
+    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.before)
+    if (builtInPlugins.rehypeUnwrapImages.enable) {
+        processor.use(rehypeUnwrapImages)
     }
-    processor.use(builtInPlugins.remarkUnwrapImages.plugins?.after)
+    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.after)
 
     processor.use(builtInPlugins.remarkToc.plugins?.before)
     if (builtInPlugins.remarkToc.enable) {
