@@ -1,23 +1,48 @@
 import { z } from "zod"
 import { DOT_MD } from "../helpers/constants.js"
 
-const elementsArraySchema = z
-    .union([
-        z.string().min(1),
-        z.object({
-            /** Component name */
-            tag: z.string().min(1),
-            /**
-             * [Which CSS selectors are allowed?](https://npmjs.com/package/hast-util-select#support)
-             * ## Examples
-             * - Block code: `"pre code"`
-             * - Inline code: `":not(pre) code"`
-             */
-            selector: z.string().min(1),
-        }),
-    ])
+/**
+ * Example
+ *
+ * ```js
+ * {
+ *     elements: ["img"],
+ * }
+ * ```
+ */
+const elementSimpleSchema = z.string().min(1).array()
+
+/**
+ * Example
+ *
+ * ```js
+ * {
+ *     elements: [
+ *         {
+ *             tag: "MyBlockCode",
+ *             selector: "pre code",
+ *         },
+ *     ],
+ * }
+ * ```
+ */
+const elementAdvancedSchema = z
+    .object({
+        /** Component name. */
+        tag: z.string().min(1),
+        /**
+         * [Which CSS selectors are allowed?](https://npmjs.com/package/hast-util-select#support)
+         *
+         * ## Examples
+         *
+         * - Block code: `"pre code"`.
+         * - Inline code: `":not(pre) code"`.
+         */
+        selector: z.string().min(1),
+    })
     .array()
-    .default([])
+
+const elementSchema = z.union([elementSimpleSchema, elementAdvancedSchema])
 
 export const mdxPreprocessSchema = z
     .object({
@@ -35,10 +60,7 @@ export const mdxPreprocessSchema = z
             .min(1)
             .default([DOT_MD]),
         elements: z
-            .union([
-                elementsArraySchema,
-                z.record(z.string().min(1), elementsArraySchema),
-            ])
+            .union([elementSchema, z.record(z.string().min(1), elementSchema)])
             .optional(),
         imports: z
             .object({
