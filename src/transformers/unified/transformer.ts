@@ -32,8 +32,7 @@ import remarkMdxDataAndCustomElements from "./plugins/remark-mdx-data-and-custom
 import remarkSvelteSpecialElements from "./plugins/remark-svelte-special-elements.js"
 import remarkTextToHtml from "./plugins/remark-text-to-html.js"
 import remarkUnwrapHtml from "./plugins/remark-unwrap-html.js"
-import { unifiedTransformerSchema } from "./schema.js"
-import type { UnifiedTransformerOptionsInput } from "./types.js"
+import type { UnifiedTransformerOptions } from "./types.js"
 
 /**
  * A transformer that uses unified ecosystem.
@@ -41,11 +40,8 @@ import type { UnifiedTransformerOptionsInput } from "./types.js"
 export const unifiedTransformer = (async (
     markup: Parameters<MarkupPreprocessor>[0],
     mdxPreprocessOptions: MdxPreprocessOptionsOutput,
-    transformerOptions?: UnifiedTransformerOptionsInput,
+    transformerOptions?: UnifiedTransformerOptions,
 ) => {
-    const { builtInPlugins } =
-        unifiedTransformerSchema.parse(transformerOptions)
-
     const processor = unified()
 
     processor.use(() => (tree) => removePosition(tree, { force: true }))
@@ -63,106 +59,204 @@ export const unifiedTransformer = (async (
 
     processor.use(remarkTextToHtml)
 
-    processor.use(builtInPlugins.remarkFrontmatter.plugins?.before)
-    processor.use(remarkFrontmatter, builtInPlugins.remarkFrontmatter.options)
-    processor.use(builtInPlugins.remarkFrontmatter.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkFrontmatter?.plugins?.before,
+    )
+    processor.use(
+        remarkFrontmatter,
+        transformerOptions?.builtInPlugins?.remarkFrontmatter?.options ||
+            "yaml",
+    )
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkFrontmatter?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.remarkFrontmatterYaml.plugins?.before)
-    if (builtInPlugins.remarkFrontmatterYaml.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.plugins
+            ?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.enable ??
+        true
+    ) {
         processor.use(
             remarkFrontmatterYaml,
-            builtInPlugins.remarkFrontmatterYaml.options,
+            transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.options,
         )
     }
-    processor.use(builtInPlugins.remarkFrontmatterYaml.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.plugins
+            ?.after,
+    )
 
-    processor.use(builtInPlugins.remarkGfm.plugins?.before)
-    if (builtInPlugins.remarkGfm.enable) {
-        processor.use(remarkGfm, builtInPlugins.remarkGfm.options)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkGfm?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.remarkGfm?.enable ?? true) {
+        processor.use(
+            remarkGfm,
+            transformerOptions?.builtInPlugins?.remarkGfm?.options,
+        )
     }
-    processor.use(builtInPlugins.remarkGfm.plugins?.after)
+    processor.use(transformerOptions?.builtInPlugins?.remarkGfm?.plugins?.after)
 
-    processor.use(builtInPlugins.remarkGithubAlerts.plugins?.before)
-    if (builtInPlugins.remarkGithubAlerts.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.plugins?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.enable ??
+        true
+    ) {
         processor.use(
             remarkGithubAlerts,
-            builtInPlugins.remarkGithubAlerts.options,
+            transformerOptions?.builtInPlugins?.remarkGithubAlerts?.options,
         )
     }
-    processor.use(builtInPlugins.remarkGithubAlerts.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.remarkToc.plugins?.before)
-    if (builtInPlugins.remarkToc.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkToc?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.remarkToc?.enable ?? true) {
         processor.use(remarkToc)
     }
-    processor.use(builtInPlugins.remarkToc.plugins?.after)
+    processor.use(transformerOptions?.builtInPlugins?.remarkToc?.plugins?.after)
 
-    processor.use(builtInPlugins.remarkDirective.plugins?.before)
-    if (builtInPlugins.remarkDirective.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkDirective?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.remarkDirective?.enable ?? true) {
         processor.use(remarkDirective)
         processor.use(
             remarkDirectiveCustom,
-            builtInPlugins.remarkDirective.options,
+            transformerOptions?.builtInPlugins?.remarkDirective?.options,
         )
     }
-    processor.use(builtInPlugins.remarkDirective.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkDirective?.plugins?.after,
+    )
 
     // NOTE: This should always be after Directive syntax.
     processor.use(remarkLogicBlocks)
 
-    processor.use(builtInPlugins.remarkRehype.plugins?.before)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkRehype?.plugins?.before,
+    )
     processor.use(remarkRehype, {
-        ...builtInPlugins.remarkRehype.options,
+        ...transformerOptions?.builtInPlugins?.remarkRehype?.options,
         // NOTE: Turns `type: "html"` to `type: "raw"`.
         allowDangerousHtml: true,
     })
-    processor.use(builtInPlugins.remarkRehype.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkRehype?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.before)
-    if (builtInPlugins.rehypeUnwrapImages.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.plugins?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.enable ??
+        true
+    ) {
         processor.use(rehypeUnwrapImages)
     }
-    processor.use(builtInPlugins.rehypeUnwrapImages.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeSlug.plugins?.before)
-    if (builtInPlugins.rehypeSlug.enable) {
-        processor.use(rehypeSlug, builtInPlugins.rehypeSlug.options)
-    }
-    processor.use(builtInPlugins.rehypeSlug.plugins?.after)
-
-    processor.use(builtInPlugins.rehypeAutolinkHeadings.plugins?.before)
-    if (builtInPlugins.rehypeAutolinkHeadings.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeSlug?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.rehypeSlug?.enable ?? true) {
         processor.use(
-            rehypeAutolinkHeadings,
-            builtInPlugins.rehypeAutolinkHeadings.options,
+            rehypeSlug,
+            transformerOptions?.builtInPlugins?.rehypeSlug?.options,
         )
     }
-    processor.use(builtInPlugins.rehypeAutolinkHeadings.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeSlug?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypePrettyCode.plugins?.before)
-    if (builtInPlugins.rehypePrettyCode.enable) {
-        processor.use(rehypePrettyCode, builtInPlugins.rehypePrettyCode.options)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.plugins
+            ?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.enable) {
+        processor.use(
+            rehypeAutolinkHeadings,
+            transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.options,
+        )
     }
-    processor.use(builtInPlugins.rehypePrettyCode.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.plugins
+            ?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.before)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypePrettyCode?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.rehypePrettyCode?.enable ?? true) {
+        processor.use(
+            rehypePrettyCode,
+            transformerOptions?.builtInPlugins?.rehypePrettyCode?.options,
+        )
+    }
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypePrettyCode?.plugins?.after,
+    )
+
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeSanitizeCodeElement?.plugins
+            ?.before,
+    )
     processor.use(rehypeSanitizeCodeElement)
-    processor.use(builtInPlugins.rehypeSanitizeCodeElement.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeSanitizeCodeElement?.plugins
+            ?.after,
+    )
 
-    processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.before)
-    if (builtInPlugins.rehypePreCodeContentToString.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
+            ?.plugins?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
+            ?.enable ??
+        true
+    ) {
         processor.use(rehypePreCodeContentToString)
     }
-    processor.use(builtInPlugins.rehypePreCodeContentToString.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
+            ?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeCustomMarkdownElements.plugins?.before)
-    if (builtInPlugins.rehypeCustomMarkdownElements.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
+            ?.plugins?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
+            ?.enable ??
+        true
+    ) {
         processor.use(rehypeCustomMarkdownElements, mdxPreprocessOptions)
     }
-    processor.use(builtInPlugins.rehypeCustomMarkdownElements.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
+            ?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeExternalLinks.plugins?.before)
-    if (builtInPlugins.rehypeExternalLinks.enable) {
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.plugins
+            ?.before,
+    )
+    if (
+        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.enable ??
+        true
+    ) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
                 if (isHrefExternal(String(element.properties.href))) {
@@ -174,19 +268,25 @@ export const unifiedTransformer = (async (
                     return "_blank"
                 }
             },
-            ...builtInPlugins.rehypeExternalLinks.options,
+            ...transformerOptions?.builtInPlugins?.rehypeExternalLinks?.options,
         })
     }
-    processor.use(builtInPlugins.rehypeExternalLinks.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.plugins?.after,
+    )
 
-    processor.use(builtInPlugins.rehypeStringify.plugins?.before)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeStringify?.plugins?.before,
+    )
     processor.use(rehypeStringify, {
-        ...builtInPlugins.rehypeStringify.options,
+        ...transformerOptions?.builtInPlugins?.rehypeStringify?.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
         allowParseErrors: true,
     })
-    processor.use(builtInPlugins.rehypeStringify.plugins?.after)
+    processor.use(
+        transformerOptions?.builtInPlugins?.rehypeStringify?.plugins?.after,
+    )
 
     markup.content = replaceInElements(markup.content)
     markup.content = replaceInBlocks(markup.content)
