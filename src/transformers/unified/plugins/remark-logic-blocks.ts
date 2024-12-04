@@ -11,17 +11,10 @@ import {
  */
 export default (): Transformer<Root> => {
     return (tree) => {
-        visit(tree, "inlineCode", (node) => {
-            node.value = restoreInBlocks(node.value)
-        })
-        visit(tree, "code", (node) => {
-            node.value = restoreInBlocks(node.value)
-        })
-        visit(tree, "html", (node) => {
-            node.value = restoreInBlocks(node.value)
-        })
-        visit(tree, "text", (node) => {
-            node.value = restoreInBlocks(node.value)
+        visit(tree, (node) => {
+            if ("value" in node) {
+                node.value = restoreInBlocks(node.value)
+            }
         })
 
         visit(tree, "paragraph", (node, index, parent) => {
