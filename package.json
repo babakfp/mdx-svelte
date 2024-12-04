@@ -40,19 +40,19 @@
         "zod": "3.23.8"
     },
     "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "4.3.1",
-        "@sveltejs/kit": "2.7.3",
+        "@ianvs/prettier-plugin-sort-imports": "4.4.0",
+        "@sveltejs/kit": "2.9.0",
         "@types/hast": "3.0.4",
         "@types/mdast": "4.0.4",
-        "@types/node": "22.8.2",
+        "@types/node": "22.10.1",
         "hast-util-to-html": "9.0.3",
         "mdast-util-directive": "3.0.0",
-        "prettier": "3.3.3",
+        "prettier": "3.4.1",
         "rimraf": "6.0.1",
-        "svelte": "5.1.4",
-        "typescript": "5.6.3",
+        "svelte": "5.5.3",
+        "typescript": "5.7.2",
         "vfile": "6.0.3",
-        "vitest": "2.1.4"
+        "vitest": "2.1.8"
     },
     "files": [
         "./dist/",
