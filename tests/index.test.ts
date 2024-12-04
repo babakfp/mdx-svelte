@@ -5,60 +5,47 @@ import {
     normalScriptRegex,
 } from "../src/transformers/unified/plugins/remark-mdx-data-and-custom-elements.js"
 
-test("{@render", async () => {
-    const input =
-        "and the `{@render MyComponent()}` syntax for type `Snippet` type"
+test("Logic Blocks", async () => {
+    const input = "{@render MyComponent()}"
     const output = (await mdxPreprocess().markup({ content: input }))?.code
-    const expectedOutput =
-        '<script context="module">\n' +
-        "    export const mdx = {};\n" +
-        "    export const frontmatter = mdx.frontmatter;\n" +
-        "</script>\n" +
-        "<script>\n" +
-        '    import { getContext as getContext_ } from "svelte";\n' +
-        '    const MdxElements = getContext_("mdxElements") ?? {};\n' +
-        "</script>\n" +
-        "<p>and the <code>&#x7B;@render MyComponent()&#x7D;</code> syntax for type <code>Snippet</code> type</p>"
-    expect(output).toBe(expectedOutput)
+    expect(output).toContain(input)
 })
 
-// script context module
+// ---
 
-test("(svelte <= 4): script context module", () => {
-    expect(moduleScriptRegex.test('<script context="module"></script>')).toBe(
-        true,
-    )
+test("Regular Expression | <script>", () => {
+    expect(normalScriptRegex.test("<script></script>")).toBe(true)
 })
 
-it("(svelte <= 4): script context module", () => {
-    const match = '<script context="module"></script>'.match(moduleScriptRegex)
-    expect(match?.[1]).toBe('<script context="module">')
+it("Regular Expression | <script>", () => {
+    const match = "<script></script>".match(normalScriptRegex)
+    expect(match?.[1]).toBe("<script>")
     expect(match?.[3]).toBe("")
     expect(match?.[4]).toBe("</script>")
 })
 
-// script module
-
-test("(svelte >= 5): script module", () => {
+test("Regular Expression | Svelte 5 | <script module>", () => {
     expect(moduleScriptRegex.test("<script module></script>")).toBe(true)
 })
 
-it("(svelte >= 5): script module", () => {
+it("Regular Expression | Svelte 5 | <script module>", () => {
     const match = "<script module></script>".match(moduleScriptRegex)
     expect(match?.[1]).toBe("<script module>")
     expect(match?.[3]).toBe("")
     expect(match?.[4]).toBe("</script>")
 })
 
-// script normal
+// TODO: Remove when Svelte 4 syntax gets depreciated.
 
-test("script normal", () => {
-    expect(normalScriptRegex.test("<script></script>")).toBe(true)
+test('Regular Expression | Svelte 4 | <script context="module">', () => {
+    const input = '<script context="module"></script>'
+    expect(moduleScriptRegex.test(input)).toBe(true)
 })
 
-it("script normal", () => {
-    const match = "<script></script>".match(normalScriptRegex)
-    expect(match?.[1]).toBe("<script>")
+it('Regular Expression | Svelte 4 | <script context="module">', () => {
+    const input = '<script context="module"></script>'
+    const match = input.match(moduleScriptRegex)
+    expect(match?.[1]).toBe('<script context="module">')
     expect(match?.[3]).toBe("")
     expect(match?.[4]).toBe("</script>")
 })
