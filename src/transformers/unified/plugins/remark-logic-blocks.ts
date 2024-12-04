@@ -11,6 +11,9 @@ import {
  */
 export default (): Transformer<Root> => {
     return (tree) => {
+        visit(tree, "inlineCode", (node) => {
+            node.value = restoreInBlocks(node.value)
+        })
         visit(tree, "code", (node) => {
             node.value = restoreInBlocks(node.value)
         })
