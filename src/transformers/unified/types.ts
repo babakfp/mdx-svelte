@@ -1,6 +1,6 @@
+import type { RehypeShikiOptions } from "@shikijs/rehype"
 import type { Options as RehypeAutolinkHeadingsOptions } from "rehype-autolink-headings"
 import type { Options as RehypeExternalLinksOptions } from "rehype-external-links"
-import type { Options as RehypePrettyCodeOptions } from "rehype-pretty-code"
 import type { Options as RehypeSlugOptions } from "rehype-slug"
 import type { Options as RehypeStringifyOptions } from "rehype-stringify"
 import type { Options as RemarkFrontmatterOptions } from "remark-frontmatter"
@@ -106,11 +106,11 @@ export type UnifiedTransformerOptions = {
             options?: RehypeAutolinkHeadingsOptions
         }
 
-        /** [View on NPM](https://npmjs.com/package/rehype-pretty-code). */
-        rehypePrettyCode?: BaseSchema & {
+        /** [View on NPM](https://npmjs.com/package/@shikijs/rehype). */
+        rehypeShiki?: BaseSchema & {
             /** @default true */
             enable?: boolean
-            options?: RehypePrettyCodeOptions
+            options?: RehypeShikiOptions
         }
 
         rehypePreCodeContentToString?: BaseSchema & {

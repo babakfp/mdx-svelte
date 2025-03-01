@@ -1,6 +1,6 @@
+import rehypeShiki from "@shikijs/rehype"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
-import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import rehypeUnwrapImages from "rehype-unwrap-images"
@@ -195,16 +195,18 @@ export const unifiedTransformer = (async (
     )
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypePrettyCode?.plugins?.before,
+        transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.before,
     )
-    if (transformerOptions?.builtInPlugins?.rehypePrettyCode?.enable ?? true) {
-        processor.use(
-            rehypePrettyCode,
-            transformerOptions?.builtInPlugins?.rehypePrettyCode?.options,
-        )
+    if (transformerOptions?.builtInPlugins?.rehypeShiki?.enable ?? true) {
+        if (transformerOptions?.builtInPlugins?.rehypeShiki?.options) {
+            processor.use(
+                rehypeShiki,
+                transformerOptions?.builtInPlugins?.rehypeShiki?.options,
+            )
+        }
     }
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypePrettyCode?.plugins?.after,
+        transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.after,
     )
 
     processor.use(
