@@ -1,4 +1,4 @@
-import rehypeShiki from "@shikijs/rehype"
+import rehypeShiki, { type RehypeShikiOptions } from "@shikijs/rehype"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
 import rehypeSlug from "rehype-slug"
@@ -198,12 +198,28 @@ export const unifiedTransformer = (async (
         transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.before,
     )
     if (transformerOptions?.builtInPlugins?.rehypeShiki?.enable ?? true) {
-        if (transformerOptions?.builtInPlugins?.rehypeShiki?.options) {
-            processor.use(
-                rehypeShiki,
-                transformerOptions?.builtInPlugins?.rehypeShiki?.options,
+        const transformers: RehypeShikiOptions["transformers"] = [
+            {
+                name: "trim-end",
+                preprocess: (code) => code.trimEnd(),
+            },
+        ]
+
+        if (
+            transformerOptions?.builtInPlugins?.rehypeShiki?.options
+                ?.transformers
+        ) {
+            transformers.push(
+                ...transformerOptions.builtInPlugins.rehypeShiki.options
+                    .transformers,
             )
         }
+
+        processor.use(rehypeShiki, {
+            theme: "github-dark",
+            ...transformerOptions?.builtInPlugins?.rehypeShiki?.options,
+            transformers,
+        })
     }
     processor.use(
         transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.after,
