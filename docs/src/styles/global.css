@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+    --color-gray-50: var(--color-neutral-50);
+    --color-gray-100: var(--color-neutral-100);
+    --color-gray-200: var(--color-neutral-200);
+    --color-gray-300: var(--color-neutral-300);
+    --color-gray-400: var(--color-neutral-400);
+    --color-gray-500: var(--color-neutral-500);
+    --color-gray-600: var(--color-neutral-600);
+    --color-gray-700: var(--color-neutral-700);
+    --color-gray-800: var(--color-neutral-800);
+    --color-gray-900: var(--color-neutral-900);
+    --color-gray-950: var(--color-neutral-950);
+}
+
+:root,
+::backdrop {
+    --sl-font: "Jost Variable", sans-serif;
+    --sl-font-mono: "JetBrains Mono Variable", monospace;
+
+    --sl-color-white: var(--color-gray-50);
+    --sl-color-gray-1: var(--color-gray-100);
+    --sl-color-gray-2: var(--color-gray-300);
+    --sl-color-gray-3: var(--color-gray-500);
+    --sl-color-gray-4: var(--color-gray-700);
+    --sl-color-gray-5: var(--color-gray-800);
+    --sl-color-gray-6: var(--color-gray-900);
+    --sl-color-black: var(--color-gray-950);
+
+    --sl-color-accent-high: var(--color-sky-200);
+
+    --sl-color-red-low: var(--color-red-950);
+    --sl-color-red: var(--color-red-900);
+    --sl-color-red-high: var(--color-red-200);
+
+    --sl-color-blue-low: var(--color-blue-950);
+    --sl-color-blue: var(--color-blue-900);
+    --sl-color-blue-high: var(--color-blue-200);
+}
+
+* {
+    scrollbar-width: thin;
+}
+
+.sl-markdown-content {
+    ul,
+    ol {
+        @apply list-inside;
+        p {
+            @apply inline;
+        }
+    }
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
+    }
+}
+
+/* Hide the divider between <ThemeSelect /> and social icons. */
+.social-icons::after {
+    content: unset;
+}
+
+[aria-controls="starlight__sidebar"] {
+    background: unset !important;
+    box-shadow: unset;
+    color: currentColor;
+}
+
+.content-panel {
+    border-top: unset !important;
+}
+
+/* Highlighted word in code block. */
+:root,
+:root:not([data-theme="dark"]) .expressive-code[data-theme="dark"] {
+    /* Border. */
+    --ec-tm-inlMarkerBrdWd: 0 !important;
+    /* Background. */
+    --ec-tm-markBg: hsl(0 0% 100% / 15%) !important;
+}
+
+/* Site name. */
+.site-title {
+    font-size: var(--sl-text-h5);
+}
+
+/* Sidebar accordion. */
+#starlight__sidebar {
+    summary {
+        pointer-events: none;
+        margin-bottom: 0.25rem;
+        .large {
+            font-weight: normal !important;
+            color: var(--sl-color-gray-3);
+            text-transform: uppercase;
+            font-size: var(--sl-text-sm);
+        }
+        .caret {
+            display: none;
+        }
+    }
+    .top-level > li + li {
+        margin-top: 1.5rem !important;
+    }
+    .top-level > li > a.large {
+        font-size: var(--sl-text-sm);
+    }
+    .top-level > li > a.large[aria-current="false"] {
+        font-weight: normal !important;
+        color: currentColor !important;
+        &:hover,
+        &:focus {
+            color: var(--sl-color-white) !important;
+        }
+    }
+}
+
+.sidebar-content {
+    padding-bottom: 2rem;
+}

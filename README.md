@@ -4,11 +4,11 @@
 
 MDX for Svelte. Svelte in Markdown. A Markdown preprocessor for Svelte. A Preprocessor for Svelte that allows you to write Svelte code inside Markdown files.
 
-Hey there! Welcome to [MDX Svelte](https://babakfp.ir/docs/mdx-svelte). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [MDX Svelte](https://babakfp.ir/docs/mdx-svelte), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
+Hey there! Welcome to [MDX Svelte](https://mdx-svelte.vercel.app). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [MDX Svelte](https://mdx-svelte.vercel.app), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
 
-- [Documentation](https://babakfp.ir/docs/mdx-svelte)
-- [CHANGELOG](https://github.com/babakfp/mdx-svelte/blob/main/CHANGELOG.md)
-- [NPM](https://npmjs.com/package/mdx-svelte)
+-   [Documentation](https://mdx-svelte.vercel.app)
+-   [CHANGELOG](https://mdx-svelte.vercel.app/changelog)
+-   [NPM](https://npmjs.com/package/mdx-svelte)
 
 > [!IMPORTANT]
 > The latest version of this package is not compatible with Svelte 4. Please use the version `3.8.0` for Svelte 4 compatibility.

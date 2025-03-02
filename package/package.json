@@ -4,7 +4,7 @@
     "description": "MDX for Svelte. Svelte in Markdown. A Markdown preprocessor for Svelte. A Preprocessor for Svelte that allows you to write Svelte code inside Markdown files.",
     "license": "MIT",
     "repository": "github:babakfp/mdx-svelte",
-    "homepage": "https://babakfp.ir/docs/mdx-svelte",
+    "homepage": "https://mdx-svelte.vercel.app",
     "main": "./dist/index.js",
     "scripts": {
         "dev": "rimraf dist && tsc -w",

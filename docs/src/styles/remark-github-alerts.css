@@ -1,0 +1,4 @@
+.remark-github-alerts-title b,
+.remark-github-alerts-title + p {
+    margin-top: 0 !important;
+}
