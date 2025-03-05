@@ -28,19 +28,55 @@
     --sl-color-gray-6: var(--color-gray-900);
     --sl-color-black: var(--color-gray-950);
 
-    --sl-color-accent-high: var(--color-orange-200);
+    --sl-color-orange-low: var(--color-yellow-950);
+    --sl-color-orange: var(--color-yellow-900);
+    --sl-color-orange-high: var(--color-yellow-300);
 
-    --sl-color-red-low: var(--color-red-950);
-    --sl-color-red: var(--color-red-900);
-    --sl-color-red-high: var(--color-red-200);
+    --sl-color-green-low: var(--color-green-950);
+    --sl-color-green: var(--color-green-900);
+    --sl-color-green-high: var(--color-green-300);
 
     --sl-color-blue-low: var(--color-blue-950);
     --sl-color-blue: var(--color-blue-900);
-    --sl-color-blue-high: var(--color-blue-200);
+    --sl-color-blue-high: var(--color-blue-300);
+
+    --sl-color-purple-low: var(--color-purple-950);
+    --sl-color-purple: var(--color-purple-900);
+    --sl-color-purple-high: var(--color-purple-300);
+
+    --sl-color-red-low: var(--color-red-950);
+    --sl-color-red: var(--color-red-900);
+    --sl-color-red-high: var(--color-red-300);
+
+    --sl-color-accent-low: var(--color-orange-950);
+    --sl-color-accent: var(--color-orange-900);
+    --sl-color-accent-high: var(--color-orange-300);
 }
 
 * {
-    scrollbar-width: thin;
+    scrollbar-width: none;
+}
+
+.header,
+#starlight__sidebar,
+#starlight__on-this-page--mobile {
+    border-color: var(--sl-color-hairline-light);
+}
+
+/* Site name. */
+.site-title {
+    font-size: var(--sl-text-h5);
+}
+
+/* Mobile toggle. */
+[aria-controls="starlight__sidebar"] {
+    background: unset !important;
+    box-shadow: unset;
+    color: currentColor;
+}
+
+.content-panel {
+    border-top: unset !important;
 }
 
 .sl-markdown-content {
@@ -59,21 +95,6 @@
     }
 }
 
-/* Hide the divider between <ThemeSelect /> and social icons. */
-.social-icons::after {
-    content: unset;
-}
-
-[aria-controls="starlight__sidebar"] {
-    background: unset !important;
-    box-shadow: unset;
-    color: currentColor;
-}
-
-.content-panel {
-    border-top: unset !important;
-}
-
 /* Highlighted word in code block. */
 :root,
 :root:not([data-theme="dark"]) .expressive-code[data-theme="dark"] {
@@ -81,11 +102,6 @@
     --ec-tm-inlMarkerBrdWd: 0 !important;
     /* Background. */
     --ec-tm-markBg: hsl(0 0% 100% / 15%) !important;
-}
-
-/* Site name. */
-.site-title {
-    font-size: var(--sl-text-h5);
 }
 
 /* Sidebar accordion. */
@@ -96,7 +112,6 @@
         .large {
             font-weight: normal !important;
             color: var(--sl-color-gray-3);
-            text-transform: uppercase;
             font-size: var(--sl-text-sm);
         }
         .caret {
