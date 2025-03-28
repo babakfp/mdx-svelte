@@ -148,6 +148,6 @@
 /* prettier-ignore */
 @media (hover: hover) {
     .expressive-code .frame:hover .copy button:not(:hover), .expressive-code .frame:focus-within :focus-visible ~ .copy button:not(:hover), .expressive-code .frame .copy .feedback.show ~ button:not(:hover) {
-        opacity: 1;
+        opacity: 1 !important;
     }
 }

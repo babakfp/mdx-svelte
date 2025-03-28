@@ -8,19 +8,25 @@
         "format": "prettier -w ."
     },
     "dependencies": {
-        "@astrojs/starlight": "^0.32.2",
-        "@fontsource-variable/jetbrains-mono": "^5.2.0",
-        "@fontsource-variable/jost": "^5.2.0",
-        "@tailwindcss/vite": "^4.0.9",
+        "@astrojs/starlight": "0.32.2",
+        "@fontsource-variable/jetbrains-mono": "5.2.0",
+        "@fontsource-variable/jost": "5.2.0",
+        "@tailwindcss/vite": "4.0.17",
+        "astro": "5.5.2",
         "mdx-svelte": "workspace:*",
-        "astro": "^5.4.1",
-        "sharp": "^0.33.5",
-        "tailwindcss": "^4.0.9"
+        "sharp": "0.33.5",
+        "tailwindcss": "4.0.17"
     },
     "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-        "prettier": "^3.4.2",
-        "prettier-plugin-tailwindcss": "^0.6.11"
+        "@ianvs/prettier-plugin-sort-imports": "4.4.1",
+        "prettier": "3.5.3",
+        "prettier-plugin-tailwindcss": "0.6.11"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "sharp"
+        ]
     },
     "type": "module"
 }
