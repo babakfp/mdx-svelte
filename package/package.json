@@ -73,10 +73,5 @@
         "sveltekit",
         "kit"
     ],
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "esbuild"
-        ]
-    },
     "type": "module"
 }

@@ -22,11 +22,5 @@
         "prettier": "3.5.3",
         "prettier-plugin-tailwindcss": "0.6.11"
     },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "esbuild",
-            "sharp"
-        ]
-    },
     "type": "module"
 }
