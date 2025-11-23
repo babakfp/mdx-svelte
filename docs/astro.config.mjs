@@ -10,9 +10,13 @@ export default defineConfig({
     integrations: [
         starlight({
             title: "MDX Svelte",
-            social: {
-                github: "https://github.com/babakfp/mdx-svelte",
-            },
+            social: [
+                {
+                    icon: "github",
+                    label: "GitHub",
+                    href: "https://github.com/babakfp/mdx-svelte",
+                },
+            ],
             sidebar: [
                 {
                     label: "Get Started",
