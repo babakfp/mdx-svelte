@@ -52,7 +52,7 @@
         "svelte": "5.23.0",
         "typescript": "5.9.3",
         "vfile": "6.0.3",
-        "vitest": "3.0.7"
+        "vitest": "4.0.16"
     },
     "files": [
         "./dist/",
