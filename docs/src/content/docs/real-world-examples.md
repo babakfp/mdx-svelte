@@ -28,9 +28,7 @@ The `blockquote` tag is replaced with a custom Svelte component. This adds custo
 
 ##### `img` tag
 
-The `img` tag is replaced with a custom Svelte component. This adds `loading="lazy"` and a button to open the image in a new tab. Example:
-
-![A screenshot showing owner of a repo saying 'Thank you!' for a PR, and I reacted with a heart emoji](/content/posts/i-like-svelte-but-i-hate-it/14.png)
+The `img` tag is replaced with a custom Svelte component. This adds `loading="lazy"` and a button to open the image in a new tab.
 
 ##### `pre` tag
 
