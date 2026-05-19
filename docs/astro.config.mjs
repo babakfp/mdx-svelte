@@ -7,6 +7,7 @@ import remarkGithubAlerts from "../package/src/transformers/unified/plugins/rema
 // TODO: https://github.com/expressive-code/expressive-code/issues/250
 
 export default defineConfig({
+    site: "https://mdx-svelte.vercel.app",
     integrations: [
         starlight({
             title: "MDX Svelte",
