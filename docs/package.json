@@ -10,16 +10,13 @@
         "@astrojs/starlight": "0.39.2",
         "@fontsource-variable/jetbrains-mono": "5.2.8",
         "@fontsource-variable/jost": "5.2.8",
-        "@tailwindcss/vite": "4.3.0",
         "astro": "6.3.5",
         "mdx-svelte": "workspace:*",
-        "sharp": "0.34.5",
-        "tailwindcss": "4.3.0"
+        "sharp": "0.34.5"
     },
     "devDependencies": {
         "@ianvs/prettier-plugin-sort-imports": "4.7.1",
-        "prettier": "3.8.3",
-        "prettier-plugin-tailwindcss": "0.8.0"
+        "prettier": "3.8.3"
     },
     "type": "module"
 }

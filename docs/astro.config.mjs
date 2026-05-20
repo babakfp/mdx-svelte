@@ -1,6 +1,5 @@
 // @ts-check
 import starlight from "@astrojs/starlight"
-import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "astro/config"
 import remarkGithubAlerts from "../package/src/transformers/unified/plugins/remark-github-alerts/src/index.ts"
 
@@ -124,8 +123,5 @@ export default defineConfig({
     ],
     markdown: {
         remarkPlugins: [[remarkGithubAlerts, []]],
-    },
-    vite: {
-        plugins: [tailwindcss()],
     },
 })
