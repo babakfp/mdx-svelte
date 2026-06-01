@@ -73,5 +73,6 @@
         "sveltekit",
         "kit"
     ],
-    "type": "module"
+    "type": "module",
+    "packageManager": "pnpm@11.5.0"
 }

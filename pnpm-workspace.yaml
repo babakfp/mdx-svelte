@@ -1,4 +1,6 @@
 packages:
     - "package"
     - "docs"
-neverBuiltDependencies: []
+saveExact: true
+packageLock: false
+dangerouslyAllowAllBuilds: []
