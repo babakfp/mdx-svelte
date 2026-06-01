@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
+        "target": "esnext",
         "checkJs": true,
         "declaration": true,
         "declarationMap": true,
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "outDir": "dist",
-        // "sourceMap": true, // Enable when Svelte can handle source maps.
-        "strict": true
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "rootDir": "src",
+        "outDir": "dist"
     },
     "include": ["src"]
 }

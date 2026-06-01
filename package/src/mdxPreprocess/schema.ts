@@ -44,32 +44,29 @@ const elementAdvancedSchema = z
 
 const elementSchema = z.union([elementSimpleSchema, elementAdvancedSchema])
 
-export const mdxPreprocessSchema = z
-    .object({
-        /**
-         * @default
-         * [".md", ".svelte.md"]
-         */
-        extensions: z
-            .string()
-            .regex(
-                /^\.[a-z]+(\.[a-z]+)?$/,
-                'Invalid. Examples: ".md", ".svelte.md"',
-            )
-            .array()
-            .min(1)
-            .default([DOT_MD]),
-        elements: z
-            .union([elementSchema, z.record(z.string().min(1), elementSchema)])
-            .optional(),
-        imports: z
-            .object({
-                context: z.literal("module").optional(),
-                imports: z.string().startsWith("import").array().default([]),
-            })
-            .array()
-            .default([]),
-        preprocessDependencies: z.string().min(1).array().default([]),
-    })
-    .passthrough()
-    .default({})
+export const mdxPreprocessSchema = z.looseObject({
+    /**
+     * @default
+     * [".md", ".svelte.md"]
+     */
+    extensions: z
+        .string()
+        .regex(
+            /^\.[a-z]+(\.[a-z]+)?$/,
+            'Invalid. Examples: ".md", ".svelte.md"',
+        )
+        .array()
+        .min(1)
+        .default([DOT_MD]),
+    elements: z
+        .union([elementSchema, z.record(z.string().min(1), elementSchema)])
+        .optional(),
+    imports: z
+        .object({
+            context: z.literal("module").optional(),
+            imports: z.string().startsWith("import").array().default([]),
+        })
+        .array()
+        .default([]),
+    preprocessDependencies: z.string().min(1).array().default([]),
+})
