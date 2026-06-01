@@ -1,3 +1,4 @@
+import { transformerColorizedBrackets } from "@shikijs/colorized-brackets"
 import rehypeShiki, { type RehypeShikiOptions } from "@shikijs/rehype"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeExternalLinks from "rehype-external-links"
@@ -203,6 +204,7 @@ export const unifiedTransformer = (async (
                 name: "trim-end",
                 preprocess: (code) => code.trimEnd(),
             },
+            transformerColorizedBrackets(),
         ]
 
         if (
