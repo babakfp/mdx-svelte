@@ -1,4 +1,4 @@
-import { z } from "zod"
+import * as v from "valibot"
 import { DOT_MD } from "../helpers/constants.js"
 
 /**
@@ -10,7 +10,7 @@ import { DOT_MD } from "../helpers/constants.js"
  * }
  * ```
  */
-const elementSimpleSchema = z.string().min(1).array()
+const elementSimpleSchema = v.array(v.pipe(v.string(), v.minLength(1)))
 
 /**
  * Example
@@ -26,10 +26,10 @@ const elementSimpleSchema = z.string().min(1).array()
  * }
  * ```
  */
-const elementAdvancedSchema = z
-    .object({
+const elementAdvancedSchema = v.array(
+    v.object({
         /** Component name. */
-        tag: z.string().min(1),
+        tag: v.pipe(v.string(), v.minLength(1)),
         /**
          * [Which CSS selectors are allowed?](https://npmjs.com/package/hast-util-select#support)
          *
@@ -38,35 +38,52 @@ const elementAdvancedSchema = z
          * - Block code: `"pre code"`.
          * - Inline code: `":not(pre) code"`.
          */
-        selector: z.string().min(1),
-    })
-    .array()
+        selector: v.pipe(v.string(), v.minLength(1)),
+    }),
+)
 
-const elementSchema = z.union([elementSimpleSchema, elementAdvancedSchema])
+const elementSchema = v.union([elementSimpleSchema, elementAdvancedSchema])
 
-export const mdxPreprocessSchema = z.looseObject({
+export const mdxPreprocessSchema = v.looseObject({
     /**
      * @default
      * [".md", ".svelte.md"]
      */
-    extensions: z
-        .string()
-        .regex(
-            /^\.[a-z]+(\.[a-z]+)?$/,
-            'Invalid. Examples: ".md", ".svelte.md"',
-        )
-        .array()
-        .min(1)
-        .default([DOT_MD]),
-    elements: z
-        .union([elementSchema, z.record(z.string().min(1), elementSchema)])
-        .optional(),
-    imports: z
-        .object({
-            context: z.literal("module").optional(),
-            imports: z.string().startsWith("import").array().default([]),
-        })
-        .array()
-        .default([]),
-    preprocessDependencies: z.string().min(1).array().default([]),
+    extensions: v.optional(
+        v.pipe(
+            v.array(
+                v.pipe(
+                    v.string(),
+                    v.regex(
+                        /^\.[a-z]+(\.[a-z]+)?$/,
+                        'Invalid. Examples: ".md", ".svelte.md"',
+                    ),
+                ),
+            ),
+            v.minLength(1),
+        ),
+        [DOT_MD],
+    ),
+    elements: v.optional(
+        v.union([
+            elementSchema,
+            v.record(v.pipe(v.string(), v.minLength(1)), elementSchema),
+        ]),
+    ),
+    imports: v.optional(
+        v.array(
+            v.object({
+                context: v.optional(v.pipe(v.string(), v.literal("module"))),
+                imports: v.optional(
+                    v.array(v.pipe(v.string(), v.startsWith("import"))),
+                    [],
+                ),
+            }),
+        ),
+        [],
+    ),
+    preprocessDependencies: v.optional(
+        v.array(v.pipe(v.string(), v.minLength(1))),
+        [],
+    ),
 })

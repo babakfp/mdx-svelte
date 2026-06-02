@@ -1,6 +1,6 @@
 import type { MarkupPreprocessor } from "svelte/compiler"
+import type * as v from "valibot"
 import type { Data } from "vfile"
-import type { z } from "zod"
 import type { mdxPreprocessSchema } from "../mdxPreprocess/schema.js"
 
 /** MDX Svelte callback options. */
@@ -30,7 +30,11 @@ type MdxPreprocessCallbacks = {
     }>
 }
 
-export type MdxPreprocessOptionsInput = z.input<typeof mdxPreprocessSchema> &
+export type MdxPreprocessOptionsInput = v.InferInput<
+    typeof mdxPreprocessSchema
+> &
     MdxPreprocessCallbacks
-export type MdxPreprocessOptionsOutput = z.output<typeof mdxPreprocessSchema> &
+export type MdxPreprocessOptionsOutput = v.InferOutput<
+    typeof mdxPreprocessSchema
+> &
     MdxPreprocessCallbacks
