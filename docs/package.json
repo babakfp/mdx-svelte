@@ -7,10 +7,10 @@
         "format": "prettier -w ."
     },
     "dependencies": {
-        "@astrojs/starlight": "0.39.2",
+        "@astrojs/starlight": "0.39.3",
         "@fontsource-variable/jetbrains-mono": "5.2.8",
         "@fontsource-variable/jost": "5.2.8",
-        "astro": "6.4.2",
+        "astro": "6.4.3",
         "mdx-svelte": "workspace:*",
         "sharp": "0.34.5"
     },
@@ -19,5 +19,5 @@
         "prettier": "3.8.3"
     },
     "type": "module",
-    "packageManager": "pnpm@11.5.0"
+    "packageManager": "pnpm@11.5.1"
 }
