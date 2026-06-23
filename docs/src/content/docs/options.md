@@ -100,7 +100,7 @@ layout: posts
 - Type: `string[]`
 - Default: `[]`
 
-Preprocess of the files located in the `node_modules` folder are disabled by default. Include the name of the packages to be preprocessed.
+Preprocess of the files located in the `node_modules` folder are disabled by default. Include the name of the packages to be preprocessed. Example: `["blah", "@blah/blah"]`.
 
 ## `onFileIgnore`
 
