@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 5.1.0
+
+- Feature: Add ["remark-breaks"](https://npmjs.com/package/remark-breaks). Enabled by default.
+
 ## 5.0.0
 
 ### Breaking Changes
