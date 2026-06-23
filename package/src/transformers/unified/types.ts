@@ -81,6 +81,12 @@ export type UnifiedTransformerOptions = {
             options?: RemarkDirectiveOptions
         }
 
+        /** [View on NPM](https://npmjs.com/package/remark-breaks). */
+        remarkBreaks?: BaseSchema & {
+            /** @default true */
+            enable?: boolean
+        }
+
         /** [View on NPM](https://npmjs.com/package/remark-rehype). */
         remarkRehype?: BaseSchema & {
             options?: RemarkRehypeCustomOptions

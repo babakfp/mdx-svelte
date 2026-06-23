@@ -5,6 +5,7 @@ import rehypeExternalLinks from "rehype-external-links"
 import rehypeSlug from "rehype-slug"
 import rehypeStringify from "rehype-stringify"
 import rehypeUnwrapImages from "rehype-unwrap-images"
+import remarkBreaks from "remark-breaks"
 import remarkDirective from "remark-directive"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkFrontmatterYaml from "remark-frontmatter-yaml"
@@ -141,6 +142,16 @@ export const unifiedTransformer = (async (
 
     // NOTE: This should always be after Directive syntax.
     processor.use(remarkLogicBlocks)
+
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkBreaks?.plugins?.before,
+    )
+    if (transformerOptions?.builtInPlugins?.remarkBreaks?.enable ?? true) {
+        processor.use(remarkBreaks)
+    }
+    processor.use(
+        transformerOptions?.builtInPlugins?.remarkBreaks?.plugins?.after,
+    )
 
     processor.use(
         transformerOptions?.builtInPlugins?.remarkRehype?.plugins?.before,
