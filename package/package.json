@@ -78,5 +78,5 @@
         "kit"
     ],
     "type": "module",
-    "packageManager": "pnpm@11.5.1"
+    "packageManager": "pnpm@11.8.0"
 }
