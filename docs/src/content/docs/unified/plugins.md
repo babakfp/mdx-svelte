@@ -224,6 +224,10 @@ Output:
 </details>
 ```
 
+## "remark-breaks"
+
+["remark-breaks"](https://npmjs.com/package/remark-breaks)
+
 ## "rehype-slug"
 
 ["rehype-slug"](https://npmjs.com/package/rehype-slug).
