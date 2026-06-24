@@ -2,3 +2,6 @@ saveExact: true
 packages:
     - "package"
     - "docs"
+allowBuilds:
+    esbuild: true
+    sharp: true
