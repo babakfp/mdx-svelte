@@ -2,7 +2,7 @@
 import { unified } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
-import remarkGithubAlerts from "../package/src/transformers/unified/plugins/remark-github-alerts/src/index.ts"
+import remarkGithubAlerts from "mdx-svelte/unified/remark-github-alerts"
 
 // TODO: https://github.com/expressive-code/expressive-code/issues/250
 
