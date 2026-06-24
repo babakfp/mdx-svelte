@@ -66,6 +66,7 @@
     "exports": {
         ".": "./dist/index.js",
         "./unified": "./dist/transformers/unified/index.js",
+        "./unified/remark-github-alerts": "./src/transformers/unified/plugins/remark-github-alerts/src/index.js",
         "./unified/remark-github-alerts/*": "./src/transformers/unified/plugins/remark-github-alerts/styles/*"
     },
     "keywords": [
