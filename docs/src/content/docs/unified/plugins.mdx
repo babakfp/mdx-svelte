@@ -2,6 +2,8 @@
 title: Unified plugins
 ---
 
+import { TabItem, Tabs } from "@astrojs/starlight/components"
+
 These are the built-in plugins that are used by the transformer.
 
 ## "remark-frontmatter"
@@ -16,12 +18,10 @@ If you want to use TOML, change the `options` property of `remarkFrontmatter` pl
 
 ```ts
 mdxPreprocess({
-    onTransform: async (markup, options) => {
-        return await unifiedTransformer(markup, options, {
-            builtInPlugins: {
-                remarkFrontmatter: {
-                    options: "toml",
-                },
+    onTransform: (markup, options) => {
+        return unifiedTransformer(markup, options, {
+            remarkFrontmatter: {
+                options: "toml",
             },
         })
     },
@@ -32,26 +32,22 @@ If you want to use both Yaml and TOML, change it to `["yaml", "toml"]`.
 
 You also need to add a plugin to parse the TOML content and pass in to a property called `frontmatter` in `file.data`. Learn how it's done for Yaml in ["remark-frontmatter-yaml"](https://npmjs.com/package/remark-frontmatter-yaml).
 
-Add you custom plugin inside the `builtinPlugins` after `remarkFrontmatter`.
-
 ```ts
-{
-    builtInPlugins: {
-        remarkFrontmatter: {
-            plugins: {
-                after: remarkFrontmatterToml,
-            }
-        },
-        // Disable the default Yaml plugin if you want to only use TOML.
-        remarkFrontmatterYaml: {
-            enable: false
-        },
-    }
-}
+mdxPreprocess({
+    onTransform: (markup, options) => {
+        return unifiedTransformer(markup, options, {
+            remarkPlugins: [remarkFrontmatterToml],
+
+            // Disable the default Yaml plugin if you want to only use TOML.
+            // remarkFrontmatterYaml: {
+            //     enable: false,
+            // },
+        })
+    },
+})
 ```
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ### Related resources
 
@@ -61,8 +57,7 @@ Add you custom plugin inside the `builtinPlugins` after `remarkFrontmatter`.
 
 ["remark-frontmatter-yaml"](https://npmjs.com/package/remark-frontmatter-yaml).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ### Related resources
 
@@ -72,8 +67,7 @@ Add you custom plugin inside the `builtinPlugins` after `remarkFrontmatter`.
 
 ["remark-gfm"](https://npmjs.com/package/remark-gfm).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ## "remark-github-alerts"
 
@@ -103,25 +97,13 @@ All importable styles:
 </script>
 ```
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
-### Usage
+### How to Use
 
-> [!NOTE]
-> Highlights information that users should take into account, even when skimming.
+<Tabs>
 
-> [!TIP]
-> Optional information to help a user be more successful.
-
-> [!IMPORTANT]
-> Crucial information necessary for users to succeed.
-
-> [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
-
-> [!CAUTION]
-> Negative potential consequences of an action.
+<TabItem label="Syntax">
 
 ```md
 > [!NOTE]
@@ -140,19 +122,62 @@ All importable styles:
 > Negative potential consequences of an action.
 ```
 
+</TabItem>
+
+<TabItem label="Result">
+
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+> [!TIP]
+> Optional information to help a user be more successful.
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+
+</TabItem>
+
+</Tabs>
+
+Custom title:
+
+<Tabs>
+
+<TabItem label="Syntax">
+
+```md
+> [!NOTE] BLUENOTE
+> Highlights information that users should take into account, even when skimming.
+```
+
+</TabItem>
+
+<TabItem label="Result">
+
+> [!NOTE] BLUENOTE
+> Highlights information that users should take into account, even when skimming.
+
+</TabItem>
+
+</Tabs>
+
 ## "rehype-unwrap-images"
 
 ["rehype-unwrap-images"](https://npmjs.com/package/rehype-unwrap-images).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ## "remark-toc"
 
 ["remark-toc"](https://npmjs.com/package/remark-toc).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ### Related resources
 
@@ -171,7 +196,9 @@ This plugin is used to create custom built-in directives. Built-in directives:
 - `tip`
 - `details`
 
-Input:
+<Tabs>
+
+<TabItem label="Syntax">
 
 ```md
 :::info
@@ -195,7 +222,9 @@ Hello, World!
 :::
 ```
 
-Output:
+</TabItem>
+
+<TabItem label="Result">
 
 ```html
 <div class="remark-directive remark-directive-info">
@@ -224,6 +253,10 @@ Output:
 </details>
 ```
 
+</TabItem>
+
+</Tabs>
+
 ## "remark-breaks"
 
 ["remark-breaks"](https://npmjs.com/package/remark-breaks)
@@ -232,8 +265,7 @@ Output:
 
 ["rehype-slug"](https://npmjs.com/package/rehype-slug).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ## "@shikijs/rehype"
 
@@ -243,30 +275,35 @@ Output:
 
 ["rehype-autolink-headings"](https://npmjs.com/package/rehype-autolink-headings).
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
-### Example usage
+### Example
 
 ```ts
 import { hastFromHtml } from "mdx-svelte/unified"
 
-rehypeAutolinkHeadings: {
-    enable: true,
-    options: {
-        behavior: "append",
-        properties: {
-            class: "heading-permalink",
-            "aria-label": "Permalink to this headline",
-        },
-        content() {
-            return hastFromHtml(
-                '<svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"/></svg>',
-            )
-        },
-        test: ["h2", "h3", "h4", "h5", "h6"],
+mdxPreprocess({
+    onTransform: (markup, options) => {
+        return unifiedTransformer(markup, options, {
+            rehypeAutolinkHeadings: {
+                enable: true,
+                options: {
+                    behavior: "append",
+                    properties: {
+                        class: "heading-permalink",
+                        "aria-label": "Permalink to this headline",
+                    },
+                    content() {
+                        return hastFromHtml(
+                            '<svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5"/></svg>',
+                        )
+                    },
+                    test: ["h2", "h3", "h4", "h5", "h6"],
+                },
+            },
+        })
     },
-},
+})
 ```
 
 ### Related resources
@@ -279,5 +316,4 @@ rehypeAutolinkHeadings: {
 
 This plugin sets the `target` attribute to `"_blank"` and the `rel` attribute to `"nofollow noopener noreferrer"` for hyperlinks containing `"http://"` or `"https://"`.
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.

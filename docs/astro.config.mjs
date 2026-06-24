@@ -25,18 +25,16 @@ export default defineConfig({
                             label: "Intro",
                             slug: "", // "/"
                         },
-                        {
-                            label: "Install",
-                            slug: "install",
-                        },
-                        {
-                            label: "Options",
-                            slug: "options",
-                        },
-                        {
-                            label: "Collections",
-                            slug: "collections",
-                        },
+                        { slug: "install" },
+                        { slug: "options" },
+                        { slug: "collections" },
+                    ],
+                },
+                {
+                    label: "Usage",
+                    items: [
+                        { slug: "frontmatter" },
+                        { slug: "importing-files" },
                     ],
                 },
                 {
@@ -46,10 +44,7 @@ export default defineConfig({
                             label: "Intro",
                             slug: "transformers",
                         },
-                        {
-                            label: "Build a Transformer",
-                            slug: "transformers/build",
-                        },
+                        { slug: "transformers/build" },
                     ],
                 },
                 {
@@ -59,22 +54,13 @@ export default defineConfig({
                             label: "Intro",
                             slug: "unified",
                         },
-                        {
-                            label: "Helpers",
-                            slug: "unified/helpers",
-                        },
+                        { slug: "unified/helpers" },
                         {
                             label: "Plugins",
                             slug: "unified/plugins",
                         },
-                        {
-                            label: "Add plugin",
-                            slug: "unified/add-plugin",
-                        },
-                        {
-                            label: "Options",
-                            slug: "unified/options",
-                        },
+                        { slug: "unified/add-plugins" },
+                        { slug: "unified/options" },
                     ],
                 },
                 {
@@ -88,16 +74,10 @@ export default defineConfig({
                             label: "Customize Elements",
                             slug: "customize-markdown-elements",
                         },
-                        {
-                            label: "Auto-Imports",
-                            slug: "auto-imports",
-                        },
+                        { slug: "auto-imports" },
                     ],
                 },
-                {
-                    label: "Real-world Examples",
-                    slug: "real-world-examples",
-                },
+                { slug: "real-world-examples" },
                 {
                     slug: "changelog",
                 },

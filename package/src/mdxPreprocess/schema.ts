@@ -1,5 +1,5 @@
 import * as v from "valibot"
-import { DOT_MD } from "../helpers/constants.js"
+import { DOT_MD } from "../helpers/extensions.js"
 
 /**
  * Example

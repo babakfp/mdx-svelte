@@ -61,155 +61,103 @@ export const unifiedTransformer = (async (
 
     processor.use(remarkTextToHtml)
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkFrontmatter?.plugins?.before,
-    )
+    processor.use(transformerOptions?.remarkFrontmatter?.plugins?.before ?? [])
     processor.use(
         remarkFrontmatter,
-        transformerOptions?.builtInPlugins?.remarkFrontmatter?.options ||
-            "yaml",
+        transformerOptions?.remarkFrontmatter?.options || "yaml",
     )
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkFrontmatter?.plugins?.after,
-    )
+    processor.use(transformerOptions?.remarkFrontmatter?.plugins?.after ?? [])
 
     processor.use(
-        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.plugins
-            ?.before,
+        transformerOptions?.remarkFrontmatterYaml?.plugins?.before ?? [],
     )
-    if (
-        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.enable ??
-        true
-    ) {
+    if (transformerOptions?.remarkFrontmatterYaml?.enable ?? true) {
         processor.use(
             remarkFrontmatterYaml,
-            transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.options,
+            transformerOptions?.remarkFrontmatterYaml?.options,
         )
     }
     processor.use(
-        transformerOptions?.builtInPlugins?.remarkFrontmatterYaml?.plugins
-            ?.after,
+        transformerOptions?.remarkFrontmatterYaml?.plugins?.after ?? [],
     )
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkGfm?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.remarkGfm?.enable ?? true) {
-        processor.use(
-            remarkGfm,
-            transformerOptions?.builtInPlugins?.remarkGfm?.options,
-        )
+    processor.use(transformerOptions?.remarkGfm?.plugins?.before ?? [])
+    if (transformerOptions?.remarkGfm?.enable ?? true) {
+        processor.use(remarkGfm, transformerOptions?.remarkGfm?.options)
     }
-    processor.use(transformerOptions?.builtInPlugins?.remarkGfm?.plugins?.after)
+    processor.use(transformerOptions?.remarkGfm?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.plugins?.before,
-    )
-    if (
-        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.enable ??
-        true
-    ) {
+    processor.use(transformerOptions?.remarkGithubAlerts?.plugins?.before ?? [])
+    if (transformerOptions?.remarkGithubAlerts?.enable ?? true) {
         processor.use(
             remarkGithubAlerts,
-            transformerOptions?.builtInPlugins?.remarkGithubAlerts?.options,
+            transformerOptions?.remarkGithubAlerts?.options,
         )
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkGithubAlerts?.plugins?.after,
-    )
+    processor.use(transformerOptions?.remarkGithubAlerts?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkToc?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.remarkToc?.enable ?? true) {
+    processor.use(transformerOptions?.remarkToc?.plugins?.before ?? [])
+    if (transformerOptions?.remarkToc?.enable ?? true) {
         processor.use(remarkToc)
     }
-    processor.use(transformerOptions?.builtInPlugins?.remarkToc?.plugins?.after)
+    processor.use(transformerOptions?.remarkToc?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkDirective?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.remarkDirective?.enable ?? true) {
+    processor.use(transformerOptions?.remarkDirective?.plugins?.before ?? [])
+    if (transformerOptions?.remarkDirective?.enable ?? true) {
         processor.use(remarkDirective)
         processor.use(
             remarkDirectiveCustom,
-            transformerOptions?.builtInPlugins?.remarkDirective?.options,
+            transformerOptions?.remarkDirective?.options,
         )
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkDirective?.plugins?.after,
-    )
+    processor.use(transformerOptions?.remarkDirective?.plugins?.after ?? [])
 
     // NOTE: This should always be after Directive syntax.
     processor.use(remarkLogicBlocks)
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkBreaks?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.remarkBreaks?.enable ?? true) {
+    processor.use(transformerOptions?.remarkBreaks?.plugins?.before ?? [])
+    if (transformerOptions?.remarkBreaks?.enable ?? true) {
         processor.use(remarkBreaks)
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkBreaks?.plugins?.after,
-    )
+    processor.use(transformerOptions?.remarkBreaks?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkRehype?.plugins?.before,
-    )
+    processor.use(transformerOptions?.remarkPlugins ?? [])
+
+    processor.use(transformerOptions?.remarkRehype?.plugins?.before ?? [])
     processor.use(remarkRehype, {
-        ...transformerOptions?.builtInPlugins?.remarkRehype?.options,
+        ...transformerOptions?.remarkRehype?.options,
         // NOTE: Turns `type: "html"` to `type: "raw"`.
         allowDangerousHtml: true,
     })
-    processor.use(
-        transformerOptions?.builtInPlugins?.remarkRehype?.plugins?.after,
-    )
+    processor.use(transformerOptions?.remarkRehype?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.plugins?.before,
-    )
-    if (
-        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.enable ??
-        true
-    ) {
+    processor.use(transformerOptions?.rehypeUnwrapImages?.plugins?.before ?? [])
+    if (transformerOptions?.rehypeUnwrapImages?.enable ?? true) {
         processor.use(rehypeUnwrapImages)
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeUnwrapImages?.plugins?.after,
-    )
+    processor.use(transformerOptions?.rehypeUnwrapImages?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeSlug?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.rehypeSlug?.enable ?? true) {
-        processor.use(
-            rehypeSlug,
-            transformerOptions?.builtInPlugins?.rehypeSlug?.options,
-        )
+    processor.use(transformerOptions?.rehypeSlug?.plugins?.before ?? [])
+    if (transformerOptions?.rehypeSlug?.enable ?? true) {
+        processor.use(rehypeSlug, transformerOptions?.rehypeSlug?.options)
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeSlug?.plugins?.after,
-    )
+    processor.use(transformerOptions?.rehypeSlug?.plugins?.after ?? [])
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.plugins
-            ?.before,
+        transformerOptions?.rehypeAutolinkHeadings?.plugins?.before ?? [],
     )
-    if (transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.enable) {
+    if (transformerOptions?.rehypeAutolinkHeadings?.enable) {
         processor.use(
             rehypeAutolinkHeadings,
-            transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.options,
+            transformerOptions?.rehypeAutolinkHeadings?.options,
         )
     }
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeAutolinkHeadings?.plugins
-            ?.after,
+        transformerOptions?.rehypeAutolinkHeadings?.plugins?.after ?? [],
     )
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.before,
-    )
-    if (transformerOptions?.builtInPlugins?.rehypeShiki?.enable ?? true) {
+    processor.use(transformerOptions?.rehypeShiki?.plugins?.before ?? [])
+    if (transformerOptions?.rehypeShiki?.enable ?? true) {
         const transformers: RehypeShikiOptions["transformers"] = [
             {
                 name: "trim-end",
@@ -218,76 +166,52 @@ export const unifiedTransformer = (async (
             transformerColorizedBrackets(),
         ]
 
-        if (
-            transformerOptions?.builtInPlugins?.rehypeShiki?.options
-                ?.transformers
-        ) {
+        if (transformerOptions?.rehypeShiki?.options?.transformers) {
             transformers.push(
-                ...transformerOptions.builtInPlugins.rehypeShiki.options
-                    .transformers,
+                ...transformerOptions.rehypeShiki.options.transformers,
             )
         }
 
         processor.use(rehypeShiki, {
             theme: "github-dark",
-            ...transformerOptions?.builtInPlugins?.rehypeShiki?.options,
+            ...transformerOptions?.rehypeShiki?.options,
             transformers,
         })
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeShiki?.plugins?.after,
-    )
+    processor.use(transformerOptions?.rehypeShiki?.plugins?.after ?? [])
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeSanitizeCodeElement?.plugins
-            ?.before,
+        transformerOptions?.rehypeSanitizeCodeElement?.plugins?.before ?? [],
     )
     processor.use(rehypeSanitizeCodeElement)
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeSanitizeCodeElement?.plugins
-            ?.after,
+        transformerOptions?.rehypeSanitizeCodeElement?.plugins?.after ?? [],
     )
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
-            ?.plugins?.before,
+        transformerOptions?.rehypePreCodeContentToString?.plugins?.before ?? [],
     )
-    if (
-        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
-            ?.enable ??
-        true
-    ) {
+    if (transformerOptions?.rehypePreCodeContentToString?.enable ?? true) {
         processor.use(rehypePreCodeContentToString)
     }
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypePreCodeContentToString
-            ?.plugins?.after,
+        transformerOptions?.rehypePreCodeContentToString?.plugins?.after ?? [],
     )
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
-            ?.plugins?.before,
+        transformerOptions?.rehypeCustomMarkdownElements?.plugins?.before ?? [],
     )
-    if (
-        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
-            ?.enable ??
-        true
-    ) {
+    if (transformerOptions?.rehypeCustomMarkdownElements?.enable ?? true) {
         processor.use(rehypeCustomMarkdownElements, mdxPreprocessOptions)
     }
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeCustomMarkdownElements
-            ?.plugins?.after,
+        transformerOptions?.rehypeCustomMarkdownElements?.plugins?.after ?? [],
     )
 
     processor.use(
-        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.plugins
-            ?.before,
+        transformerOptions?.rehypeExternalLinks?.plugins?.before ?? [],
     )
-    if (
-        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.enable ??
-        true
-    ) {
+    if (transformerOptions?.rehypeExternalLinks?.enable ?? true) {
         processor.use(rehypeExternalLinks, {
             rel: (element) => {
                 if (isHrefExternal(String(element.properties.href))) {
@@ -299,25 +223,21 @@ export const unifiedTransformer = (async (
                     return "_blank"
                 }
             },
-            ...transformerOptions?.builtInPlugins?.rehypeExternalLinks?.options,
+            ...transformerOptions?.rehypeExternalLinks?.options,
         })
     }
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeExternalLinks?.plugins?.after,
-    )
+    processor.use(transformerOptions?.rehypeExternalLinks?.plugins?.after ?? [])
 
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeStringify?.plugins?.before,
-    )
+    processor.use(transformerOptions?.rehypePlugins ?? [])
+
+    processor.use(transformerOptions?.rehypeStringify?.plugins?.before ?? [])
     processor.use(rehypeStringify, {
-        ...transformerOptions?.builtInPlugins?.rehypeStringify?.options,
+        ...transformerOptions?.rehypeStringify?.options,
         allowDangerousCharacters: true,
         allowDangerousHtml: true,
         allowParseErrors: true,
     })
-    processor.use(
-        transformerOptions?.builtInPlugins?.rehypeStringify?.plugins?.after,
-    )
+    processor.use(transformerOptions?.rehypeStringify?.plugins?.after ?? [])
 
     markup.content = replaceInElements(markup.content)
     markup.content = replaceInBlocks(markup.content)

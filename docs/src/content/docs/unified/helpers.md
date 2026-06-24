@@ -27,6 +27,6 @@ if (
     isHrefExternal("http://example.com") &&
     isHrefExternal("https://example.com")
 ) {
-    // True
+    // ...
 }
 ```

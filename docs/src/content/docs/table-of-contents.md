@@ -13,7 +13,7 @@ The default ["remark-toc"](https://npmjs.com/package/remark-toc) plugin may not 
     import { makeToc } from "mdx-svelte"
 
     const headings = makeToc({
-        container: ".my-markdown-container",
+        container: ".content-container",
     })
 </script>
 ```
@@ -23,7 +23,7 @@ Returns:
 <!-- prettier-ignore -->
 ```json
 [{
-    "level": "2", // or 3, 4, 5, 6
+    "level": "2", // 2, 3, 4, 5, 6
     "textContent": "Example usage",
     "attributes": { "id": "example-usage" }
 }]
@@ -38,12 +38,10 @@ Returns:
 import { unifiedTransformer } from "mdx-svelte/unified"
 
 mdxPreprocess({
-    onTransform: async (options, config) => {
-        return await unifiedTransformer(options, config, {
-            builtInPlugins: {
-                remarkToc: {
-                    enable: false,
-                },
+    onTransform: (options, config) => {
+        return unifiedTransformer(options, config, {
+            remarkToc: {
+                enable: false,
             },
         })
     },

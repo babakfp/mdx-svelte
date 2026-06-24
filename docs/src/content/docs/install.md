@@ -14,7 +14,8 @@ pnpm add -D mdx-svelte
 Import the package and modify the `svelte.config.js` file:
 
 ```ts
-import { EXTENSIONS, mdxPreprocess } from "mdx-svelte"
+import { mdxPreprocess } from "mdx-svelte"
+import { EXTENSIONS } from "mdx-svelte/extensions"
 
 const config = {
     extensions: EXTENSIONS,
@@ -23,24 +24,23 @@ const config = {
 ```
 
 > [!IMPORTANT]
-> Place `mdxPreprocess()` before `vitePreprocess()`, Otherwise you will encounter unexpected behaviors!
+> Place `mdxPreprocess()` before `vitePreprocess()`, Otherwise you may encounter unexpected behavior!
 
 **All done!** Create `src/routes/+page.md` and add your content in:
 
-<!-- prettier-ignore -->
-```svelte
+```md
 ---
 title: Hello, World!
 ---
 
 # {frontmatter.title}
 
-Page title is **{frontmatter.title}**.
+Getting the title "{frontmatter.title}" is easy!
 ```
 
-## More help
+Output:
 
-> [!NOTE]
-> Some features and functionalities are documented using jsDoc. Please take a look at everything that this library exports and all of the available configs and options to have a better understanding of things.
-
-You can always send PRs to improve the documentation.
+```html
+<h1>Hello, World!</h1>
+<p>Getting the title "Hello, World!" is easy!</p>
+```

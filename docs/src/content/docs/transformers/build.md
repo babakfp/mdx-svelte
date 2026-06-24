@@ -2,6 +2,8 @@
 title: Build a Transformer
 ---
 
+`myTransformer.ts`:
+
 ```ts
 import type {
     MdxPreprocessOptionsInput,
@@ -9,15 +11,17 @@ import type {
 } from "mdx-svelte"
 import type { MarkupPreprocessor } from "svelte/compiler"
 
-type TransformerOptions = {}
+type MyTransformerOptions = {}
 
-const myTransformer = (async (
-    // You get every markdown absolute file path and content one-by-one here.
+export const myTransformer = ((
+    // Markdown files (absolute) path and content.
     markup: Parameters<MarkupPreprocessor>[0],
-    // You get the config that is passed to the `mdxPreprocess()`.
+
+    // The config that is passed to the `mdxPreprocess()`.
     mdxPreprocessOptions: MdxPreprocessOptionsOutput,
-    // This is your custom options.
-    transformerOptions?: TransformerOptions,
+
+    // Your transformer options.
+    transformerOptions?: MyTransformerOptions,
 ) => {
     // ...
 }) satisfies MdxPreprocessOptionsInput["onTransform"]
@@ -25,10 +29,12 @@ const myTransformer = (async (
 
 `svelte.config.js`:
 
-```ts
+```js
+import { myTransformer } from "$lib/myTransformer"
+
 mdxPreprocess({
-    onTransform: async (markup, options) => {
-        return await myTransformer(markup, options, {
+    onTransform: (markup, options) => {
+        return myTransformer(markup, options, {
             // ...
         })
     },

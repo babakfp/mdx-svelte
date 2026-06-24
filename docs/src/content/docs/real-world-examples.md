@@ -42,7 +42,7 @@ console.log("Hover to see the copy button!")
 
 ##### `makeToc` function
 
-The built-in `remarkToc` plugin is disabled, replaced with the `makeToc` function.
+The built-in `remarkToc` plugin is disabled, replaced with the `makeToc` client-side function.
 
 ```js
 {
@@ -66,8 +66,7 @@ export type Headings = {
 export const getHeadings = () =>
     makeToc({
         container: ".article-content",
-        headingLevels: [2, 3, 4, 5, 6],
-    })?.map((heading) => ({
+    }).map((heading) => ({
         id: heading.attributes.id ?? "",
         level: Number(heading.level),
         textContent: heading.textContent,
@@ -88,7 +87,7 @@ The `rehypeAutolinkHeadings` plugin is customized to add a permalink icon to hea
                 class: "heading-permalink",
                 "aria-label": "Permalink to this headline",
             },
-            content() {
+            content: () => {
                 return hastFromHtml(
                     '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path d="M216 152h-48v-48h48a8 8 0 0 0 0-16h-48V40a8 8 0 0 0-16 0v48h-48V40a8 8 0 0 0-16 0v48H40a8 8 0 0 0 0 16h48v48H40a8 8 0 0 0 0 16h48v48a8 8 0 0 0 16 0v-48h48v48a8 8 0 0 0 16 0v-48h48a8 8 0 0 0 0-16Zm-112 0v-48h48v48Z"/></svg>',
                 )

@@ -15,7 +15,8 @@ Include the extension of files to be preprocessed and transformed. Don't include
 ### Add custom extensions
 
 ```ts
-import { DOT_SVELTE, mdxPreprocess } from "mdx-svelte"
+import { mdxPreprocess } from "mdx-svelte"
+import { DOT_SVELTE } from "mdx-svelte/extensions"
 
 const DOT_SVELTE_DOT_MD = ".svelte.md"
 
@@ -25,29 +26,27 @@ const config = {
         mdxPreprocess({
             extensions: [DOT_SVELTE_DOT_MD],
         }),
-        vitePreprocess(),
+        // ...
     ],
 }
 ```
 
 > [!IMPORTANT]
-> Whatever value you add to the `extensions` option, it must be added to the `config.extensions` too.
+> Whatever value you add to the `extensions` option in `mdxPreprocess`, it should be added to `config.extensions` too.
 
 ## `elements`
 
 - Optional
 - Type: `string[] | { [x: string]: string[] }`
 
-This option is useful for replacing markdown elements with custom components.
+This option is useful for replacing markdown elements (HTML tags) with custom components.
 
-By using an array, all components inside it with be applied to all markdown files.
-
-`svelte.config.js`:
+By using an array, all components inside it will be applied to all markdown files.
 
 ```ts
-{
+mdxPreprocess({
     elements: ["img", "blockquote"],
-}
+})
 ```
 
 `+layout.svelte`:
@@ -75,15 +74,14 @@ A `getContext` will be preprocessed to all of the markdown files to receive the 
 
 ### Custom layouts
 
-You can use different components for different collections like posts, documentation, etc.
-As an example, let's create a layout named `posts`:
+You can use different components for different collections like posts, docs, etc. As an example, let's create a layout named `posts`:
 
 ```ts
-{
+mdxPreprocess({
     elements: {
         posts: ["img", "blockquote"],
     },
-}
+})
 ```
 
 Add the following property into the frontmatter of a markdown file of a `posts` collection:
@@ -104,12 +102,10 @@ Preprocess of the files located in the `node_modules` folder are disabled by def
 
 ## `onFileIgnore`
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+Please refer to the jsDoc comments to learn more.
 
 ## `onTransform`
 
-[Example](/unified) usage.
+Please refer to the jsDoc comments to learn more.
 
-> [!NOTE]
-> Please refer to the jsDoc comments to learn more.
+[Example](/unified) usage.

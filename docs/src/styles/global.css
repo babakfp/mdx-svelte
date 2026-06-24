@@ -221,3 +221,26 @@ body {
     width: 1.5rem;
     height: 1.5rem;
 }
+
+/* --- */
+
+a {
+    text-decoration: none;
+}
+
+/* [Tabs](https://starlight.astro.build/components/tabs) */
+
+[role="tablist"] {
+    padding-inline-start: 0 !important;
+}
+
+.tab [role="tab"][aria-selected="true"] {
+    font-weight: inherit;
+    background: var(--sl-tab-color-border);
+    color: var(--sl-color-bg);
+}
+
+.tab > [role="tab"] {
+    background: var(--sl-color-gray-5);
+    padding-block: 0.5rem;
+}

@@ -2,9 +2,14 @@
 title: CHANGELOG
 ---
 
-## 5.1.0
+## 6.0.0
 
-- Feature: Add ["remark-breaks"](https://npmjs.com/package/remark-breaks). Enabled by default.
+- Breaking: Constants like `DOT_SVELTE` now are exported from `"mdx-svelte/extensions"`.
+- Breaking/Fix: Revisit `plugins.before/after` in Unified transformer because allowed TS type changed.
+
+- Feature: Add new ["remark-breaks"](https://npmjs.com/package/remark-breaks) plugin. Enabled by default.
+- Feature: Add new `remarkPlugins` and `rehypePlugins` options to the Unified transformer. This makes it easy to add custom plugins instead of using the `plugins.before/after` api.
+- Feature/Patch/Fix: The `plugins.before/after` properties in Unified transformer now understands TS type between Remark and Rehype plugins.
 
 ## 5.0.0
 

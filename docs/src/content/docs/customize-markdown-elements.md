@@ -4,7 +4,7 @@ title: Customize Markdown Elements
 
 You can replace HTML elements of Markdown output with Svelte components.
 
-`img.svelte` (The file name must match the HTML tag name):
+`img.svelte` (The file name should match the HTML tag name):
 
 ```svelte
 <script lang="ts">

@@ -1,28 +1,21 @@
 ---
-title: MDX Svelte
-description: MDX for Svelte - A Svelte Preprocessor that allows you to write Svelte code in Markdown files.
+title: Write Svelte code in Markdown files
+description: A Preprocessor for Svelte that allows writing Svelte code inside Markdown files; Similar to MDX for JSX.
 ---
 
-MDX for Svelte. Svelte in Markdown. A Markdown preprocessor for Svelte. A Preprocessor for Svelte that allows you to write Svelte code inside Markdown files.
+A Preprocessor for Svelte that allows writing Svelte code inside Markdown files; Similar to MDX for JSX.
 
-<!-- prettier-ignore -->
-```svelte
----
-title: Hello, World!
----
+`+page.md`[^1]:
 
-<script>
-    import Markdown from "./Markdown.md"
-    import Component from "./Component.svelte"
-</script>
-
-The title of this page is {frontmatter.title}!
-
-<Markdown />
-<Component />
+```md
+2 plus 2 is {2 + 2}
 ```
 
-Hey there! Welcome to [MDX Svelte](https://github.com/babakfp/mdx-svelte). Ever wished you could sprinkle some Svelte magic into your Markdown files? Well, now you can! With [MDX Svelte](https://github.com/babakfp/mdx-svelte), writing Svelte code directly in Markdown is a breeze. Whether you're jazzing up docs, crafting tutorials, or spicing up your content, we've got you covered. Say goodbye to boring Markdown and hello to dynamic, interactive content. Ready to level up your Markdown game? Let's dive in!
+Output:
+
+```html
+<p>2 plus 2 is 4</p>
+```
 
 ## What is this?
 
@@ -59,3 +52,11 @@ I developed this project due to the issues and limitations with ["mdsvex"](https
 - Only works in SvelteKit projects.
 - Prettier can't properly format Svelte code in Markdown files.
 - No IntelliSense support.
+
+[^1]: File name doesn't need to start with `+page`, it just needs to end with `*.md` (or any of [extensions](/options/#extensions)).
+
+## Docs
+
+Some features and functionalities are documented using jsDoc. Please take a look at everything that this library exports and all of the available configs and options to have a better understanding of things.
+
+You can always send PRs to improve the docs.
