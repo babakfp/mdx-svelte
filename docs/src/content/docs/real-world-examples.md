@@ -22,9 +22,7 @@ The `mdxPreprocess` function has an `elements` option, which lets you replace ma
 
 ##### `blockquote` tag
 
-The `blockquote` tag is replaced with a custom Svelte component. This adds custom styling and an icon at the top left corner. Example:
-
-> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+The `blockquote` tag is replaced with a custom Svelte component. This adds custom styling and an icon for styling.
 
 ##### `img` tag
 
@@ -32,11 +30,7 @@ The `img` tag is replaced with a custom Svelte component. This adds `loading="la
 
 ##### `pre` tag
 
-The `pre` tag is replaced with a custom Svelte component. This adds a copy button. Example:
-
-```js
-console.log("Hover to see the copy button!")
-```
+The `pre` tag is replaced with a custom Svelte component, which adds a copy button.
 
 #### Unified transformer
 
