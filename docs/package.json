@@ -6,6 +6,7 @@
         "format": "prettier -w ."
     },
     "dependencies": {
+        "@astrojs/markdown-remark": "7.2.0",
         "@astrojs/starlight": "0.41.0",
         "@fontsource-variable/jetbrains-mono": "5.2.8",
         "@fontsource-variable/jost": "5.2.8",

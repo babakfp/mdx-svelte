@@ -1,4 +1,5 @@
 // @ts-check
+import { unified } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import remarkGithubAlerts from "../package/src/transformers/unified/plugins/remark-github-alerts/src/index.ts"
@@ -102,6 +103,8 @@ export default defineConfig({
         }),
     ],
     markdown: {
-        remarkPlugins: [[remarkGithubAlerts, []]],
+        processor: unified({
+            remarkPlugins: [remarkGithubAlerts],
+        }),
     },
 })
