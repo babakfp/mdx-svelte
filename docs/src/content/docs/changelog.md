@@ -6,6 +6,7 @@ title: CHANGELOG
 
 - Breaking: Constants like `DOT_SVELTE` now are exported from `"mdx-svelte/extensions"`.
 - Breaking/Fix: Revisit `plugins.before/after` in Unified transformer because allowed TS type changed.
+- Breaking: Change shiki default theme to `slack-dark` which matches vsCode "Dark Modern" theme.
 
 - Feature: Add new ["remark-breaks"](https://npmjs.com/package/remark-breaks) plugin. Enabled by default.
 - Feature: Add new `remarkPlugins` and `rehypePlugins` options to the Unified transformer. This makes it easy to add custom plugins instead of using the `plugins.before/after` api.

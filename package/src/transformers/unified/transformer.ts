@@ -173,7 +173,7 @@ export const unifiedTransformer = (async (
         }
 
         processor.use(rehypeShiki, {
-            theme: "github-dark",
+            theme: "slack-dark",
             ...transformerOptions?.rehypeShiki?.options,
             transformers,
         })
