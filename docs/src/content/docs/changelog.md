@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 6.0.1
+
+- feat: export remark-github-alerts plugin
+
 ## 6.0.0
 
 **Breaking**
