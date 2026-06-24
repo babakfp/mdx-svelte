@@ -6,7 +6,7 @@
         "format": "prettier -w ."
     },
     "dependencies": {
-        "@astrojs/starlight": "0.40.0",
+        "@astrojs/starlight": "0.41.0",
         "@fontsource-variable/jetbrains-mono": "5.2.8",
         "@fontsource-variable/jost": "5.2.8",
         "astro": "6.4.5",
@@ -18,5 +18,5 @@
         "prettier": "3.8.4"
     },
     "type": "module",
-    "packageManager": "pnpm@11.8.0"
+    "packageManager": "pnpm@11.9.0"
 }

@@ -54,7 +54,7 @@
         "mdast-util-directive": "3.1.0",
         "prettier": "3.8.4",
         "rimraf": "6.1.3",
-        "svelte": "5.56.3",
+        "svelte": "5.56.4",
         "typescript": "6.0.3",
         "vfile": "6.0.3",
         "vitest": "4.1.9"
@@ -79,5 +79,5 @@
         "kit"
     ],
     "type": "module",
-    "packageManager": "pnpm@11.8.0"
+    "packageManager": "pnpm@11.9.0"
 }
