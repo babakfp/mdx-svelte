@@ -174,17 +174,17 @@ type Plugins<Plugins extends RemarkPlugins | RehypePlugins> = {
     }
 }
 
-export type RemarkPlugin<PluginParameters extends any[] = any[]> = Plugin<
+type RemarkPlugin<PluginParameters extends any[] = any[]> = Plugin<
     PluginParameters,
     mdast.Root
 >
-export type RemarkPlugins = (RemarkPlugin | [RemarkPlugin, any])[]
+type RemarkPlugins = (RemarkPlugin | [RemarkPlugin, any])[]
 
-export type RehypePlugin<PluginParameters extends any[] = any[]> = Plugin<
+type RehypePlugin<PluginParameters extends any[] = any[]> = Plugin<
     PluginParameters,
     hast.Root
 >
-export type RehypePlugins = (RehypePlugin | [RehypePlugin, any])[]
+type RehypePlugins = (RehypePlugin | [RehypePlugin, any])[]
 
 /**
  * A modified version of the original option types of {@link RemarkFrontmatterYamlOptions}.
