@@ -4,11 +4,15 @@ title: CHANGELOG
 
 ## 6.0.1
 
-- feat: export remark-github-alerts plugin
+- feat: export remark-github-alerts plugin.
+
+    ```js
+    import remarkGithubAlerts from "mdx-svelte/unified/remark-github-alerts"
+    ```
 
 ## 6.0.0
 
-**Breaking**
+**Breaking**:
 
 - Unified transformer options `<core-plugin>.plugins.before|after` TS types changed. Check the updated docs.
 - Changed shiki default theme to `slack-dark`. Matches vsCode "Dark Modern" theme.

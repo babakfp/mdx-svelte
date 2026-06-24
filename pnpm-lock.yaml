@@ -25,7 +25,7 @@ importers:
         version: 7.0.2(@astrojs/markdown-remark@7.2.0)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.2)(rollup@4.62.2)
       mdx-svelte:
         specifier: workspace:*
-        version: link:../mdx-svelte
+        version: link:../package
       sharp:
         specifier: 0.35.2
         version: 0.35.2
@@ -37,7 +37,7 @@ importers:
         specifier: 3.8.4
         version: 3.8.4
 
-  mdx-svelte:
+  package:
     dependencies:
       '@shikijs/colorized-brackets':
         specifier: 4.2.0
