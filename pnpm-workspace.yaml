@@ -1,5 +1,4 @@
+saveExact: true
 packages:
     - "package"
     - "docs"
-saveExact: true
-dangerouslyAllowAllBuilds: []
