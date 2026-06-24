@@ -1,6 +1,6 @@
 saveExact: true
 packages:
-    - "package"
+    - "mdx-svelte"
     - "docs"
 allowBuilds:
     esbuild: true
