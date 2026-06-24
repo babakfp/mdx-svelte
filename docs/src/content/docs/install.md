@@ -14,8 +14,7 @@ pnpm add -D mdx-svelte
 Import the package and modify the `svelte.config.js` file:
 
 ```ts
-import { mdxPreprocess } from "mdx-svelte"
-import { EXTENSIONS } from "mdx-svelte/extensions"
+import { EXTENSIONS, mdxPreprocess } from "mdx-svelte"
 
 const config = {
     extensions: EXTENSIONS,

@@ -15,8 +15,7 @@ Include the extension of files to be preprocessed and transformed. Don't include
 ### Add custom extensions
 
 ```ts
-import { mdxPreprocess } from "mdx-svelte"
-import { DOT_SVELTE } from "mdx-svelte/extensions"
+import { DOT_SVELTE, mdxPreprocess } from "mdx-svelte"
 
 const DOT_SVELTE_DOT_MD = ".svelte.md"
 

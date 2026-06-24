@@ -4,13 +4,17 @@ title: CHANGELOG
 
 ## 6.0.0
 
-- Breaking: Constants like `DOT_SVELTE` now are exported from `"mdx-svelte/extensions"`.
-- Breaking/Fix: Revisit `plugins.before/after` in Unified transformer because allowed TS type changed.
-- Breaking: Change shiki default theme to `slack-dark` which matches vsCode "Dark Modern" theme.
+**Breaking**
 
-- Feature: Add new ["remark-breaks"](https://npmjs.com/package/remark-breaks) plugin. Enabled by default.
-- Feature: Add new `remarkPlugins` and `rehypePlugins` options to the Unified transformer. This makes it easy to add custom plugins instead of using the `plugins.before/after` api.
-- Feature/Patch/Fix: The `plugins.before/after` properties in Unified transformer now understands TS type between Remark and Rehype plugins.
+- Unified transformer options `<core-plugin>.plugins.before|after` TS types changed. Check the updated docs.
+- Changed shiki default theme to `slack-dark`. Matches vsCode "Dark Modern" theme.
+- `UnifiedTransformerOptions` no longer exported.
+
+**Features**:
+
+- Added new ["remark-breaks"](https://npmjs.com/package/remark-breaks) plugin. Enabled by default.
+- Added new `remarkPlugins` and `rehypePlugins` options to the Unified transformer. This makes it easy to add custom plugins instead of using the `<core-plugin>.plugins.before|after` api.
+- Unified transformer options `<core-plugin>.plugins.before|after` now correctly distinguishes between Remark and Rehype plugins. Prevents accidentally adding a Remark plugin after a Rehype plugin or adding a Rehype plugin before a Remark plugin.
 
 ## 5.0.0
 
