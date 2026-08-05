@@ -2,6 +2,15 @@
 title: CHANGELOG
 ---
 
+## 6.0.2
+
+Changes to Unified Remark-GitHub-Alerts plugin:
+
+- fix: `border-inline-start` to `border-left`.
+- feat: border color from `#888` to `currentColor`. supports light and dark mode.
+- feat: add note specific color to `--remark-github-alerts`.
+- chore: less code and overall better code quality. same styles in 30 lines less CSS.
+
 ## 6.0.1
 
 - feat: export remark-github-alerts plugin.
