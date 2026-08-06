@@ -1,8 +1,3 @@
-/*
- * This plugin is a fork of the original [remark-github-alerts](https://github.com/hyoban/remark-github-alerts) plugin.
- * Contributors can be found at [remark-github-alerts contributors](https://github.com/hyoban/remark-github-alerts/graphs/contributors) and [babakfp](https://github.com/babakfp).
- */
-
 import type { Root } from "mdast"
 import type { Transformer } from "unified"
 import { visit } from "unist-util-visit"
