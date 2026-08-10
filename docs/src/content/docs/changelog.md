@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 6.0.3
+
+- fix: tests where failing due to a valibot schema issue.
+
 ## 6.0.2
 
 Changes to Unified Remark-GitHub-Alerts plugin:
@@ -10,10 +14,6 @@ Changes to Unified Remark-GitHub-Alerts plugin:
 - feat: border color from `#888` to `currentColor`. supports light and dark mode.
 - feat: add note specific color to `--remark-github-alerts`.
 - chore: less code and overall better code quality. same styles in 30 lines less CSS.
-
-Other changes:
-
-- fix: tests where failing due to a valibot schema issue.
 
 ## 6.0.1
 
