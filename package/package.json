@@ -9,7 +9,8 @@
     "scripts": {
         "dev": "rimraf dist && tsc -w",
         "build": "rimraf dist && tsc",
-        "prepublishOnly": "rimraf dist && tsc",
+        "prepublishOnly": "rimraf dist && tsc & copyREADME",
+        "copyREADME": "node -e \"require('fs').copyFileSync('../README.md', './README.md')\"",
         "format": "prettier -w .",
         "test": "vitest"
     },
