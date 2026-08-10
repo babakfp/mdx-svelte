@@ -44,46 +44,51 @@ const elementAdvancedSchema = v.array(
 
 const elementSchema = v.union([elementSimpleSchema, elementAdvancedSchema])
 
-export const mdxPreprocessSchema = v.looseObject({
-    /**
-     * @default
-     * [".md", ".svelte.md"]
-     */
-    extensions: v.optional(
-        v.pipe(
-            v.array(
-                v.pipe(
-                    v.string(),
-                    v.regex(
-                        /^\.[a-z]+(\.[a-z]+)?$/,
-                        'Invalid. Examples: ".md", ".svelte.md"',
+export const mdxPreprocessSchema = v.optional(
+    v.looseObject({
+        /**
+         * @default
+         * [".md", ".svelte.md"]
+         */
+        extensions: v.optional(
+            v.pipe(
+                v.array(
+                    v.pipe(
+                        v.string(),
+                        v.regex(
+                            /^\.[a-z]+(\.[a-z]+)?$/,
+                            'Invalid. Examples: ".md", ".svelte.md"',
+                        ),
                     ),
                 ),
+                v.minLength(1),
             ),
-            v.minLength(1),
+            [DOT_MD],
         ),
-        [DOT_MD],
-    ),
-    elements: v.optional(
-        v.union([
-            elementSchema,
-            v.record(v.pipe(v.string(), v.minLength(1)), elementSchema),
-        ]),
-    ),
-    imports: v.optional(
-        v.array(
-            v.object({
-                context: v.optional(v.pipe(v.string(), v.literal("module"))),
-                imports: v.optional(
-                    v.array(v.pipe(v.string(), v.startsWith("import"))),
-                    [],
-                ),
-            }),
+        elements: v.optional(
+            v.union([
+                elementSchema,
+                v.record(v.pipe(v.string(), v.minLength(1)), elementSchema),
+            ]),
         ),
-        [],
-    ),
-    preprocessDependencies: v.optional(
-        v.array(v.pipe(v.string(), v.minLength(1))),
-        [],
-    ),
-})
+        imports: v.optional(
+            v.array(
+                v.object({
+                    context: v.optional(
+                        v.pipe(v.string(), v.literal("module")),
+                    ),
+                    imports: v.optional(
+                        v.array(v.pipe(v.string(), v.startsWith("import"))),
+                        [],
+                    ),
+                }),
+            ),
+            [],
+        ),
+        preprocessDependencies: v.optional(
+            v.array(v.pipe(v.string(), v.minLength(1))),
+            [],
+        ),
+    }),
+    {},
+)

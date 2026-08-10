@@ -11,6 +11,10 @@ Changes to Unified Remark-GitHub-Alerts plugin:
 - feat: add note specific color to `--remark-github-alerts`.
 - chore: less code and overall better code quality. same styles in 30 lines less CSS.
 
+Other changes:
+
+- fix: tests where failing due to a valibot schema issue.
+
 ## 6.0.1
 
 - feat: export remark-github-alerts plugin.
