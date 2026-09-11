@@ -6,13 +6,13 @@
         "format": "prettier -w ."
     },
     "dependencies": {
-        "@astrojs/markdown-remark": "7.2.2",
-        "@astrojs/starlight": "0.41.7",
+        "@astrojs/markdown-remark": "7.3.1",
+        "@astrojs/starlight": "0.42.0",
         "@fontsource-variable/jetbrains-mono": "5.3.0",
         "@fontsource-variable/jost": "5.3.0",
-        "astro": "7.2.1",
+        "astro": "7.3.2",
         "mdx-svelte": "workspace:*",
-        "sharp": "0.35.3"
+        "sharp": "0.35.4"
     },
     "devDependencies": {
         "@ianvs/prettier-plugin-sort-imports": "4.7.1",
