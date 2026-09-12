@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 6.1.0
+
+- feat: wrap component styles in `@layer remark-github-alerts { ... }`.
+
 ## 6.0.3
 
 - fix: tests where failing due to a valibot schema issue.

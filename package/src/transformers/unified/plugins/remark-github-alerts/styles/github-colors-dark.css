@@ -1,9 +1,15 @@
-:root {
-    --remark-github-alerts-note: var(--remark-github-alerts-dark-note);
-    --remark-github-alerts-tip: var(--remark-github-alerts-dark-tip);
-    --remark-github-alerts-important: var(
-        --remark-github-alerts-dark-important
-    );
-    --remark-github-alerts-warning: var(--remark-github-alerts-dark-warning);
-    --remark-github-alerts-caution: var(--remark-github-alerts-dark-caution);
+@layer remark-github-alerts {
+    :root {
+        --remark-github-alerts-note: var(--remark-github-alerts-dark-note);
+        --remark-github-alerts-tip: var(--remark-github-alerts-dark-tip);
+        --remark-github-alerts-important: var(
+            --remark-github-alerts-dark-important
+        );
+        --remark-github-alerts-warning: var(
+            --remark-github-alerts-dark-warning
+        );
+        --remark-github-alerts-caution: var(
+            --remark-github-alerts-dark-caution
+        );
+    }
 }
