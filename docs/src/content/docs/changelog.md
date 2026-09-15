@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 6.1.1
+
+- fix: `EXTENSIONS` TypeScript `readonly` error.
+
 ## 6.1.0
 
 - feat: wrap component styles in `@layer remark-github-alerts { ... }`.
