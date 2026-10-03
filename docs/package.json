@@ -19,5 +19,5 @@
         "prettier": "3.9.9"
     },
     "type": "module",
-    "packageManager": "pnpm@11.21.0"
+    "packageManager": "pnpm@12.8.1"
 }
