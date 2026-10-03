@@ -40,12 +40,10 @@ export default (options?: Options): Transformer<Root> => {
                 },
             }
 
-            if (
-                !(
-                    node.children[0].type === "paragraph" &&
-                    node.children[0].data?.directiveLabel
-                )
-            ) {
+            if (!(
+                node.children[0].type === "paragraph" &&
+                node.children[0].data?.directiveLabel
+            )) {
                 node.children.splice(0, 0, {
                     type: "paragraph",
                     data: { directiveLabel: true },
