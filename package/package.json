@@ -1,6 +1,6 @@
 {
     "name": "mdx-svelte",
-    "version": "6.1.1",
+    "version": "6.2.0",
     "description": "Write Svelte code in Markdown files.",
     "license": "MIT",
     "repository": "github:babakfp/mdx-svelte",

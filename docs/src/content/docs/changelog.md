@@ -2,6 +2,10 @@
 title: CHANGELOG
 ---
 
+## 6.2.0
+
+- update dependencies.
+
 ## 6.1.1
 
 - fix: `EXTENSIONS` TypeScript `readonly` error.
